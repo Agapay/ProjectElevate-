@@ -17,7 +17,7 @@ def current_business(request):
     Determine the current user by their token, and return their data
     """
 
-    serializer = BusinessSerializer(request.user)
+    serializer = BusinessSerializer(request.business)
     print("**********************************************************")
     print("**********************************************************")
     print("**********************************************************")
