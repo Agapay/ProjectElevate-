@@ -3,6 +3,7 @@ import Nav from './components/Nav';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
   constructor(props) {
@@ -16,39 +17,88 @@ class App extends Component {
 
   componentDidMount() {
     if (this.state.logged_in) {
-      fetch('http://localhost:8000/business/current_business/', {
+      // fetch('http://localhost:8000/business/current_business/', {
+      //   headers: {
+      //     Authorization: `JWT ${localStorage.getItem('token')}`
+      //   }
+      // })
+      //   .then(res => res.json())
+      //   .then(json => {
+      //     this.setState({ username: json.username });
+      //   });
+      axios({
+        url: 'http://localhost:8000/business/current_business/',
+        method: 'get',
         headers: {
-          Authorization: `JWT ${localStorage.getItem('token')}`
-        }
+              Authorization: `JWT ${localStorage.getItem('token')}`
+            }
+      }).then(res => {
+        console.log(res);
+        let json = res.data;
+                  this.setState({ username: json.username });
+
+      }).catch(error => {
+        console.log(error);
       })
-        .then(res => res.json())
-        .then(json => {
-          this.setState({ username: json.username });
-        });
     }
   }
 
   handle_login = (e, data) => {
     e.preventDefault();
-    fetch('http://localhost:8000/token-auth/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(res => {
+    console.log(data);
+    // fetch('http://localhost:8000/token-auth/', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   data: {
+    //     username: data.username,
+    //     password: data.password
+    //   }
+    // })
+    //   .then(res => {
+    //     console.log(res)
+    //     res.json()
+    //     })
+    //   .then(json => {
+    //     console.log(json);
+    //     localStorage.setItem('token', json.token);
+    //     this.setState({
+    //       logged_in: true,
+    //       displayed_form: '',
+    //       username: json.user.username
+    //     });
+    //   });
+
+      axios({
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        url: `http://localhost:8000/token-auth/`,
+        data: {
+          username: data.username,
+          password: data.password
+        }
+      }).then(res => {
         console.log(res)
-        res.json()
-        })
-      .then(json => {
+        let json = res.data;
         localStorage.setItem('token', json.token);
         this.setState({
           logged_in: true,
           displayed_form: '',
-          username: json.business.username
+          username: json.user.username
         });
-      });
+        // res.json()
+        
+        })
+      // .then(json => {
+      //   console.log(json);
+      //   localStorage.setItem('token', json.token);
+      //   this.setState({
+      //     logged_in: true,
+      //     displayed_form: '',
+      //     username: json.user.username
+      //   });
+      // });
   };
 
   handle_signup = (e, data) => {

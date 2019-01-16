@@ -4,8 +4,9 @@ from .models import Business
 
 
 class BusinessSerializer(serializers.ModelSerializer):
-    model = Business
-    fields = ('username',)
+    class Meta:
+        model = Business
+        fields = ('username',)
 
 class BusinessSerializerWithToken(serializers.ModelSerializer):
     token = serializers.SerializerMethodField()

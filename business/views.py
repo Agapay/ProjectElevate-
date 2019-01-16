@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework import permissions, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -18,6 +18,10 @@ def current_business(request):
     """
 
     serializer = BusinessSerializer(request.business)
+    print("**********************************************************")
+    print("**********************************************************")
+    print("**********************************************************")
+
     print(serializer)
     return Response(serializer.data)
 
