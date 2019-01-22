@@ -1,0 +1,400 @@
+body {
+    color: black;
+}
+
+section {
+    margin: 50px;
+}
+
+
+/* Login Styles */
+.login-page {
+    background-color: #242348;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.login-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 25px;
+    color: #43425D;
+}
+
+.login-container h1 {
+    text-align: center;
+    font-size: 56px;
+    color: #43425D;
+    letter-spacing: 10px;
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+.login-container h2 {
+    text-align: center;
+    font-size: 18px;
+    color: rgba(0, 0, 0, .50);
+    margin-bottom: 35px;
+}
+
+.login-container input[type=text],
+.login-container input[type=password] {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 22px;
+    border: none;
+    border-bottom: solid #E9E9F0 2px;
+    outline: none;
+    padding-left: 5px;
+}
+
+.under-input-container,
+.login-container input[type=text],
+.login-container input[type=password] {
+    width: 270px;
+}
+
+.login-container input[type=password] {
+    margin-bottom: 36px;
+}
+
+.login-container label, .login-container a {
+    color: #43425D;
+    font-size: 14px;
+}
+
+.login-container a {
+    float: right;
+}
+
+
+
+.login-container button, .login-container a{
+    margin-left: auto;
+    margin-right: auto;
+    /* text-align: center; */
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+/* END OF Login Styles */
+
+/* Portal Styles */
+.portal {
+    /* display: flex; */
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+/* Sidebar Styles */
+.sidebar {
+    padding: 0;
+    /* width: 40%; */
+    color: white;
+    background: #43425D;
+    text-align: center;
+    height: 100vh;
+    flex: 0 0 13.666667%;
+    max-width: 13.666667%;
+}
+
+.sidebar h2 {
+    padding-top: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.sidebar li {
+    position: relative;
+}
+
+.sidebar li:hover, .sidebar .selected {
+    background-color: rgba(0,0,0,.10);
+}
+
+.selected-indicator {
+    height: 100%;
+    width: 4px;
+    background-color: #A3A0FB;
+    position: absolute;
+    left: 0;
+}
+
+.sidebar a {
+    color: white;
+    padding: 10px 15%;
+    display: block;
+}
+
+.sidebar a:hover {
+    text-decoration: none;
+}
+
+.right-container {  /* the container to the right of the sidebar */
+    flex: 0 0 86.333333%;
+    max-width: 86.333333%;
+    padding: 0 40px;
+    max-height: 100vh;
+    overflow: auto;
+}
+
+/* Button Styles */
+button, #setup, .normal_button {  /* #setup is the gray button may need to change name*/
+    background-color: gray;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    padding: 5px 35px;
+    cursor: pointer;
+}
+
+.purple {
+    background-color: #43425D;
+}
+
+/* END OF Button Styles*/
+
+/* HOME PAGE */
+/* header */
+header{
+  background-color: #83A3BA;
+  color: black;
+  min-height: 60px;
+}
+
+header a{
+  text-decoration: none;
+  color: black;
+  text-transform: capitalize;
+  font-style: italic;
+  font-size: 25px;
+}
+
+header ul{
+  margin: 0;
+  padding: 0;
+}
+
+header li{
+  float: left;
+  display: inline;
+  padding: 10px 20px 0px 0px;
+}
+
+header #logo{
+  float: left;
+  padding-top: 5px;
+  padding-left: 20px;
+}
+
+header #logo h1{
+  margin: 0;
+}
+
+header nav{
+  float: right;
+  /* margin-top: 10px; */
+}
+
+header .highlight, header .current a{
+  color: #363086;
+}
+
+header a:hover{
+  text-decoration: none;
+  color: white;
+}
+
+
+#showcase{
+  min-height: 150px;
+  background-color: black;
+  margin: 0;
+}
+
+#showcase h1{
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 85px;
+  font-weight: lighter;
+  letter-spacing: 5px;
+}
+
+#content{
+  margin: 20px;
+}
+#content h1{
+  text-align: center;
+  font-weight: normal;
+}
+
+#content p{
+  text-indent: 2.0em;
+  padding: 10px 50px;
+}
+
+hr{
+  border-color: black;
+  margin: 35px 35px;
+  border-width: medium;
+}
+
+/* END OF HOME PAGE */
+
+table{
+  /* border: 1px solid #c6c6c6; */
+  border-spacing: 20px;
+  text-align: left;
+  /* width: 75%; */
+  margin-top: 25px;
+}
+
+tr:first-of-type th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background-color: #F5F6FA;
+    color: #A3A6B4;
+}
+
+tr:first-of-type th:nth-child(-n+3) { /* first three elements*/
+    width: 25%;
+}
+
+tr:first-of-type th:nth-child(4) { /* first three elements*/
+    width: 15%;
+}
+
+th{
+  background-color: #ededed;
+  color: #a5a4a4;
+
+}
+
+
+td{
+  border-bottom: 1px solid #c6c6c6;
+  padding: 15px 0px;
+}
+
+.left_side{
+  text-align: left;
+  padding-left: 8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.right_side{
+  text-align: right;
+  padding-right: 8px;
+}
+
+
+.circle{
+    padding: 3px 30px;
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #69E4A6;
+}
+
+.red {
+    background-color: red;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.blue-link {
+    color: #3887E4;
+    cursor: pointer;
+}
+
+/* Dashboard Styles */
+.dashboard-container {
+    margin-top: 20px;
+}
+/* End of Dashboard Styles */
+
+/*#add business -sytles*/
+.right-container h1{
+    margin-top:30px;
+    font-size: 60px;
+}
+#add-buisness-container{
+    padding-left:100px;
+}
+.right-container h2{
+    color:white;
+}
+.right-container h3{
+    font-size:50px;
+    margin-top:30px;
+}
+.subbox1{
+    display:inline-block;
+    margin-bottom:50px;
+}
+.subbox2{
+    display:inline-block;
+    margin-left:100px;
+    vertical-align: top;
+}
+.inputs{
+    width:400px;
+    margin-bottom:20px;
+}
+
+#smaller_input{
+    display:inline-block;
+}
+.green_button{
+    display:inline-block;
+    background-color: green;
+}
+#setup{
+    display:inline-block;
+    background-color: gray;
+}
+
+
+.dropdown{
+  visibility: hidden;
+  /* margin: 0px 0px; */
+  padding: 0px 0px;
+  /*position:absolute;  only way for everything else not to get affected */
+}
+
+.dropdown li{
+  background-color: #83A3BA;
+  color: white;
+  text-align: center;
+  /* margin: 0px;
+  padding: 0px 3px; */
+  border-bottom: 1px solid black;
+  clear: both;
+  width: 100%;
+}
+
+ul li:hover > ul, ul li ul:hover{
+  visibility: visible;
+  /* opacity: 1; */
+  display: inline;
+}
+
+
+/* login-menu */
+
+#container{
+  background-color: #363086;
+}

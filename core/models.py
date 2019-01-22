@@ -140,13 +140,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
 
         if self.business:
-            return self.business_name + " " + self.id
+            return self.business_name + " " + str(self.id)
 
         if self.customer:
-            return self.customer_name + " " + self.customer_last_name + " " + self.id
+            return self.customer_name + " " + self.customer_last_name + " " + str(self.id)
 
         else:
-            return self.username + " " + self.id
+            return self.username + " " + str(self.id)
 
     def is_admin(self):
         return self.admin
