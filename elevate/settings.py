@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'business.apps.BusinessConfig'
+    'core.apps.CoreConfig',
     
 ]
+
+AUTH_USER_MODEL = "core.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,7 +143,6 @@ REST_FRAMEWORK = {
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
 )
-
 
 JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'elevate.utils.my_jwt_response_handler'

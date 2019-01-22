@@ -1,8 +1,8 @@
-from business.serializer import BusinessSerializer
+from core.serializers import UserSerializer
 
 
 def my_jwt_response_handler(token, user=None, request=None):
     return {
         'token': token,
-        'user': BusinessSerializer(user, context={'request': request}).data
+        'user': UserSerializer(user, context={'request': request}).data
     }

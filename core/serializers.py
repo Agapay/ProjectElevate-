@@ -1,14 +1,16 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
-from .models import Business
+from .models import User
 
 
-class BusinessSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Business
+        model = User
         fields = ('username',)
 
-class BusinessSerializerWithToken(serializers.ModelSerializer):
+
+class UserSerializerWithToken(serializers.ModelSerializer):
+
     token = serializers.SerializerMethodField()
     password = serializers.CharField(write_only=True)
 
@@ -21,14 +23,14 @@ class BusinessSerializerWithToken(serializers.ModelSerializer):
         return token
 
     def create(self, validated_data):
+        print(validated_data)
         password = validated_data.pop('password', None)
         instance = self.Meta.model(**validated_data)
         if password is not None:
-            instance.set_password(password) # hash it
+            instance.set_password(password)
         instance.save()
         return instance
 
     class Meta:
-        model = Business
+        model = User
         fields = ('token', 'username', 'password')
-
