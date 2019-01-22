@@ -94,8 +94,8 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email              = models.EmailField(max_length=255, unique=True, blank=False)
-    username           = models.CharField(max_length=30, blank=False, unique=True)
+    email              = models.EmailField(max_length=255, unique=True, blank=False) #REQUIRED
+    username           = models.CharField(max_length=30, blank=False, unique=True) #REQUIRED
     active             = models.BooleanField(default=False) # can login
     admin              = models.BooleanField(default=False) # superuser
     staff              = models.BooleanField(default=False) # staff
@@ -104,7 +104,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     business_name      = models.CharField(max_length=255, blank=True, null=True)
     customer_name      = models.CharField(max_length=255, blank=True, null=True)
     customer_last_name = models.CharField(max_length=255, blank=True, null=True)
-    phone_number       = models.CharField(max_length=15, blank=False, null=False)
+    phone_number       = models.CharField(max_length=15, blank=False, null=False) #REQUIRED
     business_api_key   = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
 
@@ -140,13 +140,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
 
         if self.business:
-            return self.business_name
+            return self.business_name + " " + self.id
 
         if self.customer:
-            return self.customer_name + " " + self.customer_last_name + " "
+            return self.customer_name + " " + self.customer_last_name + " " + self.id
 
         else:
-            return self.username
+            return self.username + " " + self.id
 
     def is_admin(self):
         return self.admin
