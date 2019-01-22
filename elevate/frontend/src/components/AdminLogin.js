@@ -44,7 +44,7 @@ class AdminLogin extends Component {
                     .then(json => {
                         console.log(json);
                     // this.setState({ username: json.username });
-                        window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                        // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
                     });
 
             });
