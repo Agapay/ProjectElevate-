@@ -35,7 +35,7 @@ class App extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data) // data is username and password
     })
       .then(res => res.json())
       .then(json => {

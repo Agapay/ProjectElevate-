@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'core.apps.CoreConfig',
-    
+    'elevate.frontend',
+
 ]
 
 AUTH_USER_MODEL = "core.User"
@@ -141,7 +142,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
+    # 'localhost:3000',
+    'http://127.0.0.1:8000'
 )
 
 JWT_AUTH = {
