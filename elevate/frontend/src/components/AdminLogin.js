@@ -43,8 +43,9 @@ class AdminLogin extends Component {
                     .then(res => res.json())
                     .then(json => {
                         console.log(json);
+                        localStorage.setItem('username', json.username)
                     // this.setState({ username: json.username });
-                        // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                        window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
                     });
 
             });
@@ -67,7 +68,7 @@ class AdminLogin extends Component {
       return (
         <section className="login-page row justify-content-center align-items-center">
             <form className="login-container col-6" onSubmit={this.onSubmit}>
-                <h1>Elevatee</h1>
+                <h1>Elevate</h1>
                 <h2>Admin</h2>
                 <div className="row justify-content-center">
                     <div className="under-input-container">
