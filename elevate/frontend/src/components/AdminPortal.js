@@ -12,7 +12,7 @@ class AdminPortal extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        username: "",
+        username: localStorage.getItem('username'),
         id: null,
         bid: null, // business id
       }
@@ -21,12 +21,42 @@ class AdminPortal extends Component {
     componentDidMount() {
       //if you not logged in kick out of page or not correct id
 
-        this.setState({ // for now until we connect with backend
-          id: this.props.match.params.id,
-          bid: this.props.match.params.bid,
-          username: "Admin"
-        })
+        // this.setState({ // for now until we connect with backend
+        //   id: this.props.match.params.id,
+        //   bid: this.props.match.params.bid,
+        //   username: "Admin"
+        // })
         // params.id
+        // if(localStorage.getItem('username')) {
+        //   this.
+        // }
+        if(localStorage.getItem('token')) {
+          fetch('http://localhost:8000/core/current_user/', {
+                      headers: {
+                      Authorization: `JWT ${localStorage.getItem('token')}`
+                      }
+                  })
+                      .then(res => res.json())
+                      .then(json => {
+                          console.log(json);
+                          // localStorage.setItem('username', json.username)
+                      // this.setState({ username: json.username });
+                          // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                          this.setState({ // for now until we connect with backend
+                            username: localStorage.getItem('username')
+                          })
+                        })
+                      .catch(err => {
+                        console.log(err);
+                      });
+        } else {
+          window.location.replace("http://127.0.0.1:8000/frontend/admin-login");
+        }
+    }
+
+    logout() {
+      localStorage.clear();
+      window.location.replace("http://127.0.0.1:8000/frontend/admin-login");
     }
   
     render() {
@@ -91,7 +121,7 @@ class AdminPortal extends Component {
         ];
       // }
       return (
-          this.state.id !== null ? <Portal routes={routes} username={this.state.username}/> : <div></div>
+          <Portal routes={routes} username={this.state.username} logout={this.logout}/>
       );
     }
   }
