@@ -1,3 +1,4 @@
+//test
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import Portal from "./Portal.js";
@@ -58,7 +59,7 @@ class AdminPortal extends Component {
       localStorage.clear();
       window.location.replace("http://127.0.0.1:8000/frontend/admin-login");
     }
-  
+
     render() {
       /*  routes is a list of route objects
 
@@ -89,8 +90,8 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/add-business`,
             name: "Add Business",
             selected: "Add Business",
-            main: () => 
-              <AddBusiness 
+            main: () =>
+              <AddBusiness
                 NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
               />
           },
@@ -98,8 +99,8 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/NMIsetup-1`,
             name: "",
             selected: "Add Business",
-            main: () => 
-              <NMISetupStep1 
+            main: () =>
+              <NMISetupStep1
                 NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/NMIsetup-2`}
               />
           },
@@ -113,8 +114,8 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}`,
             name: "",
             selected: "Add Business",
-            main: () => 
-              <EditBusiness 
+            main: () =>
+              <EditBusiness
                 NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
               />
           }
