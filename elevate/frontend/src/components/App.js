@@ -6,6 +6,7 @@ import AdminPortal from "./AdminPortal";
 import ReactDOM from "react-dom";
 import DataProvider from "./DataProvider";
 import Table from "./Table";
+import ExampleComponent from "../ExampleComponent";
 import {Route} from 'react-router-dom';
 
 
@@ -29,6 +30,7 @@ class App extends Component {
         <Route path="/admin/:id/business/:bid" component={AdminPortal}/>
         <Route path="/admin/:id/NMIsetup-1" component={AdminPortal}/>
         <Route path="/admin/:id/NMIsetup-2" component={AdminPortal}/>
+        <Route exact path="/example" component={ExampleComponent}/>
       </div>
     );
   }
