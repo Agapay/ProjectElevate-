@@ -13,8 +13,6 @@ class AdminPortal extends Component {
       super(props);
       this.state = {
         username: localStorage.getItem('username'),
-        id: null,
-        bid: null, // business id
       }
     }
 
@@ -55,8 +53,8 @@ class AdminPortal extends Component {
     }
 
     logout() {
-      localStorage.clear();
-      window.location.replace("http://127.0.0.1:8000/frontend/admin-login");
+      localStorage.clear(); //removes login token
+      window.location.replace("http://127.0.0.1:8000/frontend/admin-login"); //redirects back to login
     }
   
     render() {
@@ -121,7 +119,11 @@ class AdminPortal extends Component {
         ];
       // }
       return (
-          <Portal routes={routes} username={this.state.username} logout={this.logout}/>
+          <Portal 
+            routes={routes} 
+            username={this.state.username} 
+            logout={this.logout}
+          />
       );
     }
   }

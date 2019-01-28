@@ -326,7 +326,7 @@ td{
 }
 /* End of Dashboard Styles */
 
-/*#add business -sytles*/
+/* Add/Edit Business Sytles */
 .right-container h1{
     margin-top:30px;
     font-size: 60px;
@@ -358,15 +358,23 @@ td{
 #smaller_input{
     display:inline-block;
 }
+
 .green_button{
     display:inline-block;
     background-color: green;
 }
+
 #setup{
     display:inline-block;
     background-color: gray;
 }
 
+input:read-only { 
+    background-color: #efefef;
+    border: 1px solid #d6d6d6;
+}
+
+/* End of Add/Edit Business Styles */
 
 .dropdown{
   visibility: hidden;

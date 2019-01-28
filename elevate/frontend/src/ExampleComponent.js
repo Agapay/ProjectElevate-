@@ -70,3 +70,21 @@ class FormComponent extends Component { // is the form part
 //this.props contains info on parent components
 
 export default ExampleComponent;
+
+
+// class myComp extends Component { // is the form part
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   render() {
+//     return (
+//       <div>myCopm</div>
+//     )
+//   }
+// }
+
+// //other notes
+// //this.props contains info on parent components
+
+// export default myComp;
