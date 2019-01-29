@@ -1,3 +1,4 @@
+//test
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import Portal from "./Portal.js";
@@ -60,7 +61,7 @@ class AdminPortal extends Component {
       localStorage.clear(); //removes login token
       window.location.replace("http://127.0.0.1:8000/frontend/admin-login"); //redirects back to login
     }
-  
+
     render() {
       /*  routes is a list of route objects
 
@@ -91,8 +92,8 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/add-business`,
             name: "Add Business",
             selected: "Add Business",
-            main: () => 
-              <AddBusiness 
+            main: () =>
+              <AddBusiness
                 NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
               />
           },
