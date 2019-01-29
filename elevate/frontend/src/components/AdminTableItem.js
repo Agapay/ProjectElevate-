@@ -18,7 +18,6 @@ class AdminTableItem extends Component {
             </span>
           </td>
           <td className="bold">
-          {/* {this.props.link} */}
           <a href={`/frontend/admin/${this.props.id}/business/${this.props.bid}`}>
                 Edit
               </a>

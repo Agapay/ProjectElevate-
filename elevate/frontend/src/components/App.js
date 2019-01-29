@@ -27,9 +27,9 @@ class App extends Component {
         <Route exact path="/admin/:id" component={AdminPortal}/>
         <Route path="/admin/:id/dashboard" component={AdminPortal}/>
         <Route path="/admin/:id/add-business" component={AdminPortal}/>
-        <Route path="/admin/:id/business/:bid" component={AdminPortal}/>
-        <Route path="/admin/:id/NMIsetup-1" component={AdminPortal}/>
-        <Route path="/admin/:id/NMIsetup-2" component={AdminPortal}/>
+        <Route exact path="/admin/:id/business/:bid" component={AdminPortal}/>
+        <Route path="/admin/:id/business/:bid/NMIsetup-1" component={AdminPortal}/>
+        <Route path="/admin/:id/business/:bid/NMIsetup-2" component={AdminPortal}/>
         <Route exact path="/example" component={ExampleComponent}/>
       </div>
     );

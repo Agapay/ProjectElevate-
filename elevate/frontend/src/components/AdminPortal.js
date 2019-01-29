@@ -37,6 +37,9 @@ class AdminPortal extends Component {
                       .then(res => res.json())
                       .then(json => {
                           console.log(json);
+                          if(json.detail) {
+                            this.logout(); //if the signiture expires -> logout
+                          }
                           // localStorage.setItem('username', json.username)
                       // this.setState({ username: json.username });
                           // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
@@ -45,6 +48,7 @@ class AdminPortal extends Component {
                           })
                         })
                       .catch(err => {
+                        console.log("error")
                         console.log(err);
                       });
         } else {
@@ -93,27 +97,28 @@ class AdminPortal extends Component {
               />
           },
           {
-            path: `/frontend/admin/${this.props.match.params.id}/NMIsetup-1`,
+            path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`,
             name: "",
             selected: "Add Business",
             main: () => 
               <NMISetupStep1 
-                NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/NMIsetup-2`}
+                NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`}
               />
           },
           {
-            path: `/frontend/admin/${this.props.match.params.id}/NMIsetup-2`,
+            path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`,
             name: "",
             selected: "Add Business",
             main: () => <NMISetupStep2/>
           },
           {
             path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}`,
+            exact: true,
             name: "",
             selected: "Add Business",
             main: () => 
               <EditBusiness 
-                NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
+                NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
               />
           }
         ];
