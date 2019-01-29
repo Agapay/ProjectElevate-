@@ -102,8 +102,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     customer = models.BooleanField(default=False)  # customer
     business = models.BooleanField(default=False)  # core
     business_name = models.CharField(max_length=255, blank=True, null=True)
-    customer_name = models.CharField(max_length=255, blank=True, null=True)
-    customer_last_name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
     business_api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
