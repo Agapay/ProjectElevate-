@@ -94,43 +94,43 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email              = models.EmailField(max_length=255, unique=True, blank=False) #REQUIRED
-    username           = models.CharField(max_length=30, blank=False, unique=True) #REQUIRED
-    active             = models.BooleanField(default=False) # can login
-    admin              = models.BooleanField(default=False) # superuser
-    staff              = models.BooleanField(default=False) # staff
-    customer           = models.BooleanField(default=False) # customer
-    business           = models.BooleanField(default=False) # core
-    business_name      = models.CharField(max_length=255, blank=True, null=True)
-    customer_name      = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
+    username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    active = models.BooleanField(default=False)  # can login
+    admin = models.BooleanField(default=False)  # superuser
+    staff = models.BooleanField(default=False)  # staff
+    customer = models.BooleanField(default=False)  # customer
+    business = models.BooleanField(default=False)  # core
+    business_name = models.CharField(max_length=255, blank=True, null=True)
+    customer_name = models.CharField(max_length=255, blank=True, null=True)
     customer_last_name = models.CharField(max_length=255, blank=True, null=True)
-    phone_number       = models.CharField(max_length=15, blank=False, null=False) #REQUIRED
-    business_api_key   = models.CharField(max_length=1000, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    business_api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
 
     # Branch Address
-    street_branch_address  = models.CharField(max_length=100, blank=True, null=True)
-    apt_branch_address     = models.CharField(max_length=100, blank=True, null=True)
-    city_branch_address    = models.CharField(max_length=100, blank=True, null=True)
-    state_branch_address   = models.CharField(max_length=100, blank=True, null=True)
+    street_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    city_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    state_branch_address = models.CharField(max_length=100, blank=True, null=True)
     country_branch_address = models.CharField(max_length=100, blank=True, null=True)
-    zip_branch_address     = models.CharField(max_length=15, blank=True, null=True)
+    zip_branch_address = models.CharField(max_length=15, blank=True, null=True)
 
     # HQ Address
-    street_hq_address  = models.CharField(max_length=100, blank=True, null=True)
-    apt_hq_address     = models.CharField(max_length=100, blank=True, null=True)
-    city_hq_address    = models.CharField(max_length=100, blank=True, null=True)
-    state_hq_address   = models.CharField(max_length=100, blank=True, null=True)
-    country_hq_address = models.CharField(max_length=100,  blank=True, null=True)
-    zip_hq_address     = models.CharField(max_length=15,  blank=True, null=True)
+    street_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    city_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    state_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    country_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    zip_hq_address = models.CharField(max_length=15, blank=True, null=True)
 
     # Home Address
-    street_home_address  = models.CharField(max_length=100, blank=True, null=True)
-    apt_home_address     = models.CharField(max_length=100, blank=True, null=True)
-    city_home_address    = models.CharField(max_length=100, blank=True, null=True)
-    state_home_address   = models.CharField(max_length=100, blank=True, null=True)
+    street_home_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_home_address = models.CharField(max_length=100, blank=True, null=True)
+    city_home_address = models.CharField(max_length=100, blank=True, null=True)
+    state_home_address = models.CharField(max_length=100, blank=True, null=True)
     country_home_address = models.CharField(max_length=100, blank=True, null=True)
-    zip_home_address     = models.CharField(max_length=15, blank=True, null=True)
+    zip_home_address = models.CharField(max_length=15, blank=True, null=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
@@ -180,12 +180,8 @@ class Subscription(models.Model):
     title       = models.CharField(max_length=30, blank=False)
     description = models.CharField(max_length=255, blank=False)
 
-
     def __str__(self):
         return self.title
-
-
-
 
 class Customer(models.Model):
     username      = models.CharField(max_length=30, blank=False)
