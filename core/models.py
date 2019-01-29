@@ -93,6 +93,10 @@ class UserManager(BaseUserManager):
 
 
 
+    def get_all_businesses(self):
+        return User.objects.filter(business=True)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
     username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
