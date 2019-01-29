@@ -8,6 +8,7 @@ class AdminLogin extends Component {
           username: "",
           password: "",
           remeberMe: false,
+          error: false,
         }
     }
 
@@ -28,13 +29,7 @@ class AdminLogin extends Component {
             .then(res => res.json())
             .then(json => {
                 localStorage.setItem('token', json.token);
-                // alert(json.token);
                 console.log(json.token);
-                // this.setState({
-                // logged_in: true,
-                // displayed_form: '',
-                // username: json.user.username
-                // });
                 fetch('http://localhost:8000/core/current_user/', {
                     headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
@@ -43,9 +38,15 @@ class AdminLogin extends Component {
                     .then(res => res.json())
                     .then(json => {
                         console.log(json);
-                        localStorage.setItem('username', json.username)
+                        if(json.detail) {
+                            this.setState({
+                                error: true,
+                            })
+                        } else {
+                            localStorage.setItem('username', json.username)
+                            window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                        }
                     // this.setState({ username: json.username });
-                        window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
                     });
 
             });
@@ -74,6 +75,7 @@ class AdminLogin extends Component {
                     <div className="under-input-container">
                         <input type="text" placeholder="Username" onChange={(e) => {this.onChange(e, "username")}} value={this.state.username} required/>
                         <input type="password" placeholder="Password" onChange={(e) => {this.onChange(e, "password")}} value={this.state.password} required/>
+                        { this.state.error ? <div>Credentials error</div> : null}
                         <label><input type="checkbox" checked={this.state.remeberMe} onClick={this.toggleCheckbox} /> Remember Me </label>
                         <a href="#">Forgot Password</a>
                     </div>
