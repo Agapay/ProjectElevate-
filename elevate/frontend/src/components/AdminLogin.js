@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from './Navbar'; //Navbar.js
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class AdminLogin extends Component {
@@ -67,6 +68,8 @@ class AdminLogin extends Component {
 
     render() {
       return (
+        <div>
+        <Navbar />
         <section className="login-page row justify-content-center align-items-center">
             <form className="login-container col-6" onSubmit={this.onSubmit}>
                 <h1>Elevate</h1>
@@ -75,7 +78,7 @@ class AdminLogin extends Component {
                     <div className="under-input-container">
                         <input type="text" placeholder="Username" onChange={(e) => {this.onChange(e, "username")}} value={this.state.username} required/>
                         <input type="password" placeholder="Password" onChange={(e) => {this.onChange(e, "password")}} value={this.state.password} required/>
-                        { this.state.error ? <div>Credentials error</div> : null}
+                        {  this.state.error ? <div>Credentials error</div> : null}
                         <label><input type="checkbox" checked={this.state.remeberMe} onClick={this.toggleCheckbox} /> Remember Me </label>
                         <a href="#">Forgot Password</a>
                     </div>
@@ -84,6 +87,8 @@ class AdminLogin extends Component {
                 <button className="purple" type="submit">Login</button>
             </form>
         </section>
+        </div>
+
       );
     }
   }
