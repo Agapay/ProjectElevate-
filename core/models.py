@@ -93,9 +93,6 @@ class UserManager(BaseUserManager):
 
 
 
-    def
-
-
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
     username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
