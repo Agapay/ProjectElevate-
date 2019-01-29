@@ -1,7 +1,7 @@
 //test
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
-import Portal from "./Portal.js";
+import Portal from "../CommonComponents/Portal.js";
 import AdminDashboard from "./AdminDashboard";
 import AddBusiness from "./AddBusiness";
 import EditBusiness from "./EditBusiness";

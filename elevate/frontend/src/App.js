@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Homepage from "./Homepage";
-import Test from "./Test";
-import AdminLogin from "./AdminLogin";
-import AdminPortal from "./AdminPortal";
+import Homepage from "./AdminComponents/Homepage";
+import Test from "./AdminComponents/Test";
+import Login from "./CommonComponents/Login";
+import AdminPortal from "./AdminComponents/AdminPortal";
 import ReactDOM from "react-dom";
-import DataProvider from "./DataProvider";
-import Table from "./Table";
-import ExampleComponent from "../ExampleComponent";
+import DataProvider from "./AdminComponents/DataProvider";
+import Table from "./AdminComponents/Table";
+import ExampleComponent from "./ExampleComponent";
 import {Route} from 'react-router-dom';
 
 
