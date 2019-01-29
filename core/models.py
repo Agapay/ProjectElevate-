@@ -93,6 +93,9 @@ class UserManager(BaseUserManager):
 
 
 
+    def
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
     username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
@@ -143,7 +146,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.business_name + " " + str(self.id)
 
         if self.customer:
-            return self.customer_name + " " + self.customer_last_name + " " + str(self.id)
+            return self.name + " " + self.last_name + " " + str(self.id)
 
         else:
             return self.username + " " + str(self.id)
