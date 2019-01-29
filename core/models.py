@@ -63,8 +63,8 @@ class UserManager(BaseUserManager):
 
         # details about customer
         user_obj.customer = True
-        user_obj.customer_name = customer_name
-        user_obj.customer_last_name = customer_last_name
+        user_obj.name = customer_name
+        user_obj.last_name = customer_last_name
 
         # active
         user_obj.active = True
