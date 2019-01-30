@@ -3,6 +3,7 @@ import Homepage from "./AdminComponents/Homepage";
 import Test from "./AdminComponents/Test";
 import Login from "./CommonComponents/Login";
 import AdminPortal from "./AdminComponents/AdminPortal";
+import BusinessPortal from "./BusinessComponents/BusinessPortal";
 import ReactDOM from "react-dom";
 import DataProvider from "./AdminComponents/DataProvider";
 import Table from "./AdminComponents/Table";
@@ -23,14 +24,24 @@ class App extends Component {
       <div className="App">
         <Route exact path="/" component={Homepage} />
         <Route path="/test" component={Test} />
-        <Route path="/admin-login" component={Login} />
+        <Route path="/login" component={Login} />
+        <Route exact path="/example" component={ExampleComponent}/>
+
+        {/* Admin Routes */}
         <Route exact path="/admin/:id" component={AdminPortal}/>
         <Route path="/admin/:id/dashboard" component={AdminPortal}/>
         <Route path="/admin/:id/add-business" component={AdminPortal}/>
         <Route exact path="/admin/:id/business/:bid" component={AdminPortal}/>
         <Route path="/admin/:id/business/:bid/NMIsetup-1" component={AdminPortal}/>
         <Route path="/admin/:id/business/:bid/NMIsetup-2" component={AdminPortal}/>
-        <Route exact path="/example" component={ExampleComponent}/>
+
+        {/* Business Routes */}
+        <Route path="/business/:id/dashboard" component={BusinessPortal}/>
+        <Route path="/business/:id/subscriptions" component={BusinessPortal}/>
+        <Route path="/business/:id/add-customer" component={BusinessPortal}/>
+        <Route path="/business/:id/add-subscription" component={BusinessPortal}/>
+        <Route exact path="/business/:id/customer/:cid" component={BusinessPortal}/>
+        <Route exact path="/business/:id/subscription/:sid" component={BusinessPortal}/>
       </div>
     );
   }

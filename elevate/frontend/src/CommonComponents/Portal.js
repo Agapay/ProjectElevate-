@@ -51,7 +51,7 @@ class Portal extends Component {
           
         this.props.routes[i].sidebar = () =>
           <span>
-            <h2>{this.props.username}</h2> 
+            <h2>{this.props.username}</h2>
              <ul>
                {jsxSidebar}
              </ul>

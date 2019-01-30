@@ -131,6 +131,7 @@ section {
     color: white;
     padding: 10px 15%;
     display: block;
+    padding-right: 0;
 }
 
 .sidebar a:hover {

@@ -53,13 +53,13 @@ class AdminPortal extends Component {
                         console.log(err);
                       });
         } else {
-          window.location.replace("http://127.0.0.1:8000/frontend/admin-login");
+          window.location.replace("http://127.0.0.1:8000/frontend/login");
         }
     }
 
     logout() {
       localStorage.clear(); //removes login token
-      window.location.replace("http://127.0.0.1:8000/frontend/admin-login"); //redirects back to login
+      window.location.replace("http://127.0.0.1:8000/frontend/login"); //redirects back to login
     }
 
     render() {
