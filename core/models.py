@@ -98,8 +98,10 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+
     email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
     username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+  #  password = models.CharField(max_length=30)
     active = models.BooleanField(default=False)  # can login
     admin = models.BooleanField(default=False)  # superuser
     staff = models.BooleanField(default=False)  # staff

@@ -7,6 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
                 'id',
                 "email",
+                "password",
                 "username",
                 "active",
                 "admin",
@@ -41,3 +42,6 @@ class UserSerializer(serializers.ModelSerializer):
 
         # converts to json
         # validations for data passed
+
+
+        read_only_fields = ['id']

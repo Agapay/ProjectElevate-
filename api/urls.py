@@ -1,4 +1,4 @@
-from .views import UserRUDView
+from .views import UserRUDView, UsersAPIView
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
@@ -7,6 +7,8 @@ from rest_framework_jwt.views import obtain_jwt_token
 urlpatterns = [
 
     path('<int:id>', UserRUDView.as_view(), name="post-rud"),
+    path('',UsersAPIView.as_view(), name="post-create"),
+    #path('businesses')
     #url(r'^$', UserRUDView.as_view(), name="post-rud"),
 
 ]
