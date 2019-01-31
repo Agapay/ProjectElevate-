@@ -45,7 +45,7 @@ class Login extends Component {
                             })
                         } else {
                             localStorage.setItem('username', json.username)
-                            window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                            // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
                         }
                     // this.setState({ username: json.username });
                     });
