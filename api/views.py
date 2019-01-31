@@ -15,28 +15,27 @@ class UsersAPIView(generics.CreateAPIView):
 
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
 
 
+class BusinessesAPIView(generics.ListAPIView):
+    lookup_field        = 'id'
+    serializer_class    = UserSerializer
 
-# class BusinessesAPIView(generics.):
-#      pass
+    def get_queryset(self):
+        return User.objects.filter(business=True)
+
 
 
 
 class UserRUDView(generics.RetrieveUpdateDestroyAPIView): #detail view
     lookup_field            = 'id'
-    serializer_class        =  UserSerializer
-
+    serializer_class        = UserSerializer
 
     def get_queryset(self):
         return User.objects.all()
-
-    def get_businesses(self):
-        return User.objects.filter(business=True)
-
-
-
 
 
 
