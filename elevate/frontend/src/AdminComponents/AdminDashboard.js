@@ -27,7 +27,29 @@ class AdminDashboard extends Component {
         // this.setState({
         //   businessEntries: MockupData
         // })
-        console.log(this.state.businessEntries);
+        // console.log(this.state.businessEntries);
+        
+        fetch('http://127.0.0.1:8000/api/users/', {
+            method: 'POST',
+            headers: {
+            Authorization: `JWT ${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => res.json())
+            .then(json => {
+                console.log(json);
+                if(json.detail) {
+                    // this.setState({
+                    //     error: true,
+                    // })
+                    console.log(json.detail);
+                } else {
+                    console.log("success");
+                    console.log(json);
+                    //window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                }
+            // this.setState({ username: json.username });
+            });
     }
     
     render() {

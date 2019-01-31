@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
+import axios from 'axios';
 
 class AddBusiness extends Component {
     constructor(props) {
@@ -23,13 +24,42 @@ class AddBusiness extends Component {
 
     componentDidMount() {
         document.title = "Elevate - Add Business";
+        
     }
 
     submitForm = (e) => { // function to call backend and add the business
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
         // TODO axios() the call to backend
         // TODO redirect to edit business
+            axios({
+            method: 'post',
+            url: '/api/users/',
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('token')}`
+                },
+            data: {
+                username: this.state.username,
+                password: this.state.password,
+                business_name: this.state.business_name,
+                business_api_key: this.state.api_key,
+                firstName: this.state.first_name,
+                lastName: this.state.last_name,
+                email: this.state.email,
+                phone_number: this.state.phone_number,
+                street_branch_address: this.state.street_address,
+                city_branch_address: this.state.city,
+                state_branch_address: this.state.state,
+                apt_branch_address: this.state.suite_apt,
+                zip_branch_address: this.state.postal_code,
+            }
+            })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
     }
 
     onChange = (e) => {
@@ -52,7 +82,7 @@ class AddBusiness extends Component {
                         <br/>
                         <label htmlFor="api_key">Business API Key</label>
                         <br/>
-                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" required onChange={this.onChange}/>
+                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" onChange={this.onChange}/>
                         <br/>
                     </div>
                     <div className="subbox2">
