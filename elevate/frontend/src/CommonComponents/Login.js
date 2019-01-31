@@ -20,7 +20,7 @@ class Login extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         document.title = "Elevate - Admin Login";
-        fetch('http://localhost:8000/token-auth/', {
+        fetch('/token-auth/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ class Login extends Component {
             .then(json => {
                 localStorage.setItem('token', json.token);
                 console.log(json.token);
-                fetch('http://localhost:8000/core/current_user/', {
+                fetch('/core/current_user/', {
                     headers: {
                     Authorization: `JWT ${localStorage.getItem('token')}`
                     }
@@ -45,7 +45,13 @@ class Login extends Component {
                             })
                         } else {
                             localStorage.setItem('username', json.username)
-                            // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                            if(json.admin) {
+                                window.location.replace(`/frontend/admin/${json.id}/dashboard`);
+                            } else if (json.business) {
+                                window.location.replace(`/frontend/business/${json.id}/dashboard`);
+                            } else if (json.customer) {
+                                window.location.replace(`/frontend/admin/${json.id}/dashboard`);
+                            }
                         }
                     // this.setState({ username: json.username });
                     });
