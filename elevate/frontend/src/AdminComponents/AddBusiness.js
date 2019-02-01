@@ -19,6 +19,8 @@ class AddBusiness extends Component {
             city: "",
             state: "",
             postal_code: "",
+            error: false,
+            errorMessage: "",
         }
     }
 
@@ -33,7 +35,7 @@ class AddBusiness extends Component {
         // TODO axios() the call to backend
         // TODO redirect to edit business
             axios({
-            method: 'post',
+            method: 'POST',
             url: '/api/users/',
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('token')}`
@@ -52,14 +54,22 @@ class AddBusiness extends Component {
                 state_branch_address: this.state.state,
                 apt_branch_address: this.state.suite_apt,
                 zip_branch_address: this.state.postal_code,
+                business: true,
             }
             })
-              .then(function (response) {
+              .then((response) => {
                 console.log(response);
+                let newBusiness = response.data;
+                window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
               })
-              .catch(function (error) {
+              .catch((error) => {
                 console.log(error);
-              });
+                console.log(error.email);
+                // this.setState({
+                //     error: true,
+                //     errorMessage: error,
+                // });
+              })
     }
 
     onChange = (e) => {
@@ -150,6 +160,7 @@ class AddBusiness extends Component {
                           </div>
                       </div>
                     <br/>
+                    {this.state.error ? <div>{this.state.errorMessage}</div> : null}
                     <button className="green_button">Save</button>
                     {/* <Link id="setup" to={this.props.NMILink}>Setup NMI</Link> */}
                     <br/>
