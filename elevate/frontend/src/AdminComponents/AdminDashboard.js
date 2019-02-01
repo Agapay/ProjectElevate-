@@ -18,37 +18,40 @@ class AdminDashboard extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        businessEntries: MockupData,
+        businessEntries: [],
       }
     }
 
     componentDidMount() {
         document.title = "Elevate - Dashboard";
-        // this.setState({
-        //   businessEntries: MockupData
-        // })
-        // console.log(this.state.businessEntries);
-        
-        fetch('http://127.0.0.1:8000/api/users/', {
-            method: 'POST',
+
+        fetch('http://127.0.0.1:8000/api/users/businesses', {
+            method: 'GET',
             headers: {
             Authorization: `JWT ${localStorage.getItem('token')}`
             }
         })
             .then(res => res.json())
             .then(json => {
-                console.log(json);
-                if(json.detail) {
+                if(json.detail) { //error handling
                     // this.setState({
                     //     error: true,
                     // })
                     console.log(json.detail);
                 } else {
-                    console.log("success");
-                    console.log(json);
-                    //window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                    console.log(json); //list of businesses
+                    let newBusinesses = json.map((business) => { //format backend json to frontend
+                      let newBusiness = {};
+                      newBusiness.name = business.business_name;
+                      newBusiness.id = business.id;
+                      newBusiness.status = business.active ? "OK": "BAD"; //if active ok, else bad
+                      return newBusiness;
+                    });
+
+                    this.setState({
+                      businessEntries: newBusinesses
+                    })
                 }
-            // this.setState({ username: json.username });
             });
     }
     
@@ -72,8 +75,6 @@ class AdminDashboard extends Component {
                             key={"businessEntry"+index}
                             id={this.props.id}
                             bid={businessEntry.id} //business entry
-                            // link to edit business page
-                            // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}
                           />
                         )
                       })

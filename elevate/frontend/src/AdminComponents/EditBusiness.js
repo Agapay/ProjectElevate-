@@ -81,7 +81,7 @@ class EditBusiness extends Component {
                         <br/>
                         <label htmlFor="api_key">Business API Key</label>
                         <br/>
-                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
                         <br/>
                     </div>
                     <div className="subbox2">
