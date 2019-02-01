@@ -121,6 +121,7 @@ class AdminPortal extends Component {
             main: () => 
               <EditBusiness 
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
+                bid={this.props.match.params.bid}
               />
           }
         ];

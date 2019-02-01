@@ -1,21 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
-
-const mockupData = {
-	business_name: "Amazon",
-	api_key: "$839432904i3290fjisV)(EV(#)@_)vdm",
-	username: "JeffB",
-	password: "049240243234",
-	first_name: "Jeff",
-	last_name: "Bezos",
-	email: "j@b.com",
-	phone_number: "9999999999",
-	street_address: "Address of Street",
-	suite_apt: "",
-	city: "City of The Place",
-	state: "CA",
-	postal_code: "99999",
-}
+import axios from 'axios';
 
 class EditBusiness extends Component {
     constructor(props) {
@@ -35,24 +20,98 @@ class EditBusiness extends Component {
             state: "",
             postal_code: "",
             isEditing: false,
+            isMounted: false, //to prevent a memory leak in react-router 
         }
     }
 
     componentDidMount() {
         document.title = "Elevate - Edit Business";
         //actual axios function to load data of user
+        console.log(this.props.bid)
+
+        this.setState( { isMounted: true }, () => {
+            axios({
+                method: 'GET',
+                url: `/api/users/${this.props.bid}`,
+                headers: {
+                    'Authorization': `JWT ${localStorage.getItem('token')}`
+                    },
+            }).then((response) => {
+                if (this.state.isMounted) {
+                    console.log(response);
+                    const businessResponse = response.data;
+                    this.setState({
+                        business_name: businessResponse.business_name,
+                        api_key: businessResponse.business_api_key,
+                        username: businessResponse.username,
+                        password: businessResponse.password,
+                        first_name: businessResponse.name,
+                        last_name: businessResponse.last_name,
+                        email: businessResponse.email,
+                        phone_number: businessResponse.phone_number,
+                        street_address: businessResponse.street_branch_address,
+                        suite_apt: businessResponse.apt_branch_address,
+                        city: businessResponse.city_branch_address,
+                        state: businessResponse.state_branch_address,
+                        postal_code: businessResponse.zip_branch_address,
+                    });
+                }
+            }).catch((error) => {
+                if(this.state.isMounted) {
+                    console.log(error);
+                }
+            })
+        })
+    }
+
+    componentWillUnmount() {
         this.setState({
-            ...mockupData
-        });
+            isMounted: false,
+        })
     }
 
     submitForm = (e) => { // function to call backend and add the business
-        // alert(e);
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
         // TODO axios() the call to backend
-        // if successfully submited form
-            this.toggleEdit(e);
+        // TODO redirect to edit business
+            axios({
+            method: 'POST',
+            url: '/api/users/',
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('token')}`
+                },
+            data: {
+                username: this.state.username,
+                password: this.state.password,
+                business_name: this.state.business_name,
+                business_api_key: this.state.api_key,
+                name: this.state.first_name,
+                last_name: this.state.last_name,
+                email: this.state.email,
+                phone_number: this.state.phone_number,
+                street_branch_address: this.state.street_address,
+                city_branch_address: this.state.city,
+                state_branch_address: this.state.state,
+                apt_branch_address: this.state.suite_apt,
+                zip_branch_address: this.state.postal_code,
+                business: true,
+            }
+            })
+              .then((response) => {
+                console.log(response);
+                let newBusiness = response.data;
+                // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
+                // this.toggleEdit(e);
+                })
+              .catch((error) => {
+                console.log(error);
+                console.log(error.email);
+                // this.setState({
+                //     error: true,
+                //     errorMessage: error,
+                // });
+              })
     }
 
     toggleEdit = (e) => {
@@ -68,6 +127,7 @@ class EditBusiness extends Component {
     }
 
     render() {
+        console.log(this.state);
       return (
         <div className="EditBusiness">
           <h1>Edit Business</h1>

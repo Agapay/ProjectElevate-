@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AdminTableItem from './AdminTableItem';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import { withRouter } from "react-router";
+import axios from 'axios';
 
 
 let MockupData = [
@@ -17,42 +18,80 @@ let MockupData = [
 class AdminDashboard extends Component {
     constructor(props) {
       super(props);
+      this.signal = axios.CancelToken.source();
       this.state = {
         businessEntries: [],
+        isLoading: false,
       }
     }
 
+    // loadBusinesses = async() => {
+    //   try {
+    //     this.setState({
+    //       isLoading: true
+    //     });
+    //     const response = await axios({
+    //         url: '/api/users/businesses', 
+    //         method: 'GET',
+    //         cancelToken: this.signal.token,
+    //         headers: {
+    //         Authorization: `JWT ${localStorage.getItem('token')}`
+    //       }
+    //     })
+    //     this.setState({
+    //       user: response.data.map((business) => { //format backend json to frontend
+    //                       let newBusiness = {};
+    //                       newBusiness.name = business.business_name;
+    //                       newBusiness.id = business.id;
+    //                       newBusiness.status = business.active ? "OK": "BAD"; //if active ok, else bad
+    //                       return newBusiness;
+    //                     }),
+    //       isLoading: true 
+    //     });
+    //   } catch (err) {
+    //     if (axios.isCancel(err)) {
+    //       console.log('Error: ', err.message); // => prints: Api is being canceled
+    //     } else {
+    //       this.setState({ isLoading: false });
+    //     }
+    //   }
+    // }
+
     componentDidMount() {
         document.title = "Elevate - Dashboard";
+        
+        // fetch('http://127.0.0.1:8000/api/users/businesses', {
+        //     method: 'GET',
+        //     headers: {
+        //     Authorization: `JWT ${localStorage.getItem('token')}`
+        //     }
+        // })
+        //     .then(res => res.json())
+        //     .then(json => {
+        //         if(json.detail) { //error handling
+        //             // this.setState({
+        //             //     error: true,
+        //             // })
+        //             console.log(json.detail);
+        //         } else {
+        //             console.log(json); //list of businesses
+        //             let newBusinesses = json.map((business) => { //format backend json to frontend
+        //               let newBusiness = {};
+        //               newBusiness.name = business.business_name;
+        //               newBusiness.id = business.id;
+        //               newBusiness.status = business.active ? "OK": "BAD"; //if active ok, else bad
+        //               return newBusiness;
+        //             });
 
-        fetch('http://127.0.0.1:8000/api/users/businesses', {
-            method: 'GET',
-            headers: {
-            Authorization: `JWT ${localStorage.getItem('token')}`
-            }
-        })
-            .then(res => res.json())
-            .then(json => {
-                if(json.detail) { //error handling
-                    // this.setState({
-                    //     error: true,
-                    // })
-                    console.log(json.detail);
-                } else {
-                    console.log(json); //list of businesses
-                    let newBusinesses = json.map((business) => { //format backend json to frontend
-                      let newBusiness = {};
-                      newBusiness.name = business.business_name;
-                      newBusiness.id = business.id;
-                      newBusiness.status = business.active ? "OK": "BAD"; //if active ok, else bad
-                      return newBusiness;
-                    });
+        //             this.setState({
+        //               businessEntries: newBusinesses
+        //             })
+        //         }
+        //     });
+    }
 
-                    this.setState({
-                      businessEntries: newBusinesses
-                    })
-                }
-            });
+    componentWillUnmount() {
+      this.signal.cancel('Api is being canceled');
     }
     
     render() {
