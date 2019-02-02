@@ -14,6 +14,7 @@ class BusinessPortal extends Component {
       super(props);
       this.state = {
         username: localStorage.getItem('username'),
+        isLoading: true,
       }
     }
 
@@ -173,6 +174,7 @@ class BusinessPortal extends Component {
             routes={routes} 
             username={this.state.username} 
             logout={this.logout}
+            isLoading={this.state.isLoading}
           />
       );
     }

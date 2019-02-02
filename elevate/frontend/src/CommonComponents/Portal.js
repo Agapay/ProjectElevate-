@@ -62,7 +62,7 @@ class Portal extends Component {
         <Router>
           <div className="row portal">
             <div className="col-2 sidebar">
-              {this.props.routes.map((route, index) => ( // Renders appropriate sidebar
+              {!this.props.isLoading && this.props.routes.map((route, index) => ( // Renders appropriate sidebar
                 <Route
                   key={index}
                   path={route.path}
@@ -73,7 +73,7 @@ class Portal extends Component {
             </div>
 
             <div className="col-10 right-container">
-              {this.props.routes.map((route, index) => ( // Renders main component (right of sidebar)
+              {!this.props.isLoading && this.props.routes.map((route, index) => ( // Renders main component (right of sidebar)
                 <Route
                   key={index}
                   path={route.path}

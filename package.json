@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --watch --mode development ./elevate/frontend/src/index.js --output ./elevate/frontend/static/frontend/main.js",
-    "build": "webpack --mode production ./elevate/frontend/src/index.js --output ./elevate/frontend/static/frontend/main.js"
+    "dev": "webpack --watch --mode development babel-polyfill ./elevate/frontend/src/index.js --output ./elevate/frontend/static/frontend/main.js",
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
