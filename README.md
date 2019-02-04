@@ -5,6 +5,7 @@ UCI Informatics 191A - AGAPAY project
 
 ### Prerequisites
 install [node](https://nodejs.org/en/)
+
 install [python 3](https://www.python.org/download/releases/3.0/)
 
 install [postgres](https://postgresapp.com/) follow steps 1-3
@@ -81,13 +82,21 @@ run "npm run dev" from root directory "./" (watches and compiles react files to 
 
 ### Important for Frontend
 react files are located in: ./elevate/frontend/src
+
 css file is located in ./elevate/frontend/static/css
 
 login url: http://127.0.0.1:8000/frontend/login
 
 username: gg
 password: 123
+
 Username and password depends on the superuser you have created
+
+Make sure you log into http://127.0.0.1:8000/admin/ using the superuser. 
+Then go to users. 
+Find the superuser you created and select it. 
+Then find and select the admin checkbox. 
+Save it and now you should be able to login through the login url.
 
 If you are changing reactjs files and the frontend is not updating
 1. make sure you are running "npm run dev"
