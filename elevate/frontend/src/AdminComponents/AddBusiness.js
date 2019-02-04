@@ -19,8 +19,8 @@ class AddBusiness extends Component {
             city: "",
             state: "",
             postal_code: "",
-            error: false,
-            errorMessage: "",
+            emailError: false,
+            emailErrorMessage: "",
         }
     }
 
@@ -34,7 +34,7 @@ class AddBusiness extends Component {
         // console.log(this.state);
         // TODO axios() the call to backend
         // TODO redirect to edit business
-            axios({
+        axios({
             method: 'POST',
             url: '/api/users/',
             headers: {
@@ -57,19 +57,24 @@ class AddBusiness extends Component {
                 business: true,
             }
             })
-              .then((response) => {
+            .then((response) => {
                 console.log(response);
                 let newBusiness = response.data;
                 window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
-              })
-              .catch((error) => {
-                console.log(error);
-                console.log(error.email);
-                // this.setState({
-                //     error: true,
-                //     errorMessage: error,
-                // });
-              })
+            })
+            .catch((error) => {
+                console.log(error);    
+                console.log(error.response);  
+                if(error.response.status === 400) { // 400 is a bad request
+                    if(error.response.data.email) {
+                        // alert(error.response.data.email);
+                        this.setState({
+                            emailError: true,
+                            emailErrorMessage: error.response.data.email,
+                        })
+                    }
+                }         
+            })
     }
 
     onChange = (e) => {
@@ -122,6 +127,7 @@ class AddBusiness extends Component {
                             <label htmlFor="email">Email</label>
                             <br/>
                             <input type="email" name="email" id="email" value={this.state.email} className="inputs" required onChange={this.onChange}/>
+                            {this.state.emailError && <div className="form-error-message">{this.state.emailErrorMessage}</div>} {/* If there is an email error display it*/}
                             <br/>
                             <label htmlFor="phone_number">Phone Number</label>
                             <br/>

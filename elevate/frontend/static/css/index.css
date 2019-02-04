@@ -375,6 +375,10 @@ input:read-only {
     border: 1px solid #d6d6d6;
 }
 
+.form-error-message {
+    color: red;
+}
+
 /* End of Add/Edit Business Styles */
 
 .dropdown{

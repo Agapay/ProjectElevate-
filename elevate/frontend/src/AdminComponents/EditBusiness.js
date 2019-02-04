@@ -9,7 +9,7 @@ class EditBusiness extends Component {
             business_name: "",
             api_key: "",
             username: "",
-            password: "",
+            password: "********",
             first_name: "",
             last_name: "",
             email: "",
@@ -20,53 +20,42 @@ class EditBusiness extends Component {
             state: "",
             postal_code: "",
             isEditing: false,
-            isMounted: false, //to prevent a memory leak in react-router 
+        
+            //Error States
+            emailError: false,
+            emailErrorMessage: "",
         }
     }
 
     componentDidMount() {
         document.title = "Elevate - Edit Business";
         //actual axios function to load data of user
-        console.log(this.props.bid)
-
-        this.setState( { isMounted: true }, () => {
-            axios({
-                method: 'GET',
-                url: `/api/users/${this.props.bid}`,
-                headers: {
-                    'Authorization': `JWT ${localStorage.getItem('token')}`
-                    },
-            }).then((response) => {
-                if (this.state.isMounted) {
-                    console.log(response);
-                    const businessResponse = response.data;
-                    this.setState({
-                        business_name: businessResponse.business_name,
-                        api_key: businessResponse.business_api_key,
-                        username: businessResponse.username,
-                        password: businessResponse.password,
-                        first_name: businessResponse.name,
-                        last_name: businessResponse.last_name,
-                        email: businessResponse.email,
-                        phone_number: businessResponse.phone_number,
-                        street_address: businessResponse.street_branch_address,
-                        suite_apt: businessResponse.apt_branch_address,
-                        city: businessResponse.city_branch_address,
-                        state: businessResponse.state_branch_address,
-                        postal_code: businessResponse.zip_branch_address,
-                    });
-                }
-            }).catch((error) => {
-                if(this.state.isMounted) {
-                    console.log(error);
-                }
-            })
-        })
-    }
-
-    componentWillUnmount() {
-        this.setState({
-            isMounted: false,
+        axios({
+            method: 'GET',
+            url: `/api/users/${this.props.bid}`,
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('token')}`
+                },
+        }).then((response) => {
+            console.log(response);
+            const businessResponse = response.data;
+            this.setState({
+                business_name: businessResponse.business_name,
+                api_key: businessResponse.business_api_key,
+                username: businessResponse.username,
+                first_name: businessResponse.name,
+                last_name: businessResponse.last_name,
+                email: businessResponse.email,
+                phone_number: businessResponse.phone_number,
+                street_address: businessResponse.street_branch_address,
+                suite_apt: businessResponse.apt_branch_address,
+                city: businessResponse.city_branch_address,
+                state: businessResponse.state_branch_address,
+                postal_code: businessResponse.zip_branch_address,
+            });
+            
+        }).catch((error) => {
+            console.log(error);
         })
     }
 
@@ -75,15 +64,17 @@ class EditBusiness extends Component {
         // console.log(this.state);
         // TODO axios() the call to backend
         // TODO redirect to edit business
-            axios({
-            method: 'POST',
-            url: '/api/users/',
+
+        console.log()
+        axios({
+            method: 'PATCH',
+            url: `/api/users/${this.props.bid}`,
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('token')}`
                 },
             data: {
                 username: this.state.username,
-                password: this.state.password,
+                // password: this.state.password,
                 business_name: this.state.business_name,
                 business_api_key: this.state.api_key,
                 name: this.state.first_name,
@@ -98,25 +89,31 @@ class EditBusiness extends Component {
                 business: true,
             }
             })
-              .then((response) => {
-                console.log(response);
-                let newBusiness = response.data;
-                // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
-                // this.toggleEdit(e);
+                .then((response) => {
+                    console.log(response);
+                    let newBusiness = response.data;
+                    this.toggleEdit();
+                    // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
                 })
-              .catch((error) => {
-                console.log(error);
-                console.log(error.email);
-                // this.setState({
-                //     error: true,
-                //     errorMessage: error,
-                // });
-              })
+                .catch((error) => {
+                    console.log(error);    
+                    console.log(error.response);  
+                    if(error.response.status === 400) { // 400 is a bad request
+                        if(error.response.data.email) {
+                            // alert(error.response.data.email);
+                            this.setState({
+                                emailError: true,
+                                emailErrorMessage: error.response.data.email,
+                            })
+                        }
+                    }
+                })
     }
 
     toggleEdit = (e) => {
         this.setState({
-            isEditing: !this.state.isEditing
+            isEditing: !this.state.isEditing,
+            emailError: false,
         })
     }
 
@@ -151,7 +148,7 @@ class EditBusiness extends Component {
                         <br/>
                         <label htmlFor="password">Password</label>
                         <br/>
-                        <input type="password" name="password" id="password"  value={this.state.password} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                        <input type="password" name="password" id="password"  value={this.state.password} className="inputs" required onChange={this.onChange} readOnly/>
                         <br/>
                     </div>
                 </div>
@@ -171,6 +168,7 @@ class EditBusiness extends Component {
                             <label htmlFor="email">Email</label>
                             <br/>
                             <input type="email" name="email" id="email" value={this.state.email} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                            {this.state.emailError && <div className="form-error-message">{this.state.emailErrorMessage}</div>} {/* If there is an email error display it*/}
                             <br/>
                             <label htmlFor="phone_number">Phone Number</label>
                             <br/>

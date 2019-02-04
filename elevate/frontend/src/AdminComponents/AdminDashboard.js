@@ -40,6 +40,7 @@ class AdminDashboard extends Component {
                     //     error: true,
                     // })
                     console.log(json.detail);
+                    this.props.logout();
                 } else {
                     console.log(json); //list of businesses
                     let newBusinesses = json.map((business) => { //format backend json to frontend

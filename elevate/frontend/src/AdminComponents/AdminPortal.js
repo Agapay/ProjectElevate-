@@ -31,7 +31,7 @@ class AdminPortal extends Component {
         //   this.
         // }
         if(localStorage.getItem('token')) {
-          fetch('http://localhost:8000/core/current_user/', {
+          fetch('/core/current_user/', {
                       headers: {
                       Authorization: `JWT ${localStorage.getItem('token')}`
                       }
@@ -55,13 +55,14 @@ class AdminPortal extends Component {
                         console.log(err);
                       });
         } else {
-          window.location.replace("http://127.0.0.1:8000/frontend/login");
+          window.location.replace("/frontend/login");
         }
     }
 
     logout() {
+      // alert("session has expired"); //replace with nice UI if we get the chance
       localStorage.clear(); //removes login token
-      window.location.replace("http://127.0.0.1:8000/frontend/login"); //redirects back to login
+      window.location.replace("/frontend/login"); //redirects back to login
     }
 
     render() {
@@ -88,7 +89,10 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/dashboard`,
             name: "Dashboard",
             selected: "Dashboard",
-            main: () => <AdminDashboard id={this.props.match.params.id}/>
+            main: () => <AdminDashboard 
+                          id={this.props.match.params.id} 
+                          logout={this.logout}
+                        />
           },
           {
             path: `/frontend/admin/${this.props.match.params.id}/add-business`,
@@ -98,6 +102,7 @@ class AdminPortal extends Component {
               <AddBusiness
                 NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
                 id={this.props.match.params.id}
+                logout={this.logout}
               />
           },
           {
@@ -107,13 +112,16 @@ class AdminPortal extends Component {
             main: () => 
               <NMISetupStep1 
                 NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`}
+                logout={this.logout}
               />
           },
           {
             path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`,
             name: "",
             selected: "Add Business",
-            main: () => <NMISetupStep2/>
+            main: () => <NMISetupStep2
+                          logout={this.logout}
+                        />
           },
           {
             path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}`,
@@ -124,6 +132,7 @@ class AdminPortal extends Component {
               <EditBusiness 
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
                 bid={this.props.match.params.bid}
+                logout={this.logout}
               />
           }
         ];
