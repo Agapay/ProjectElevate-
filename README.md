@@ -7,6 +7,20 @@ UCI Informatics 191A - AGAPAY project
 install [node](https://nodejs.org/en/)
 install [python 3](https://www.python.org/download/releases/3.0/)
 
+install [postgres](https://postgresapp.com/) follow steps 1-3
+
+### Setup Database
+In your terminal run
+```
+psql
+```
+Now that you are in the postgres command-line, run the following including the semi-colon
+```
+CREATE USER elevate WITH PASSWORD ‘123’;
+CREATE DATABASE elevate_db WITH OWNER elevate;
+GRANT ALL PRIVILEGES ON DATABASE elevate_db to elevate;
+```
+
 ### Setup Backend
 ```
 at root folder "./"
@@ -16,6 +30,7 @@ pip install django
 pip install djangorestframework
 pip install djangorestframework-jwt
 pip install django-cors-headers
+pip install pyscopg2
 ```
 
 Using pipenv
@@ -27,8 +42,20 @@ pipenv install django
 pipenv install djangorestframework
 pipenv install djangorestframework-jwt
 pipenv install django-cors-headers
-
+pipenv install psycopg2
 ```
+
+If you have not updated migrations run
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+run the following to create an admin
+```
+python manage.py createsuperuser	
+```
+
 
 ### Setup Frontend
 ```
@@ -37,7 +64,6 @@ run "npm install" from root directory "./"
 
 ### Run Backend Server
 ```
-virtualenv env
 source env/bin/activate  # On Windows use env\Scripts\activate
 python manage.py runserver
 ```
@@ -57,9 +83,11 @@ run "npm run dev" from root directory "./" (watches and compiles react files to 
 react files are located in: ./elevate/frontend/src
 css file is located in ./elevate/frontend/static/css
 
-login url: http://127.0.0.1:8000/frontend/admin-login
+login url: http://127.0.0.1:8000/frontend/login
+
 username: gg
 password: 123
+Username and password depends on the superuser you have created
 
 If you are changing reactjs files and the frontend is not updating
 1. make sure you are running "npm run dev"
