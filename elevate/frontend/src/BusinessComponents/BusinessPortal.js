@@ -46,7 +46,8 @@ class BusinessPortal extends Component {
                       // this.setState({ username: json.username });
                           // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
                           this.setState({ // for now until we connect with backend
-                            username: localStorage.getItem('username')
+                            username: localStorage.getItem('username'),
+                            isLoading: false,
                           })
                         })
                       .catch(err => {
