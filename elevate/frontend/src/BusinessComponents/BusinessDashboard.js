@@ -40,7 +40,7 @@ class BusinessDashboard extends Component {
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
                       <th className="">View</th>
-                      <th className='right_side'>Business Mode</th>
+                      <th className='right_side centered-middle'>Suspend</th>
                     </tr>
                     { this.state.businessEntries.map((businessEntry, index) => {
                         return (

@@ -22,8 +22,8 @@ class BusinessTableItem extends Component {
                 Edit
               </a>
           </td>
-          <td className='right_side'>
-            <span className="blue-link">Go</span>
+          <td className='right_side centered-middle'>
+            <span className="circle red">suspend</span>
         </td>
       </tr>
     );
