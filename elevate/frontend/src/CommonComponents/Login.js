@@ -78,18 +78,17 @@ class Login extends Component {
         <Navbar />
         <section className="login-page row justify-content-center align-items-center">
             <form className="login-container col-6" onSubmit={this.onSubmit}>
-                <h1>Elevate</h1>
-                <h2>Admin</h2>
+                <h1 className='elevateh1'>Elevate</h1>
                 <div className="row justify-content-center">
                     <div className="under-input-container">
                         <input type="text" placeholder="Username" onChange={(e) => {this.onChange(e, "username")}} value={this.state.username} required/>
                         <input type="password" placeholder="Password" onChange={(e) => {this.onChange(e, "password")}} value={this.state.password} required/>
-                        {  this.state.error ? <div>Credentials error</div> : null}
+                        {  this.state.error ? <div className = 'error'>Credentials Error</div> : null}
                         <label><input type="checkbox" checked={this.state.remeberMe} onClick={this.toggleCheckbox} /> Remember Me </label>
                         <a href="#">Forgot Password</a>
                     </div>
                 </div>
-                
+
                 <button className="purple" type="submit">Login</button>
             </form>
         </section>
@@ -100,10 +99,3 @@ class Login extends Component {
   }
 
 export default Login;
-
-
-
-
-
-
-

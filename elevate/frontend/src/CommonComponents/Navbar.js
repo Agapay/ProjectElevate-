@@ -7,9 +7,17 @@ class Navbar extends Component {
 
   render() {
     return (
-      <div>
-        Navbarrrrr
-      </div>
+      <header>
+        <div id='logo'>
+          <h1><span className='highlight'>AGA</span>PAY</h1>
+        </div>
+        <nav>
+          <ul>
+            <li className="current"><a href="/frontend/">Home</a></li>
+            <li><a href="/frontend/login">Login</a></li>
+          </ul>
+        </nav>
+    </header>
     )
   }
 }
