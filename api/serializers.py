@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User
+from core.models import User, Business, Customer, Subscription
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,3 +45,23 @@ class UserSerializer(serializers.ModelSerializer):
 
 
         read_only_fields = ['id']
+
+
+
+class BusinessSerializer(serializers.ModelSerializer):
+        class Meta:
+                model = Business
+                fields = []
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+        class Meta:
+                model = Customer
+                fields = []
+
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+        class Meta:
+                model = Subscription
+                fields = []
