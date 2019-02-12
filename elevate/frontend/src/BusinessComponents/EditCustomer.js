@@ -1,63 +1,97 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
+import axios from 'axios';
 
-const mockupData = {
-	business_name: "Amazon",
-	api_key: "$839432904i3290fjisV)(EV(#)@_)vdm",
-	username: "JeffB",
-	password: "049240243234",
-	first_name: "Jeff",
-	last_name: "Bezos",
-	email: "j@b.com",
-	phone_number: "9999999999",
-	street_address: "Address of Street",
-	suite_apt: "",
-	city: "City of The Place",
-	state: "CA",
-	postal_code: "99999",
-}
-
-class EditCustomer extends Component {
+class EditBusiness extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            business_name: "",
             api_key: "",
             username: "",
-            password: "",
+            password: "********",
+
             first_name: "",
             last_name: "",
             email: "",
             phone_number: "",
+
             street_address: "",
             suite_apt: "",
             city: "",
             state: "",
             postal_code: "",
+
             isEditing: false,
+        
+            //Error States
+            emailError: false,
+            emailErrorMessage: "",
         }
+    }
+
+    addCustomer = () => {
+        axios({
+            method: 'PATCH',
+            url: `/api/users/${this.props.bid}`,
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('token')}`
+                },
+            data: {
+                username: this.state.username,
+                // password: this.state.password,
+                // business_name: this.state.business_name,
+                business_api_key: this.state.api_key,
+                name: this.state.first_name,
+                last_name: this.state.last_name,
+                email: this.state.email,
+                phone_number: this.state.phone_number,
+                street_branch_address: this.state.street_address,
+                city_branch_address: this.state.city,
+                state_branch_address: this.state.state,
+                apt_branch_address: this.state.suite_apt,
+                zip_branch_address: this.state.postal_code,
+                customer: true,
+            }
+            })
+                .then((response) => {
+                    console.log(response);
+                    let newBusiness = response.data;
+                    this.toggleEdit();
+                    // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
+                })
+                .catch((error) => {
+                    console.log(error);    
+                    console.log(error.response);  
+                    if(error.response.status === 400) { // 400 is a bad request
+                        if(error.response.data.email) {
+                            // alert(error.response.data.email);
+                            this.setState({
+                                emailError: true,
+                                emailErrorMessage: error.response.data.email,
+                            })
+                        }
+                    }
+                })
     }
 
     componentDidMount() {
         document.title = "Elevate - Edit Business";
         //actual axios function to load data of user
-        this.setState({
-            ...mockupData
-        });
+        
     }
 
     submitForm = (e) => { // function to call backend and add the business
-        // alert(e);
         e.preventDefault();
-        console.log(this.state);
-        // TODO axios() the call to backend
-        // if successfully submited form
-            this.toggleEdit(e);
+        // console.log(this.state);
+        // this.addCustomer();
+        console.log()
+        
     }
 
     toggleEdit = (e) => {
         this.setState({
-            isEditing: !this.state.isEditing
+            isEditing: !this.state.isEditing,
+            emailError: false,
         })
     }
 
@@ -68,35 +102,32 @@ class EditCustomer extends Component {
     }
 
     render() {
+        console.log(this.state);
       return (
-        <div className="EditCustomer">
+        <div className="EditBusiness">
           <h1>Edit Customer</h1>
           <form onSubmit={this.submitForm}>
                 <div className="smallboxed">
-                    <h4>Business Information</h4>
+                    <h4>Customer Account</h4>
                     <div className="subbox1">
-                        <label htmlFor="business_name">Business Name</label>
-                        <br/>
-                        <input type="text" name="business_name" id="business_name" value={this.state.business_name} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                        <br/>
-                        <label htmlFor="api_key">Business API Key</label>
-                        <br/>
-                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                        <br/>
-                    </div>
-                    <div className="subbox2">
                         <label htmlFor="username">Username</label>
                         <br/>
                         <input type="text" name="username" id="username" value={this.state.username} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
                         <br/>
                         <label htmlFor="password">Password</label>
                         <br/>
-                        <input type="password" name="password" id="password"  value={this.state.password} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                        <input type="password" name="password" id="password"  value={this.state.password} className="inputs" required onChange={this.onChange} readOnly/>
+                        <br/>
+                    </div>
+                    <div className="subbox2">
+                        <label htmlFor="api_key">Customer API Key</label>
+                        <br/>
+                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
                         <br/>
                     </div>
                 </div>
                 <div className="smallboxed">
-                        <h4>Business Owner Information</h4>
+                        <h4>Customer Information</h4>
                         <div className="subbox1">
                             <label htmlFor="first_name">First Name</label>
                             <br/>
@@ -111,6 +142,7 @@ class EditCustomer extends Component {
                             <label htmlFor="email">Email</label>
                             <br/>
                             <input type="email" name="email" id="email" value={this.state.email} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                            {this.state.emailError && <div className="form-error-message">{this.state.emailErrorMessage}</div>} {/* If there is an email error display it*/}
                             <br/>
                             <label htmlFor="phone_number">Phone Number</label>
                             <br/>
@@ -175,4 +207,4 @@ class EditCustomer extends Component {
   }
 
 
-export default EditCustomer;
+export default EditBusiness;
