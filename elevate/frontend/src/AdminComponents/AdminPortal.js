@@ -39,8 +39,9 @@ class AdminPortal extends Component {
                       .then(res => res.json())
                       .then(json => {
                           console.log(json);
-                          if(json.detail) {
-                            this.logout(); //if the signiture expires -> logout
+                          console.log(this.props.match.params.id);
+                          if(json.detail || !json.admin || json.id != this.props.match.params.id) {
+                            this.logout(); //if the signiture expires, is not an admin, or id does not match -> logout
                           }
                           // localStorage.setItem('username', json.username)
                       // this.setState({ username: json.username });

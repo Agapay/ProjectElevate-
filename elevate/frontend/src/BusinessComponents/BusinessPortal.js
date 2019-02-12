@@ -39,8 +39,8 @@ class BusinessPortal extends Component {
                       .then(res => res.json())
                       .then(json => {
                           console.log(json);
-                          if(json.detail) {
-                            this.logout(); //if the signiture expires -> logout
+                          if(json.detail || !json.business || json.id != this.props.match.params.id) {
+                            this.logout(); //if the signiture expires, is not an admin, or id does not match -> logout
                           }
                           // localStorage.setItem('username', json.username)
                       // this.setState({ username: json.username });
