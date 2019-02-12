@@ -31,7 +31,7 @@ class BusinessPortal extends Component {
         //   this.
         // }
         if(localStorage.getItem('token')) {
-          fetch('http://localhost:8000/core/current_user/', {
+          fetch('/core/current_user/', {
                       headers: {
                       Authorization: `JWT ${localStorage.getItem('token')}`
                       }
@@ -44,7 +44,7 @@ class BusinessPortal extends Component {
                           }
                           // localStorage.setItem('username', json.username)
                       // this.setState({ username: json.username });
-                          // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+                          // window.location.replace("/frontend/admin/0/dashboard");
                           this.setState({ // for now until we connect with backend
                             username: localStorage.getItem('username'),
                             isLoading: false,
@@ -55,13 +55,13 @@ class BusinessPortal extends Component {
                         console.log(err);
                       });
         } else {
-          window.location.replace("http://127.0.0.1:8000/frontend/login");
+          window.location.replace("/frontend/login");
         }
     }
 
     logout() {
       localStorage.clear(); //removes login token
-      window.location.replace("http://127.0.0.1:8000/frontend/login"); //redirects back to login
+      window.location.replace("/frontend/login"); //redirects back to login
     }
 
     render() {
