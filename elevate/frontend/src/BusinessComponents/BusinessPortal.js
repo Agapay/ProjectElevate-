@@ -6,8 +6,13 @@ import BusinessDashboard from './BusinessDashboard';
 import BusinessSubscriptions from './BusinessSubscriptions';
 import AddCustomer from './AddCustomer';
 import AddSubscription from './AddSubscription';
+import AddBenefit from './AddBenefit';
 import EditCustomer from './EditCustomer';
-import EditSubscription from './EditSubscription'
+import EditSubscription from './EditSubscription';
+import EditBenefit from './EditBenefit';
+import NMISetupStep1 from './NMISetupStep1';
+import NMISetupStep2 from './NMISetupStep2';
+import BusinessBenefits from './BusinessBenefits.js';
 
 class BusinessPortal extends Component {
     constructor(props) {
@@ -97,6 +102,12 @@ class BusinessPortal extends Component {
             main: () => <BusinessSubscriptions id={this.props.match.params.id}/>
           },
           {
+            path: `/frontend/business/${this.props.match.params.id}/benefits`,
+            name: "Benefits",
+            selected: "Benefits",
+            main: () => <BusinessBenefits id={this.props.match.params.id}/>
+          },
+          {
             path: `/frontend/business/${this.props.match.params.id}/add-customer`,
             name: "Add Customer",
             selected: "Add Customer",
@@ -115,13 +126,22 @@ class BusinessPortal extends Component {
               />
           },
           {
+            path: `/frontend/business/${this.props.match.params.id}/add-benefit`,
+            name: "Add Benefit",
+            selected: "Add Benefit",
+            main: () =>
+              <AddBenefit
+                NMILink={`/frontend/business/${this.props.match.params.id}/NMIsetup-1`}
+              />
+          },
+          {
             path: `/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}`,
             exact: true,
             name: "",
             selected: "Add Customer",
             main: () => 
               <EditCustomer 
-                NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
+                NMILink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`}
               />
           },
           {
@@ -131,9 +151,19 @@ class BusinessPortal extends Component {
             selected: "Add Subscription",
             main: () => 
               <EditSubscription 
+                NMILink={`/frontend/business/${this.props.match.params.id}/subscription/${this.props.match.params.bid}/NMIsetup-1`}
+              />
+          },
+          {
+            path: `/frontend/business/${this.props.match.params.id}/benefit/${this.props.match.params.beid}`,
+            exact: true,
+            name: "",
+            selected: "Add Benefit",
+            main: () => 
+              <EditBenefit 
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
               />
-          }
+          },
           // {
           //   path: `/frontend/admin/${this.props.match.params.id}/add-business`,
           //   name: "Add Business",
@@ -143,21 +173,21 @@ class BusinessPortal extends Component {
           //       NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
           //     />
           // },
-          // {
-          //   path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`,
-          //   name: "",
-          //   selected: "Add Business",
-          //   main: () => 
-          //     <NMISetupStep1 
-          //       NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`}
-          //     />
-          // },
-          // {
-          //   path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`,
-          //   name: "",
-          //   selected: "Add Business",
-          //   main: () => <NMISetupStep2/>
-          // },
+          {
+            path: `/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`,
+            name: "",
+            selected: "Add Customer",
+            main: () => 
+              <NMISetupStep1 
+                NMIStep2Link={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-2`}
+              />
+          },
+          {
+            path: `/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-2`,
+            name: "",
+            selected: "Add Customer",
+            main: () => <NMISetupStep2/>
+          },
           // {
           //   path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}`,
           //   exact: true,

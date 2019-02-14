@@ -4,6 +4,7 @@ import Test from "./AdminComponents/Test";
 import Login from "./CommonComponents/Login";
 import AdminPortal from "./AdminComponents/AdminPortal";
 import BusinessPortal from "./BusinessComponents/BusinessPortal";
+import CustomerPortal from "./CustomerComponents/CustomerPortal";
 import ReactDOM from "react-dom";
 import DataProvider from "./AdminComponents/DataProvider";
 import Table from "./AdminComponents/Table";
@@ -38,10 +39,19 @@ class App extends Component {
         {/* Business Routes */}
         <Route path="/business/:id/dashboard" component={BusinessPortal}/>
         <Route path="/business/:id/subscriptions" component={BusinessPortal}/>
+        <Route path="/business/:id/benefits" component={BusinessPortal}/>
         <Route path="/business/:id/add-customer" component={BusinessPortal}/>
         <Route path="/business/:id/add-subscription" component={BusinessPortal}/>
+        <Route path="/business/:id/add-benefit" component={BusinessPortal}/>
         <Route exact path="/business/:id/customer/:cid" component={BusinessPortal}/>
+        <Route path="/business/:id/customer/:cid/NMIsetup-1" component={BusinessPortal}/>
+        <Route path="/business/:id/customer/:cid/NMIsetup-2" component={BusinessPortal}/>
         <Route exact path="/business/:id/subscription/:sid" component={BusinessPortal}/>
+        <Route exact path="/business/:id/benefit/:beid" component={BusinessPortal}/>
+        
+
+        {/* Customer Routes */}
+        <Route path="/customer/:id/dashboard" component={CustomerPortal}/>
       </div>
     );
   }
