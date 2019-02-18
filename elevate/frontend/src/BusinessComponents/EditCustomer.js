@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import axios from 'axios';
 
-class EditBusiness extends Component {
+class EditCustomer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -104,7 +104,7 @@ class EditBusiness extends Component {
     render() {
         console.log(this.state);
       return (
-        <div className="EditBusiness">
+        <div className="EditCustomer">
           <h1>Edit Customer</h1>
           <form onSubmit={this.submitForm}>
                 <div className="smallboxed">
@@ -207,4 +207,4 @@ class EditBusiness extends Component {
   }
 
 
-export default EditBusiness;
+export default EditCustomer;

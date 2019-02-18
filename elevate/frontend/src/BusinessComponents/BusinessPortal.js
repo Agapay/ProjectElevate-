@@ -1,4 +1,3 @@
-//test
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'; //delete after
 import Portal from '../CommonComponents/Portal.js';
@@ -114,6 +113,7 @@ class BusinessPortal extends Component {
             main: () =>
               <AddCustomer
                 NMILink={`/frontend/business/${this.props.match.params.id}/NMIsetup-1`}
+                id={this.props.match.params.id}
               />
           },
           {
@@ -122,6 +122,7 @@ class BusinessPortal extends Component {
             selected: "Add Subscription",
             main: () =>
               <AddSubscription
+                id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/NMIsetup-1`}
               />
           },
@@ -131,6 +132,7 @@ class BusinessPortal extends Component {
             selected: "Add Benefit",
             main: () =>
               <AddBenefit
+                id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/NMIsetup-1`}
               />
           },
@@ -141,6 +143,7 @@ class BusinessPortal extends Component {
             selected: "Add Customer",
             main: () => 
               <EditCustomer 
+                id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`}
               />
           },
@@ -151,6 +154,7 @@ class BusinessPortal extends Component {
             selected: "Add Subscription",
             main: () => 
               <EditSubscription 
+                id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/subscription/${this.props.match.params.bid}/NMIsetup-1`}
               />
           },
@@ -161,6 +165,7 @@ class BusinessPortal extends Component {
             selected: "Add Benefit",
             main: () => 
               <EditBenefit 
+                id={this.props.match.params.id}
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
               />
           },
@@ -212,3 +217,4 @@ class BusinessPortal extends Component {
   }
 
 export default BusinessPortal;
+
