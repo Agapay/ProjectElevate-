@@ -223,6 +223,9 @@ class Customer(models.Model):
     state_home_address      = models.CharField(max_length=100, blank=True, null=True)
     country_home_address    = models.CharField(max_length=100, blank=True, null=True)
     zip_home_address        = models.CharField(max_length=15, blank=True, null=True)
+    credit_card_number      = models.IntegerField(blank=False)  #
+    credit_card_exp_date    models.DateTimeField(blank=False)
+
 
     def __str__(self):
         return self.customer_id
@@ -234,10 +237,6 @@ class Business(models.Model):
     email               = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
     username            = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
     active              = models.BooleanField(default=False)  # can login
-    admin               = models.BooleanField(default=False)  # superuser
-    staff               = models.BooleanField(default=False)  # staff
-    customer            = models.BooleanField(default=False)  # customer
-    business            = models.BooleanField(default=False)  # core
     business_name       = models.CharField(max_length=255, blank=True, null=True)
     name                = models.CharField(max_length=255, blank=True, null=True)
     last_name           = models.CharField(max_length=255, blank=True, null=True)
