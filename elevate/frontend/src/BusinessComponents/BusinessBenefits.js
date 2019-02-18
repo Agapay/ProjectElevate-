@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BusinessTableItem from './BusinessTableItem';
+import BusinessBenefitTableItem from './BusinessBenefitTableItem';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import { withRouter } from "react-router";
 
@@ -14,7 +14,7 @@ let MockupData = [
     {name: "1000004", status: "BAD", id:6},
 ]
 
-class BusinessDashboard extends Component {
+class BusinessBenefits extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -33,23 +33,23 @@ class BusinessDashboard extends Component {
     render() {
       return (
         <div className="dashboard-container">
-          <h1>Customers</h1>
+          <h1>Benefits</h1>
             <table className="col-12" >
               <tbody>
                     <tr>
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
                       <th className="">View</th>
-                      <th className='right_side centered-middle'>Suspend</th>
+                      <th className='right_side'>Business Mode</th>
                     </tr>
                     { this.state.businessEntries.map((businessEntry, index) => {
                         return (
-                          <BusinessTableItem 
+                          <BusinessBenefitTableItem 
                             name={businessEntry.name}
                             status={businessEntry.status}
                             key={"businessEntry"+index}
                             id={this.props.id}
-                            cid={businessEntry.id} //customer entry
+                            beid={businessEntry.id} //benefit entry
                             // link to edit business page
                             // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}
                           />
@@ -63,4 +63,4 @@ class BusinessDashboard extends Component {
     }
   }
 
-export default withRouter(BusinessDashboard);
+export default withRouter(BusinessBenefits);

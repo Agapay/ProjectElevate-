@@ -17,9 +17,16 @@ urlpatterns = [
     # Business Routes
     path('business/<int:id>/dashboard', views.index),
     path('business/<int:id>/subscriptions', views.index),
+    path('business/<int:id>/benefits', views.index),
     path('business/<int:id>/add-customer', views.index),
     path('business/<int:id>/add-subscription', views.index),
+    path('business/<int:id>/add-benefit', views.index),
     path('business/<int:id>/customer/<int:cid>', views.index),
     path('business/<int:id>/subscription/<int:sid>', views.index),
+    path('business/<int:id>/benefit/<int:beid>', views.index),
+    path('business/<int:id>/customer/<int:cid>/NMIsetup-1', views.index),
+    path('business/<int:id>/customer/<int:cid>/NMIsetup-2', views.index),
 
+    # Customer Routes
+    path('customer/<int:id>/dashboard', views.index),
 ]

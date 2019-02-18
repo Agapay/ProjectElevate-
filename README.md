@@ -31,7 +31,7 @@ pip install django
 pip install djangorestframework
 pip install djangorestframework-jwt
 pip install django-cors-headers
-pip install pyscopg2
+pip install psycopg2
 ```
 
 Using pipenv

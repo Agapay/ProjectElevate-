@@ -2,14 +2,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import Portal from "../CommonComponents/Portal.js";
-import AdminDashboard from "./AdminDashboard";
-import AddBusiness from "./AddBusiness";
-import EditBusiness from "./EditBusiness";
-import NMISetupStep1 from "./NMISetupStep1";
-import NMISetupStep2 from "./NMISetupStep2";
+import CustomerDashboard from "./CustomerDashboard";
 
-
-class AdminPortal extends Component {
+class CustomerPortal extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -40,12 +35,13 @@ class AdminPortal extends Component {
                       .then(json => {
                           console.log(json);
                           console.log(this.props.match.params.id);
-                          if(json.detail || !json.admin || json.id != this.props.match.params.id) {
-                            this.logout(); //if the signiture expires, is not an admin, or id does not match -> logout
-                          }
-                          // localStorage.setItem('username', json.username)
-                      // this.setState({ username: json.username });
-                          // window.location.replace("http://127.0.0.1:8000/frontend/admin/0/dashboard");
+
+                          // IMPORTANT TO PUT BACK AFTER CONNECTED
+                          // if(json.detail || !json.customer || json.id != this.props.match.params.id) {
+                          //   this.logout(); //if the signiture expires, is not a customer, or id does not match -> logout
+                          // }
+
+                    
                           this.setState({ // for now until we connect with backend
                             username: localStorage.getItem('username'),
                             isLoading: false,
@@ -77,66 +73,17 @@ class AdminPortal extends Component {
           main: the main component to render to the right of the sidebar
       */
      let routes = [];
-      // if (true) {
         routes = [ //routes will also become props
-          // {
-          //   path: `/frontend/admin/${this.props.match.params.id}`,
-          //   name: "",
-          //   selected: "Dashboard",
-          //   exact: true,
-          //   main: () => <AdminDashboard id={this.props.match.params.id}/>
-          // },
           {
-            path: `/frontend/admin/${this.props.match.params.id}/dashboard`,
+            path: `/frontend/customer/${this.props.match.params.id}/dashboard`,
             name: "Dashboard",
             selected: "Dashboard",
-            main: () => <AdminDashboard 
+            main: () => <CustomerDashboard 
                           id={this.props.match.params.id} 
                           logout={this.logout}
                         />
-          },
-          {
-            path: `/frontend/admin/${this.props.match.params.id}/add-business`,
-            name: "Add Business",
-            selected: "Add Business",
-            main: () =>
-              <AddBusiness
-                NMILink={`/frontend/admin/${this.props.match.params.id}/NMIsetup-1`}
-                id={this.props.match.params.id}
-                logout={this.logout}
-              />
-          },
-          {
-            path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`,
-            name: "",
-            selected: "Add Business",
-            main: () => 
-              <NMISetupStep1 
-                NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`}
-                logout={this.logout}
-              />
-          },
-          {
-            path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`,
-            name: "",
-            selected: "Add Business",
-            main: () => <NMISetupStep2
-                          logout={this.logout}
-                        />
-          },
-          {
-            path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}`,
-            exact: true,
-            name: "",
-            selected: "Add Business",
-            main: () => 
-              <EditBusiness 
-                NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
-                bid={this.props.match.params.bid}
-                logout={this.logout}
-              />
           }
-        ];
+        ]
       // }
       return (
           <Portal 
@@ -149,4 +96,4 @@ class AdminPortal extends Component {
     }
   }
 
-export default AdminPortal;
+export default CustomerPortal;
