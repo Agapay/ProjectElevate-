@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import axios from 'axios';
+import ListSubscriptions from './ListSubscriptions'
+
+const mockupSubscriptions = [ //id is benefit id
+  { name: "Stadard Package", selected: false, id:0 },
+  { name: "Premium Package", selected: false, id:1 },
+  { name: "Premium+ Package", selected: false, id:2 },
+]
 
 class AddCustomer extends Component {
     constructor(props) {
@@ -23,12 +30,16 @@ class AddCustomer extends Component {
 
             emailError: false,
             emailErrorMessage: "",
+
+            subscriptions: [],
         }
     }
 
     componentDidMount() {
         document.title = "Elevate - Add Customer";
-        
+        this.setState({
+          subscriptions: mockupSubscriptions,
+        })
     }
 
     addCustomer = () => {
@@ -79,6 +90,14 @@ class AddCustomer extends Component {
         e.preventDefault();
         console.log(this.state);
         //this.addCustomer();
+    }
+
+    updateSelected = (e, index) => {
+      const subscriptions = this.state.subscriptions;
+      subscriptions[index].selected = !subscriptions[index].selected;
+      this.setState({
+          subscriptions,
+      })
     }
 
     onChange = (e) => {
@@ -167,6 +186,9 @@ class AddCustomer extends Component {
                       </div>
                     <br/>
                     {this.state.error ? <div>{this.state.errorMessage}</div> : null}
+                    <h4>Subscriptions</h4>
+                    <ListSubscriptions subscriptions={this.state.subscriptions} updateSelected={this.updateSelected} editPage={false} />
+                    <br/>
                     <button className="green_button">Save</button>
                     {/* <Link id="setup" to={this.props.NMILink}>Setup NMI</Link> */}
                     <br/>

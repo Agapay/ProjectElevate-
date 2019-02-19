@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import axios from 'axios';
 
+import ListSubscriptions from './ListSubscriptions'
+
+const mockupSubscriptions = [ //id is benefit id
+  { name: "Stadard Package", selected: false, id:0 },
+  { name: "Premium Package", selected: false, id:1 },
+  { name: "Premium+ Package", selected: false, id:2 },
+]
+
 class EditCustomer extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +34,7 @@ class EditCustomer extends Component {
             //Error States
             emailError: false,
             emailErrorMessage: "",
+            subscriptions: [],
         }
     }
 
@@ -77,7 +86,9 @@ class EditCustomer extends Component {
     componentDidMount() {
         document.title = "Elevate - Edit Customer";
         //actual axios function to load data of user
-        
+        this.setState({
+            subscriptions: mockupSubscriptions
+        })
     }
 
     submitForm = (e) => { // function to call backend and add the business
@@ -93,6 +104,16 @@ class EditCustomer extends Component {
             isEditing: !this.state.isEditing,
             emailError: false,
         })
+    }
+
+    updateSelected = (e, index) => {
+        if (this.state.isEditing) {
+            const subscriptions = this.state.subscriptions;
+            subscriptions[index].selected = !subscriptions[index].selected;
+            this.setState({
+                subscriptions,
+            })
+        }
     }
 
     onChange = (e) => {
@@ -180,6 +201,8 @@ class EditCustomer extends Component {
                               <br/>
                           </div>
                       </div>
+                      <h4>Subscriptions</h4>
+                    <ListSubscriptions subscriptions={this.state.subscriptions} updateSelected={this.updateSelected} editPage={true} isEditing={this.state.isEditing}/>
                     <br/>
                     {this.state.isEditing ?
                         <span>
