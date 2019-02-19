@@ -16,6 +16,8 @@ class UsersAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         instance = serializer.save()
+        if instance.business:
+            print("hello")
         instance.set_password(instance.password)
         instance.save()
 

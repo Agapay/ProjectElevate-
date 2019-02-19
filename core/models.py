@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_business(self, email, username, password, phone_number, business_name=None, business_api_key=None,
+    def create_business(self, email, username, password, phone_number, business_name=None, api_key=None,
                         expiration_date=None, street_branch_address=None, apt_branch_address=None,
                         city_branch_address=None, state_branch_address=None, country_branch_address=None,
                         zip_branch_address=None, street_hq_address=None, apt_hq_address=None, city_hq_address=None,
@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
 
         # details about business
         user_obj.business_name = business_name
-        user_obj.business_api_key = business_api_key
+        user_obj.api_key = api_key
         user_obj.expiration_date = expiration_date
 
         # active
@@ -54,7 +54,7 @@ class UserManager(BaseUserManager):
         user_obj.country_hq_address = country_hq_address
         user_obj.zip_hq_address = zip_hq_address
 
-    def create_customer(self, email, username, password, phone_number, customer_name=None, customer_last_name=None,
+    def create_customer(self, email, username, password, phone_number, customer_name=None, customer_last_name=None,api_key=None,
                         street_home_address=None, apt_home_address=None, city_home_address=None, state_home_address=None,
                         country_home_address=None, zip_home_address=None):
 
@@ -68,6 +68,9 @@ class UserManager(BaseUserManager):
 
         # active
         user_obj.active = True
+
+        # api key
+
 
         # home address
         user_obj.street_home_address = street_home_address
@@ -111,7 +114,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
-    business_api_key = models.CharField(max_length=1000, blank=True, null=True)
+    api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
 
     # Branch Address
@@ -182,27 +185,86 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Subscription(models.Model):
-    username    = models.CharField(max_length=30, blank=False) # business username
-    title       = models.CharField(max_length=30, blank=False)
-    description = models.CharField(max_length=255, blank=False)
+    subscription_id = models.AutoField(primary_key=True)
+    business_id     = models.IntegerField(blank=False)
+    title           = models.CharField(max_length=30, blank=False)
+    description     = models.CharField(max_length=255, blank=False)
+    cost            = models.IntegerField(blank=False)
+    start_date      = models.DateTimeField(blank=True)
+    end_date        = models.DateTimeField(blank=True)
+
 
     def __str__(self):
         return self.title
 
+
+
+
+class Benefit:
+    pass
+
+
+
 class Customer(models.Model):
-    username      = models.CharField(max_length=30, blank=False)
-    subscriptions = models.ManyToManyField(Subscription)
+
+    customer_id             = models.IntegerField(blank=False)
+    email                   = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
+    username                = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    active                  = models.BooleanField(default=False)  # can login
+    subscriptions           = models.ManyToManyField(Subscription)
+    name                    = models.CharField(max_length=255, blank=True, null=True)
+    last_name               = models.CharField(max_length=255, blank=True, null=True)
+    phone_number            = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    api_key                 = models.CharField(max_length=1000, blank=True, null=True)
+    expiration_date         = models.DateTimeField(blank=True, null=True)
+    street_home_address     = models.CharField(max_length=100, blank=True, null=True)
+    apt_home_address        = models.CharField(max_length=100, blank=True, null=True)
+    city_home_address       = models.CharField(max_length=100, blank=True, null=True)
+    state_home_address      = models.CharField(max_length=100, blank=True, null=True)
+    country_home_address    = models.CharField(max_length=100, blank=True, null=True)
+    zip_home_address        = models.CharField(max_length=15, blank=True, null=True)
+    credit_card_number      = models.IntegerField(blank=False)  #
+    credit_card_exp_date    models.DateTimeField(blank=False)
+
 
     def __str__(self):
-        return self.username
+        return self.customer_id
 
 
 class Business(models.Model):
-    username  = models.CharField(max_length=30, blank=False)
-    customers = models.ManyToManyField(Customer)
+    business_id         = models.IntegerField(blank=False)
+    customers           = models.ManyToManyField(Customer)
+    email               = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
+    username            = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    active              = models.BooleanField(default=False)  # can login
+    business_name       = models.CharField(max_length=255, blank=True, null=True)
+    name                = models.CharField(max_length=255, blank=True, null=True)
+    last_name           = models.CharField(max_length=255, blank=True, null=True)
+    phone_number        = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    api_key             = models.CharField(max_length=1000, blank=True, null=True)
+    expiration_date     = models.DateTimeField(blank=True, null=True)
+
+    # HQ Address
+    street_hq_address       = models.CharField(max_length=100, blank=True, null=True)
+    apt_hq_address          = models.CharField(max_length=100, blank=True, null=True)
+    city_hq_address         = models.CharField(max_length=100, blank=True, null=True)
+    state_hq_address        = models.CharField(max_length=100, blank=True, null=True)
+    country_hq_address      = models.CharField(max_length=100, blank=True, null=True)
+    zip_hq_address          = models.CharField(max_length=15, blank=True, null=True)
+
+    # Home Address
+    street_home_address     = models.CharField(max_length=100, blank=True, null=True)
+    apt_home_address        = models.CharField(max_length=100, blank=True, null=True)
+    city_home_address       = models.CharField(max_length=100, blank=True, null=True)
+    state_home_address      = models.CharField(max_length=100, blank=True, null=True)
+    country_home_address    = models.CharField(max_length=100, blank=True, null=True)
+    zip_home_address        = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
-        return self.username
+        return self.business_id
+
+
+
 
 
 
