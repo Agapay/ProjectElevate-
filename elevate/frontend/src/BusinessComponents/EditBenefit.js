@@ -12,7 +12,7 @@ class EditBenefit extends Component {
     }
 
     componentDidMount() {
-        document.title = "Elevate - Add Business";
+        document.title = "Elevate - Edit Benefit";
     }
 
     editBenefit() {

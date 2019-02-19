@@ -11,7 +11,7 @@ class AddBenefit extends Component {
     }
 
     componentDidMount() {
-        document.title = "Elevate - Add Business";
+        document.title = "Elevate - Add Benefit";
     }
 
     addBenefit() {

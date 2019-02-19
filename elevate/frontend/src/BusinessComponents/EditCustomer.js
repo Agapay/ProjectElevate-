@@ -75,7 +75,7 @@ class EditCustomer extends Component {
     }
 
     componentDidMount() {
-        document.title = "Elevate - Edit Business";
+        document.title = "Elevate - Edit Customer";
         //actual axios function to load data of user
         
     }

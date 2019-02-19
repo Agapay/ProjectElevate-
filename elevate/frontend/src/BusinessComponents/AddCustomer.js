@@ -27,7 +27,7 @@ class AddCustomer extends Component {
     }
 
     componentDidMount() {
-        document.title = "Elevate - Add Business";
+        document.title = "Elevate - Add Customer";
         
     }
 
@@ -51,7 +51,8 @@ class AddCustomer extends Component {
             state_branch_address: this.state.state,
             apt_branch_address: this.state.suite_apt,
             zip_branch_address: this.state.postal_code,
-            business: true,
+            customer: true,
+            business_id: this.props.id, //Double Check If user id === businessid
         }
         })
         .then((response) => {
