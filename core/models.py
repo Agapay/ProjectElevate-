@@ -263,3 +263,15 @@ class Business(models.Model):
     zip_hq_address = models.CharField(max_length=15, blank=True, null=True)
     def __str__(self):
         return self.business_id
+
+
+class History_Redeemables(models.Model):
+    history_redeemables_id  = models.AutoField(primary_key= True)
+    benefit_id              = models.IntegerField(blank=False)
+    subscription_id         = models.IntegerField(blank=False)
+    customer_id             = models.IntegerField(blank=False)
+    set_expiration          = models.DateTimeField(blank=True, null=True)
+    method_redeemed         = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.historgy_redeemables_id
