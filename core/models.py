@@ -181,16 +181,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
+
+
 class Business(models.Model):
     id                  = models.AutoField(primary_key=True)
-    email               = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
-    username            = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    email               = models.EmailField(max_length=255, unique=True, blank=False, default="example@email.com")  # REQUIRED
+    username            = models.CharField(max_length=30, blank=False, unique=True, default="username")  # REQUIRED
     phone_number        = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
     business_name       = models.CharField(max_length=255, blank=True, null=True)
     api_key             = models.CharField(max_length=1000, blank=True, null=True)
 
-    nmi_login           = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
-    nmi_password        = models.CharField(max_length=30, blank=False, unique=True)
+    nmi_login           = models.CharField(max_length=30, blank=False, unique=True, default="nmi")  # REQUIRED
+    nmi_password        = models.CharField(max_length=30, blank=False, unique=True, default="nmi")
     expiration_date     = models.DateTimeField(blank=True, null=True)
 
     # Branch Address
