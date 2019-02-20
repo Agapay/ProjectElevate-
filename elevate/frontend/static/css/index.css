@@ -314,8 +314,19 @@ td{
     background-color: #69E4A6;
 }
 
+.square{
+  padding: 3px 30px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 1px;
+  background-color: #69E4A6;
+  color: white;
+}
+
 .red {
     background-color: red;
+    /* color: white; */
 }
 
 .bold {
