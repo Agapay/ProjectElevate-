@@ -141,8 +141,8 @@ class BusinessPortal extends Component {
             exact: true,
             name: "",
             selected: "Add Customer",
-            main: () => 
-              <EditCustomer 
+            main: () =>
+              <EditCustomer
                 id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`}
               />
@@ -152,8 +152,8 @@ class BusinessPortal extends Component {
             exact: true,
             name: "",
             selected: "Add Subscription",
-            main: () => 
-              <EditSubscription 
+            main: () =>
+              <EditSubscription
                 id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/subscription/${this.props.match.params.bid}/NMIsetup-1`}
               />
@@ -163,8 +163,8 @@ class BusinessPortal extends Component {
             exact: true,
             name: "",
             selected: "Add Benefit",
-            main: () => 
-              <EditBenefit 
+            main: () =>
+              <EditBenefit
                 id={this.props.match.params.id}
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
               />
@@ -182,8 +182,8 @@ class BusinessPortal extends Component {
             path: `/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`,
             name: "",
             selected: "Add Customer",
-            main: () => 
-              <NMISetupStep1 
+            main: () =>
+              <NMISetupStep1
                 NMIStep2Link={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-2`}
               />
           },
@@ -198,17 +198,18 @@ class BusinessPortal extends Component {
           //   exact: true,
           //   name: "",
           //   selected: "Add Business",
-          //   main: () => 
-          //     <EditBusiness 
+          //   main: () =>
+          //     <EditBusiness
           //       NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
           //     />
           // }
         ];
       // }
       return (
-          <Portal 
-            routes={routes} 
-            username={this.state.username} 
+          <Portal
+            routes={routes}
+            username="Business"
+            //username={this.state.username}
             logout={this.logout}
             isLoading={this.state.isLoading}
           />
@@ -217,4 +218,3 @@ class BusinessPortal extends Component {
   }
 
 export default BusinessPortal;
-

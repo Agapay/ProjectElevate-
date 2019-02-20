@@ -36,7 +36,7 @@ class CustomerDashboard extends Component {
                     <th className='left_side'>Name</th>
                     <th className="">Status</th>
                     <th className="">View</th>
-                    <th className='right_side centered-middle'>Suspend</th>
+                    <th className='right_side centered-middle'>Quantity</th>
                   </tr>
                   { this.state.businessEntries.map((businessEntry, index) => {
                       return (

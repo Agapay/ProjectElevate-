@@ -23,7 +23,7 @@ class BusinessTableItem extends Component {
               </a>
           </td>
           <td className='right_side centered-middle'>
-            <span className="circle red">suspend</span>
+            <span className="square red">suspend</span>
         </td>
       </tr>
     );

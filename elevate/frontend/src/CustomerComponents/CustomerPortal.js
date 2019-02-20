@@ -41,7 +41,7 @@ class CustomerPortal extends Component {
                           //   this.logout(); //if the signiture expires, is not a customer, or id does not match -> logout
                           // }
 
-                    
+
                           this.setState({ // for now until we connect with backend
                             username: localStorage.getItem('username'),
                             isLoading: false,
@@ -78,17 +78,18 @@ class CustomerPortal extends Component {
             path: `/frontend/customer/${this.props.match.params.id}/dashboard`,
             name: "Dashboard",
             selected: "Dashboard",
-            main: () => <CustomerDashboard 
-                          id={this.props.match.params.id} 
+            main: () => <CustomerDashboard
+                          id={this.props.match.params.id}
                           logout={this.logout}
                         />
           }
         ]
       // }
       return (
-          <Portal 
-            routes={routes} 
-            username={this.state.username} 
+          <Portal
+            routes={routes}
+            //username={this.state.username}
+            username="Customer"
             logout={this.logout}
             isLoading={this.state.isLoading}
           />
