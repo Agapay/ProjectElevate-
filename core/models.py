@@ -56,15 +56,12 @@ class UserManager(BaseUserManager):
         user_obj.country_hq_address = country_hq_address
         user_obj.zip_hq_address = zip_hq_address
 
-
-
-    def create_customer(self, business_id, username, password, phone_number, email, first_name=None, last_name=None,
-                        api_key=None, active=True, street_home_address=None, apt_home_address=None,
-                        city_home_address=None, state_home_address=None, country_home_address=None,
-                        zip_home_address=None):
+    def create_customer(self, username, password, phone_number, email, business_id=None,
+                        first_name=None, last_name=None, api_key=None, active=True,
+                        street_home_address=None, apt_home_address=None, city_home_address=None,
+                        state_home_address=None, country_home_address=None, zip_home_address=None):
 
         user_obj = self.create_user(email, username, password, phone_number)
-
 
         # details about customer
         user_obj.customer = True
@@ -86,8 +83,6 @@ class UserManager(BaseUserManager):
         user_obj.country_home_address = country_home_address
         user_obj.zip_home_address = zip_home_address
 
-
-
     def deactivate_account(self):
         # TODO:
         pass
@@ -99,8 +94,6 @@ class UserManager(BaseUserManager):
         user_obj.admin = True
         user_obj.staff = True
         return user_obj
-
-
 
     def get_all_businesses(self):
         return User.objects.filter(business=True)
