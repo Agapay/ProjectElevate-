@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, Business, Customer, Subscription
+from core.models import User, Business, Customer, Subscription, SubscriptionPlan, ActiveRedeemables, HistoryRedeemables
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -65,3 +65,38 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         class Meta:
                 model = Subscription
                 fields = []
+
+
+class SubscriptionPlanSerializer(serializers.ModelSerializer):
+        class Meta:
+                model = SubscriptionPlan
+                fields = ["id",
+                          "business",
+                          "title",
+                          "description",
+                          "amount",
+                          "recurring",
+                          "monthly_recurring",
+                          "yearly_recurring",
+                          "benefits"]
+
+
+class ActiveRedeemablesSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = ActiveRedeemables
+            fields = ["id",
+                      "benefit",
+                      "subscription_plan",
+                      "customer",
+                      "expiration"]
+
+
+class HistoryRedeemablesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoryRedeemables
+        fields = ["id",
+                  "benefit",
+                  "subscription",
+                  "customer",
+                  "set_expiration",
+                  "method_redeemed"]
