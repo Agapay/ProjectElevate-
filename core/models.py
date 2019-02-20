@@ -203,26 +203,24 @@ class Subscription(models.Model):
 
 
 class Customer(models.Model):
+    customer_id = models.AutoField(primary_key=True)
+    business_id = models.ForeignKey('Business', on_delete=models.CASCADE)
+    username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    # password                = forms.CharField(widget=forms.PasswordInput())
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
+    api_key = models.CharField(max_length=1000, blank=True, null=True)
+    active = models.BooleanField(default=False)  # can login
+    street_home_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_home_address = models.CharField(max_length=100, blank=True, null=True)
+    city_home_address = models.CharField(max_length=100, blank=True, null=True)
+    state_home_address = models.CharField(max_length=100, blank=True, null=True)
+    country_home_address = models.CharField(max_length=100, blank=True, null=True)
+    zip_home_address = models.CharField(max_length=15, blank=True, null=True)
 
-    customer_id             = models.IntegerField(blank=False)
-    email                   = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
-    username                = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
-    active                  = models.BooleanField(default=False)  # can login
-    subscriptions           = models.ManyToManyField(Subscription)
-    name                    = models.CharField(max_length=255, blank=True, null=True)
-    last_name               = models.CharField(max_length=255, blank=True, null=True)
-    phone_number            = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
-    api_key                 = models.CharField(max_length=1000, blank=True, null=True)
-    expiration_date         = models.DateTimeField(blank=True, null=True)
-    street_home_address     = models.CharField(max_length=100, blank=True, null=True)
-    apt_home_address        = models.CharField(max_length=100, blank=True, null=True)
-    city_home_address       = models.CharField(max_length=100, blank=True, null=True)
-    state_home_address      = models.CharField(max_length=100, blank=True, null=True)
-    country_home_address    = models.CharField(max_length=100, blank=True, null=True)
-    zip_home_address        = models.CharField(max_length=15, blank=True, null=True)
-    credit_card_number      = models.IntegerField(blank=False)  #
-    credit_card_exp_date    =  models.DateTimeField(blank=False)
-
+    # subscriptions = models.ManyToManyField(Subscription)
 
     def __str__(self):
         return self.customer_id
@@ -256,6 +254,7 @@ class Business(models.Model):
     state_hq_address = models.CharField(max_length=100, blank=True, null=True)
     country_hq_address = models.CharField(max_length=100, blank=True, null=True)
     zip_hq_address = models.CharField(max_length=15, blank=True, null=True)
+
     def __str__(self):
         return self.business_id
 
