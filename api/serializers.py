@@ -110,27 +110,27 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
 
 class SubscriptionPlanSerializer(serializers.ModelSerializer):
-        class Meta:
-                model = SubscriptionPlan
-                fields = ["id",
-                          "business",
-                          "title",
-                          "description",
-                          "amount",
-                          "recurring",
-                          "monthly_recurring",
-                          "yearly_recurring",
-                          "benefits"]
+    class Meta:
+        model = SubscriptionPlan
+        fields = ["id",
+                  "business",
+                  "title",
+                  "description",
+                  "amount",
+                  "recurring",
+                  "monthly_recurring",
+                  "yearly_recurring",
+                  "benefits"]
 
 
 class ActiveRedeemablesSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = ActiveRedeemables
-            fields = ["id",
-                      "benefit",
-                      "subscription_plan",
-                      "customer",
-                      "expiration"]
+    class Meta:
+        model = ActiveRedeemables
+        fields = ["id",
+                  "benefit",
+                  "subscription_plan",
+                  "customer",
+                  "expiration"]
 
 
 class HistoryRedeemablesSerializer(serializers.ModelSerializer):
