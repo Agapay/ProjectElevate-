@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 
@@ -233,40 +235,31 @@ class Customer(models.Model):
 
 class Business(models.Model):
     business_id         = models.IntegerField(blank=False)
-    customers           = models.ManyToManyField(Customer)
     email               = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
     username            = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
-    active              = models.BooleanField(default=False)  # can login
-    business_name       = models.CharField(max_length=255, blank=True, null=True)
-    name                = models.CharField(max_length=255, blank=True, null=True)
-    last_name           = models.CharField(max_length=255, blank=True, null=True)
     phone_number        = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    business_name       = models.CharField(max_length=255, blank=True, null=True)
     api_key             = models.CharField(max_length=1000, blank=True, null=True)
+
+    nmi_login           = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    nmi_password        = models.CharField(max_length=30, blank=False, unique=True)
     expiration_date     = models.DateTimeField(blank=True, null=True)
 
+    # Branch Address
+    street_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    city_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    state_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    country_branch_address = models.CharField(max_length=100, blank=True, null=True)
+    zip_branch_address = models.CharField(max_length=15, blank=True, null=True)
+
+
     # HQ Address
-    street_hq_address       = models.CharField(max_length=100, blank=True, null=True)
-    apt_hq_address          = models.CharField(max_length=100, blank=True, null=True)
-    city_hq_address         = models.CharField(max_length=100, blank=True, null=True)
-    state_hq_address        = models.CharField(max_length=100, blank=True, null=True)
-    country_hq_address      = models.CharField(max_length=100, blank=True, null=True)
-    zip_hq_address          = models.CharField(max_length=15, blank=True, null=True)
-
-    # Home Address
-    street_home_address     = models.CharField(max_length=100, blank=True, null=True)
-    apt_home_address        = models.CharField(max_length=100, blank=True, null=True)
-    city_home_address       = models.CharField(max_length=100, blank=True, null=True)
-    state_home_address      = models.CharField(max_length=100, blank=True, null=True)
-    country_home_address    = models.CharField(max_length=100, blank=True, null=True)
-    zip_home_address        = models.CharField(max_length=15, blank=True, null=True)
-
+    street_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    city_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    state_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    country_hq_address = models.CharField(max_length=100, blank=True, null=True)
+    zip_hq_address = models.CharField(max_length=15, blank=True, null=True)
     def __str__(self):
         return self.business_id
-
-
-
-
-
-
-
-
