@@ -101,18 +101,18 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
 
-    email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
-    username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    email = models.EmailField(max_length=255, unique=True, blank=False, default="")  # REQUIRED
+    username = models.CharField(max_length=30, blank=False, unique=True, default="")  # REQUIRED
   #  password = models.CharField(max_length=30)
-    active = models.BooleanField(default=False)  # can login
-    admin = models.BooleanField(default=False)  # superuser
-    staff = models.BooleanField(default=False)  # staff
-    customer = models.BooleanField(default=False)  # customer
-    business = models.BooleanField(default=False)  # core
+    active = models.BooleanField(blank=False, default=False)  # can login
+    admin = models.BooleanField(blank=False, default=False)  # superuser
+    staff = models.BooleanField(blank=False, default=False)  # staff
+    customer = models.BooleanField(blank=False, default=False)  # customer
+    business = models.BooleanField(blank=False, default=False)  # core
     business_name = models.CharField(max_length=255, blank=True, null=True)
     name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    phone_number = models.CharField(max_length=15, blank=False, null=False, default="")  # REQUIRED
     api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
 
@@ -217,14 +217,14 @@ class Business(models.Model):
 class Customer(models.Model):
     id = models.AutoField(primary_key=True)
     business = models.ForeignKey(Business, on_delete=models.CASCADE)
-    username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    username = models.CharField(max_length=30, blank=False, unique=True, default="")  # REQUIRED
     # password                = forms.CharField(widget=forms.PasswordInput())
     first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
-    email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
+    phone_number = models.CharField(max_length=15, blank=False, null=False, default="")  # REQUIRED
+    email = models.EmailField(max_length=255, unique=True, blank=False, default="")  # REQUIRED
     api_key = models.CharField(max_length=1000, blank=True, null=True)
-    active = models.BooleanField(default=False)  # can login
+    active = models.BooleanField(blank=False, default=False)  # can login
     street_home_address = models.CharField(max_length=100, blank=True, null=True)
     apt_home_address = models.CharField(max_length=100, blank=True, null=True)
     city_home_address = models.CharField(max_length=100, blank=True, null=True)
@@ -245,9 +245,9 @@ class Customer(models.Model):
 class Subscription(models.Model):
     id              = models.AutoField(primary_key=True)
     business        = models.ForeignKey(Business, on_delete=models.CASCADE)
-    title           = models.CharField(max_length=255, blank=False)
-    description     = models.CharField(max_length=2550, blank=False)
-    cost            = models.IntegerField(blank=False)
+    title           = models.CharField(max_length=255, blank=False, default="")
+    description     = models.CharField(max_length=2550, blank=False, default="")
+    cost            = models.IntegerField(blank=False, default=1)
     start_date      = models.DateTimeField(blank=True)
     end_date        = models.DateTimeField(blank=True)
 
@@ -258,10 +258,10 @@ class Subscription(models.Model):
 class SubscriptionPlan(models.Model):
     id                          = models.AutoField(primary_key=True)
     business                    = models.ForeignKey(Business, on_delete=models.CASCADE)
-    title                       = models.CharField(blank=False, max_length=255)
-    description                 = models.CharField(blank=False, max_length=2550)
-    amount                      = models.IntegerField(blank=False)
-    recurring                   = models.BooleanField(blank=False)
+    title                       = models.CharField(blank=False, max_length=255, default="")
+    description                 = models.CharField(blank=False, max_length=2550, default="")
+    amount                      = models.IntegerField(blank=False, default=1)
+    recurring                   = models.BooleanField(blank=False, default=False)
     monthly_recurring           = models.BooleanField(blank=False, default=False)
     yearly_recurring            = models.BooleanField(blank=False, default=False)
     benefits                    = models.ManyToManyField('Benefit', related_name='subscriptions')
@@ -276,7 +276,7 @@ class Benefit(models.Model):
     business     = models.ForeignKey(Business, on_delete=models.CASCADE)
     title           = models.CharField(blank=False, max_length=255)
     description     = models.CharField(blank=False, max_length=2550)
-    quantity        = models.IntegerField(default=1)
+    quantity        = models.IntegerField(blank=False, default=1)
 
     def __str__(self):
         return self.title
@@ -303,4 +303,4 @@ class HistoryRedeemables(models.Model):
     subscription            = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE)
     customer                = models.ForeignKey(Customer, on_delete=models.CASCADE)
     set_expiration          = models.DateTimeField(blank=True, null=True)
-    method_redeemed         = models.BooleanField(default=False)
+    method_redeemed         = models.BooleanField(blank=False, default=False)
