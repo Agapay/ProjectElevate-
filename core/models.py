@@ -34,7 +34,7 @@ class UserManager(BaseUserManager):
 
         # details about business
         user_obj.business_name = business_name
-        user_obj.api_key = api_key
+        user_obj.business_api_key = api_key
         user_obj.expiration_date = expiration_date
 
         # active
@@ -70,7 +70,7 @@ class UserManager(BaseUserManager):
         user_obj.last_name = last_name
 
         #TODO: Add to Customer Vault: (api key)
-        user_obj.api_key = api_key
+        user_obj.business_api_key = api_key
 
         # active
         user_obj.active = active
@@ -113,7 +113,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=False, null=False, default="")  # REQUIRED
-    api_key = models.CharField(max_length=1000, blank=True, null=True)
+    business_api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
 
     # Branch Address
