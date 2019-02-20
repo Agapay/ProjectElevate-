@@ -58,23 +58,25 @@ class UserManager(BaseUserManager):
 
 
 
-    def create_customer(self, email, username, password, phone_number, customer_name=None, customer_last_name=None,api_key=None,
-                        street_home_address=None, apt_home_address=None, city_home_address=None, state_home_address=None,
-                        country_home_address=None, zip_home_address=None):
+    def create_customer(self, business_id, username, password, phone_number, email, first_name=None, last_name=None,
+                        api_key=None, active=True, street_home_address=None, apt_home_address=None,
+                        city_home_address=None, state_home_address=None, country_home_address=None,
+                        zip_home_address=None):
 
         user_obj = self.create_user(email, username, password, phone_number)
 
 
         # details about customer
         user_obj.customer = True
-        user_obj.name = customer_name
-        user_obj.last_name = customer_last_name
+        user_obj.business = business_id
+        user_obj.name = first_name
+        user_obj.last_name = last_name
 
         # active
-        user_obj.active = True
+        user_obj.active = active
 
         # api key
-
+        user_obj.api_key = api_key
 
         # home address
         user_obj.street_home_address = street_home_address
