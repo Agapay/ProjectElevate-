@@ -1,7 +1,6 @@
 from django.db import models
-from django import forms
-
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from . import gateway
 
 
 # Creating Models Here
@@ -34,7 +33,7 @@ class UserManager(BaseUserManager):
 
         # details about business
         user_obj.business_name = business_name
-        user_obj.api_key = api_key
+        user_obj.business_api_key = api_key
         user_obj.expiration_date = expiration_date
 
         # active
@@ -69,8 +68,8 @@ class UserManager(BaseUserManager):
         user_obj.name = first_name
         user_obj.last_name = last_name
 
-        #TODO: Add to Customer Vault: (api key)
-        user_obj.api_key = api_key
+        # api key
+        user_obj.business_api_key = api_key
 
         # active
         user_obj.active = active
@@ -98,6 +97,66 @@ class UserManager(BaseUserManager):
     def get_all_businesses(self):
         return User.objects.filter(business=True)
 
+    def set_business_vault(self, user_id, ccnumber="", ccexp="", api_key=""):
+        # TODO: Add to Customer Vault: (api key)
+        user_obj = User.object.filter(id=user_id)
+        # business_obj = Business.object.filter(id=user_id)
+        if api_key != "":
+            user_obj.business_api_key = api_key
+            print("Updated user api key")
+        else:
+            if ccnumber == "" or ccexp == "":
+                print("Error: please input billing information (credit card number / expiry")
+                return
+            gw = gateway.Gateway()
+            # TODO: update to use given nmi login and password from user
+            gw.set_login(username="agapaydemo1", password="demo1234")
+            gw.add_customer_vault()
+            # gw.set_shipping()
+            gw.set_billing(first_name=user_obj.name, last_name=user_obj.last_name,
+                           address1=user_obj.street_home_address,
+                           city=user_obj.city_home_address, state=user_obj.state_home_address,
+                           zip=user_obj.zip_home_address,
+                           country=user_obj.country_home_address)
+            response = gw.do_customer_vault(ccnumber=ccnumber, ccexp=ccexp)
+            print(gw.responses['response'])
+
+            if (int(gw.responses['response']) == 1):
+                print("Approved")
+            elif (int(gw.responses['response']) == 2):
+                print("Declined")
+            elif (int(gw.responses['response']) == 3):
+                print("Error")
+
+    def set_customer_vault(self, user_id, ccnumber="", ccexp="", api_key=""):
+        # TODO: Add to Customer Vault: (api key)
+        user_obj = User.object.filter(id=user_id)
+        # customer_obj = Customer.object.filter(id=customer_id)
+        if api_key != "":
+            user_obj.business_api_key = api_key
+            print("Updated user api key")
+        else:
+            if ccnumber == "" or ccexp == "":
+                print("Error: please input billing information (credit card number / expiry")
+                return
+            gw = gateway.Gateway()
+            # TODO: update to use given nmi login and password from user
+            gw.set_login(username="standupp", password="Elevate123")
+            gw.add_customer_vault()
+            # gw.set_shipping()
+            gw.set_billing(first_name=user_obj.name, last_name=user_obj.last_name, address1=user_obj.street_home_address,
+                           city=user_obj.city_home_address, state=user_obj.state_home_address, zip=user_obj.zip_home_address,
+                           country=user_obj.country_home_address)
+            response = gw.do_customer_vault(ccnumber=ccnumber, ccexp=ccexp)
+            print(gw.responses['response'])
+
+            if int(gw.responses['response']) == 1:
+                print("Approved")
+            elif int(gw.responses['response']) == 2:
+                print("Declined")
+            elif int(gw.responses['response']) == 3:
+                print("Error")
+
 
 class User(AbstractBaseUser, PermissionsMixin):
 
@@ -113,7 +172,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
-    api_key = models.CharField(max_length=1000, blank=True, null=True)
+    business_api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
 
     # Branch Address
@@ -238,21 +297,22 @@ class Customer(models.Model):
         return self.customer_id
 
     def create_new_customer_vault(self):
-        #TODO: make new call to customer vault, and update model
-        return True
+        # TODO: make new call to customer vault, and update model
+        # check user customer_vault function
+        pass
 
 
-class Subscription(models.Model):
-    id              = models.AutoField(primary_key=True)
-    business        = models.ForeignKey(Business, on_delete=models.CASCADE)
-    title           = models.CharField(max_length=255, blank=False)
-    description     = models.CharField(max_length=2550, blank=False)
-    cost            = models.IntegerField(blank=False)
-    start_date      = models.DateTimeField(blank=True)
-    end_date        = models.DateTimeField(blank=True)
-
-    def __str__(self):
-        return self.title
+# class Subscription(models.Model):
+#     id              = models.AutoField(primary_key=True)
+#     business        = models.ForeignKey(Business, on_delete=models.CASCADE)
+#     title           = models.CharField(max_length=255, blank=False)
+#     description     = models.CharField(max_length=2550, blank=False)
+#     cost            = models.IntegerField(blank=False)
+#     start_date      = models.DateTimeField(blank=True)
+#     end_date        = models.DateTimeField(blank=True)
+#
+#     def __str__(self):
+#         return self.title
 
 
 class SubscriptionPlan(models.Model):

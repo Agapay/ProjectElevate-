@@ -32,6 +32,7 @@ pip install djangorestframework
 pip install djangorestframework-jwt
 pip install django-cors-headers
 pip install psycopg2
+pip install pycurl
 ```
 
 Using pipenv
@@ -44,6 +45,7 @@ pipenv install djangorestframework
 pipenv install djangorestframework-jwt
 pipenv install django-cors-headers
 pipenv install psycopg2
+pipenv install pycurl
 ```
 
 If you have not updated migrations run

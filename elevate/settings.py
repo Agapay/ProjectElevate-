@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'core.apps.CoreConfig',
     'elevate.frontend',
-
+    'core.gateway'
 ]
 
 AUTH_USER_MODEL = "core.User"
