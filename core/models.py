@@ -260,18 +260,6 @@ class Business(models.Model):
         return self.business_id
 
 
-class History_Redeemables(models.Model):
-    history_redeemables_id  = models.AutoField(primary_key= True)
-    benefit_id              = models.IntegerField(blank=False)
-    subscription_id         = models.IntegerField(blank=False)
-    customer_id             = models.IntegerField(blank=False)
-    set_expiration          = models.DateTimeField(blank=True, null=True)
-    method_redeemed         = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.historgy_redeemables_id
-
-
 class SubscriptionPlan(models.Model):
     subscription_plan_id        = models.AutoField(primary_key=True)
     business_id                 = models.ForeignKey("Business", on_delete=models.CASCADE)
@@ -285,6 +273,7 @@ class SubscriptionPlan(models.Model):
 
     def __str__(self):
         return self.title
+
 
 
 class Benefit(models.Model):
@@ -311,3 +300,12 @@ class ActiveRedeemables(models.Model):
     subscription_plan_id        = models.ForeignKey("SubscriptionPlan", on_delete=models.CASCADE)
     customer_id                 = models.ForeignKey("Customer", on_delete=models.CASCADE)
     expiration                  = models.DateTimeField()
+
+
+class HistoryRedeemables(models.Model):
+    history_redeemables_id  = models.AutoField(primary_key= True)
+    benefit_id              = models.ForeignKey("Benefit", on_delete=models.CASCADE)
+    subscription_id         = models.ForeignKey("SubscriptionPlan", on_delete=models.CASCADE)
+    customer_id             = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    set_expiration          = models.DateTimeField(blank=True, null=True)
+    method_redeemed         = models.BooleanField(default=False)
