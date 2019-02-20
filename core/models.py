@@ -56,6 +56,8 @@ class UserManager(BaseUserManager):
         user_obj.country_hq_address = country_hq_address
         user_obj.zip_hq_address = zip_hq_address
 
+
+
     def create_customer(self, email, username, password, phone_number, customer_name=None, customer_last_name=None,api_key=None,
                         street_home_address=None, apt_home_address=None, city_home_address=None, state_home_address=None,
                         country_home_address=None, zip_home_address=None):
@@ -226,7 +228,7 @@ class Customer(models.Model):
     country_home_address    = models.CharField(max_length=100, blank=True, null=True)
     zip_home_address        = models.CharField(max_length=15, blank=True, null=True)
     credit_card_number      = models.IntegerField(blank=False)  #
-    credit_card_exp_date    models.DateTimeField(blank=False)
+    credit_card_exp_date    =  models.DateTimeField(blank=False)
 
 
     def __str__(self):
@@ -275,3 +277,42 @@ class History_Redeemables(models.Model):
 
     def __str__(self):
         return self.historgy_redeemables_id
+
+class SubscriptionPlan(models.Model):
+    subscription_plan_id        = models.AutoField(primary_key=True)
+    business_id                 = models.ForeignKey("Business", on_delete=models.CASCADE)
+    title                       = models.CharField(blank=False)
+    description                 = models.CharField(blank=False)
+    amount                      = models.IntegerField(blank=False)
+    recurring                   = models.BooleanField(blank=False)
+    monthly_recurring           = models.BooleanField(blank=False, default=False)
+    yearly_recurring            = models.BooleanField(blank=False, default=False)
+
+
+
+
+class Benefit(models.Model):
+    benefit_id      = models.AutoField(primary_key=True)
+    business_id     = models.ForeignKey("Business", on_delete=models.CASCADE)
+    title           = models.CharField(blank=False)
+    description     = models.CharField(blank=False)
+    quantity        = models.IntegerField(default=1)
+
+
+
+class Benefit_Routing(models.Model):
+    benefit_routing_id      = models.AutoField(primary_key=True)
+    subscription_id         = models.ForeignKey("Subscription",  on_delete=models.CASCADE)
+   # benefit_id              = models.
+    quantity                = models.IntegerField()
+
+
+
+class ActiveRedeemables(models.Model):
+    active_redeemables_id       = models.AutoField(primary_key=True)
+    benefit_id                  = models.ForeignKey("Benefit", on_delete=models.CASCADE)
+    subscription_plan_id        = models.ForeignKey("SubscriptionPlan", on_delete=models.CASCADE)
+    customer_id                 = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    expiration                  = models.DateTimeField()
+
+
