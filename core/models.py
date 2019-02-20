@@ -69,7 +69,7 @@ class UserManager(BaseUserManager):
         user_obj.name = first_name
         user_obj.last_name = last_name
 
-        # Add to Customer Vault: (api key)
+        #TODO: Add to Customer Vault: (api key)
         user_obj.api_key = api_key
 
         # active
@@ -181,47 +181,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
 
-class Subscription(models.Model):
-    id              = models.AutoField(primary_key=True)
-    business     = models.ForeignKey('Business', on_delete=models.CASCADE)
-    title           = models.CharField(max_length=255, blank=False)
-    description     = models.CharField(max_length=2550, blank=False)
-    cost            = models.IntegerField(blank=False)
-    start_date      = models.DateTimeField(blank=True)
-    end_date        = models.DateTimeField(blank=True)
-
-    def __str__(self):
-        return self.title
-
-
-class Customer(models.Model):
-    id = models.AutoField(primary_key=True)
-    business = models.ForeignKey('Business', on_delete=models.CASCADE)
-    username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
-    # password                = forms.CharField(widget=forms.PasswordInput())
-    first_name = models.CharField(max_length=255, blank=True, null=True)
-    last_name = models.CharField(max_length=255, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
-    email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
-    api_key = models.CharField(max_length=1000, blank=True, null=True)
-    active = models.BooleanField(default=False)  # can login
-    street_home_address = models.CharField(max_length=100, blank=True, null=True)
-    apt_home_address = models.CharField(max_length=100, blank=True, null=True)
-    city_home_address = models.CharField(max_length=100, blank=True, null=True)
-    state_home_address = models.CharField(max_length=100, blank=True, null=True)
-    country_home_address = models.CharField(max_length=100, blank=True, null=True)
-    zip_home_address = models.CharField(max_length=15, blank=True, null=True)
-
-    # subscriptions = models.ManyToManyField(Subscription)
-
-    def __str__(self):
-        return self.customer_id
-
-    def create_new_customer_vault(self):
-        # make new call to customer vault, and
-        return True
-
-
 class Business(models.Model):
     id                  = models.AutoField(primary_key=True)
     email               = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
@@ -255,9 +214,50 @@ class Business(models.Model):
         return self.business_id
 
 
+class Customer(models.Model):
+    id = models.AutoField(primary_key=True)
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)
+    username = models.CharField(max_length=30, blank=False, unique=True)  # REQUIRED
+    # password                = forms.CharField(widget=forms.PasswordInput())
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
+    email = models.EmailField(max_length=255, unique=True, blank=False)  # REQUIRED
+    api_key = models.CharField(max_length=1000, blank=True, null=True)
+    active = models.BooleanField(default=False)  # can login
+    street_home_address = models.CharField(max_length=100, blank=True, null=True)
+    apt_home_address = models.CharField(max_length=100, blank=True, null=True)
+    city_home_address = models.CharField(max_length=100, blank=True, null=True)
+    state_home_address = models.CharField(max_length=100, blank=True, null=True)
+    country_home_address = models.CharField(max_length=100, blank=True, null=True)
+    zip_home_address = models.CharField(max_length=15, blank=True, null=True)
+
+    # subscriptions = models.ManyToManyField(Subscription)
+
+    def __str__(self):
+        return self.customer_id
+
+    def create_new_customer_vault(self):
+        #TODO: make new call to customer vault, and update model
+        return True
+
+
+class Subscription(models.Model):
+    id              = models.AutoField(primary_key=True)
+    business        = models.ForeignKey(Business, on_delete=models.CASCADE)
+    title           = models.CharField(max_length=255, blank=False)
+    description     = models.CharField(max_length=2550, blank=False)
+    cost            = models.IntegerField(blank=False)
+    start_date      = models.DateTimeField(blank=True)
+    end_date        = models.DateTimeField(blank=True)
+
+    def __str__(self):
+        return self.title
+
+
 class SubscriptionPlan(models.Model):
     id                          = models.AutoField(primary_key=True)
-    business                    = models.ForeignKey("Business", on_delete=models.CASCADE)
+    business                    = models.ForeignKey(Business, on_delete=models.CASCADE)
     title                       = models.CharField(blank=False, max_length=255)
     description                 = models.CharField(blank=False, max_length=2550)
     amount                      = models.IntegerField(blank=False)
@@ -273,7 +273,7 @@ class SubscriptionPlan(models.Model):
 
 class Benefit(models.Model):
     id      = models.AutoField(primary_key=True)
-    business     = models.ForeignKey("Business", on_delete=models.CASCADE)
+    business     = models.ForeignKey(Business, on_delete=models.CASCADE)
     title           = models.CharField(blank=False, max_length=255)
     description     = models.CharField(blank=False, max_length=2550)
     quantity        = models.IntegerField(default=1)
@@ -283,24 +283,24 @@ class Benefit(models.Model):
 
 
 #class Benefit_Routing(models.Model):
-#    benefit_routing_id      = models.AutoField(primary_key=True)
-#    subscription         = models.ForeignKey("Subscription",  on_delete=models.CASCADE)
-#    benefit              = models.ForeignKey("Benefit",  on_delete=models.CASCADE)
-#    quantity                = models.IntegerField()
+#    id                     = models.AutoField(primary_key=True)
+#    subscription           = models.ForeignKey(Subscription,  on_delete=models.CASCADE)
+#    benefit                = models.ForeignKey(Benefit,  on_delete=models.CASCADE)
+#    quantity               = models.IntegerField()
 
 
 class ActiveRedeemables(models.Model):
     id                       = models.AutoField(primary_key=True)
-    benefit                  = models.ForeignKey("Benefit", on_delete=models.CASCADE)
-    subscription_plan        = models.ForeignKey("SubscriptionPlan", on_delete=models.CASCADE)
-    customer                 = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    benefit                  = models.ForeignKey(Benefit, on_delete=models.CASCADE)
+    subscription_plan        = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE)
+    customer                 = models.ForeignKey(Customer, on_delete=models.CASCADE)
     expiration                  = models.DateTimeField()
 
 
 class HistoryRedeemables(models.Model):
     id                      = models.AutoField(primary_key= True)
-    benefit                 = models.ForeignKey("Benefit", on_delete=models.CASCADE)
-    subscription            = models.ForeignKey("SubscriptionPlan", on_delete=models.CASCADE)
-    customer                = models.ForeignKey("Customer", on_delete=models.CASCADE)
+    benefit                 = models.ForeignKey(Benefit, on_delete=models.CASCADE)
+    subscription            = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE)
+    customer                = models.ForeignKey(Customer, on_delete=models.CASCADE)
     set_expiration          = models.DateTimeField(blank=True, null=True)
     method_redeemed         = models.BooleanField(default=False)
