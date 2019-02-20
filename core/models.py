@@ -202,13 +202,6 @@ class Subscription(models.Model):
         return self.title
 
 
-
-
-class Benefit:
-    pass
-
-
-
 class Customer(models.Model):
 
     customer_id             = models.IntegerField(blank=False)
@@ -278,6 +271,7 @@ class History_Redeemables(models.Model):
     def __str__(self):
         return self.historgy_redeemables_id
 
+
 class SubscriptionPlan(models.Model):
     subscription_plan_id        = models.AutoField(primary_key=True)
     business_id                 = models.ForeignKey("Business", on_delete=models.CASCADE)
@@ -287,8 +281,10 @@ class SubscriptionPlan(models.Model):
     recurring                   = models.BooleanField(blank=False)
     monthly_recurring           = models.BooleanField(blank=False, default=False)
     yearly_recurring            = models.BooleanField(blank=False, default=False)
+    benefits                    = models.ManyToManyField('Benefit', related_name='subscriptions')
 
-
+    def __str__(self):
+        return self.title
 
 
 class Benefit(models.Model):
@@ -298,14 +294,15 @@ class Benefit(models.Model):
     description     = models.CharField(blank=False)
     quantity        = models.IntegerField(default=1)
 
+    def __str__(self):
+        return self.title
 
 
-class Benefit_Routing(models.Model):
-    benefit_routing_id      = models.AutoField(primary_key=True)
-    subscription_id         = models.ForeignKey("Subscription",  on_delete=models.CASCADE)
-   # benefit_id              = models.
-    quantity                = models.IntegerField()
-
+#class Benefit_Routing(models.Model):
+#    benefit_routing_id      = models.AutoField(primary_key=True)
+#    subscription_id         = models.ForeignKey("Subscription",  on_delete=models.CASCADE)
+#   # benefit_id              = models.
+#    quantity                = models.IntegerField()
 
 
 class ActiveRedeemables(models.Model):
@@ -314,5 +311,3 @@ class ActiveRedeemables(models.Model):
     subscription_plan_id        = models.ForeignKey("SubscriptionPlan", on_delete=models.CASCADE)
     customer_id                 = models.ForeignKey("Customer", on_delete=models.CASCADE)
     expiration                  = models.DateTimeField()
-
-
