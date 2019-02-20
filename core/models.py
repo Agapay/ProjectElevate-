@@ -191,8 +191,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Subscription(models.Model):
     subscription_id = models.AutoField(primary_key=True)
     business_id     = models.IntegerField(blank=False)
-    title           = models.CharField(max_length=30, blank=False)
-    description     = models.CharField(max_length=255, blank=False)
+    title           = models.CharField(max_length=255, blank=False)
+    description     = models.CharField(max_length=2550, blank=False)
     cost            = models.IntegerField(blank=False)
     start_date      = models.DateTimeField(blank=True)
     end_date        = models.DateTimeField(blank=True)
@@ -275,8 +275,8 @@ class History_Redeemables(models.Model):
 class SubscriptionPlan(models.Model):
     subscription_plan_id        = models.AutoField(primary_key=True)
     business_id                 = models.ForeignKey("Business", on_delete=models.CASCADE)
-    title                       = models.CharField(blank=False)
-    description                 = models.CharField(blank=False)
+    title                       = models.CharField(blank=False, max_length=255)
+    description                 = models.CharField(blank=False, max_length=2550)
     amount                      = models.IntegerField(blank=False)
     recurring                   = models.BooleanField(blank=False)
     monthly_recurring           = models.BooleanField(blank=False, default=False)
@@ -290,8 +290,8 @@ class SubscriptionPlan(models.Model):
 class Benefit(models.Model):
     benefit_id      = models.AutoField(primary_key=True)
     business_id     = models.ForeignKey("Business", on_delete=models.CASCADE)
-    title           = models.CharField(blank=False)
-    description     = models.CharField(blank=False)
+    title           = models.CharField(blank=False, max_length=255)
+    description     = models.CharField(blank=False, max_length=2550)
     quantity        = models.IntegerField(default=1)
 
     def __str__(self):
