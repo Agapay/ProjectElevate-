@@ -18,7 +18,7 @@ class CustomerTableItem extends Component {
             </span>
           </td>
           <td className="bold">
-          <a href={`/frontend/business/${this.props.id}/customer/${this.props.cid}`}>
+          <a href={`/frontend/customer/${this.props.id}/subscriptions/${this.props.sid}`}>
                 View
               </a>
           </td>

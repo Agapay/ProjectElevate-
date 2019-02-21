@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import Portal from "../CommonComponents/Portal.js";
 import CustomerDashboard from "./CustomerDashboard";
+import CustomerBenefits from "./CustomerBenefits";
 
 class CustomerPortal extends Component {
     constructor(props) {
@@ -79,6 +80,15 @@ class CustomerPortal extends Component {
             name: "Dashboard",
             selected: "Dashboard",
             main: () => <CustomerDashboard
+                          id={this.props.match.params.id}
+                          logout={this.logout}
+                        />
+          },
+          {
+            path: `/frontend/customer/${this.props.match.params.id}/subscriptions/${this.props.match.params.sid}`,
+            name: "",
+            selected: "Dashboard",
+            main: () => <CustomerBenefits
                           id={this.props.match.params.id}
                           logout={this.logout}
                         />

@@ -45,8 +45,8 @@ class CustomerDashboard extends Component {
                           status={customerEntry.status}
                           key={"customerEntry"+index}
                           id={this.props.id}
-                          cid={customerEntry.id} //customer entry
                           quantity={customerEntry.quantity}
+                          sid={customerEntry.id}
                           // link to edit business page
                           // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}
                         />

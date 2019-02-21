@@ -48,10 +48,11 @@ class App extends Component {
         <Route path="/business/:id/customer/:cid/NMIsetup-2" component={BusinessPortal}/>
         <Route exact path="/business/:id/subscription/:sid" component={BusinessPortal}/>
         <Route exact path="/business/:id/benefit/:beid" component={BusinessPortal}/>
-        
+
 
         {/* Customer Routes */}
         <Route path="/customer/:id/dashboard" component={CustomerPortal}/>
+        <Route path="/customer/:id/subscriptions/:sid" component={CustomerPortal}/>
       </div>
     );
   }
@@ -73,4 +74,3 @@ class App extends Component {
         <Route path="/main" component={Main} /> */
 
 export default App;
-
