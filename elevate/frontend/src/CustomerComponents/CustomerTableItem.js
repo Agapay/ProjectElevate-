@@ -18,12 +18,12 @@ class CustomerTableItem extends Component {
             </span>
           </td>
           <td className="bold">
-          <a href={`/frontend/business/${this.props.id}/customer/${this.props.cid}`}> //reroute to view benefits
-                Edit
+          <a href={`/frontend/business/${this.props.id}/customer/${this.props.cid}`}>
+                View
               </a>
           </td>
           <td className='right_side centered-middle'>
-            <span className="square red">suspend</span>
+            <span className="quantity">{this.props.quantity}</span>
         </td>
       </tr>
     );
