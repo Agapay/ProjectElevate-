@@ -86,7 +86,7 @@ class NMISetupStep1 extends Component {
                         <br/>
                         <label htmlFor="last_name">Last Name</label>
                         <br/>
-                        <input type="text" name="last_name " id="last_name"  className="inputs" onChange={this.onChange} required/>
+                        <input type="text" name="last_name" id="last_name"  className="inputs" onChange={this.onChange} required/>
                         <br/>
                         <label htmlFor="address_2">Address 2</label>
                         <br/>
@@ -100,9 +100,9 @@ class NMISetupStep1 extends Component {
                         <br/>
                         <input type="text" name="county" id="county"   className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="fax_number">Fax_Number</label>
+                        <label htmlFor="fax_number">Fax Number</label>
                         <br/>
-                        <input type="text" name="fax_number " id="fax_number"  className="inputs" onChange={this.onChange} required/>
+                        <input type="text" name="fax_number" id="fax_number"  className="inputs" onChange={this.onChange} required/>
                         <br/>
                     <div/>
               </div>
