@@ -27,7 +27,7 @@ class CustomerBenefits extends Component {
       return (
         <div key={"benefitsListItem" + index} class="benefit-item">
           <label htmlFor={"benefitID" + index}>{benefit.name}</label>
-          <input type="number" id={"benefitID" + index} value={benefit.quantity} />
+          <label id="view_quantity">{benefit.quantity}</label>
         </div>
       );
     })

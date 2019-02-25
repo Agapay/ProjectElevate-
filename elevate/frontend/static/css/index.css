@@ -27,6 +27,10 @@ section {
   color: red;
 }
 
+.benefit-item #view_quantity{
+  float: right;
+}
+
 .login-container h1 {
     text-align: center;
     font-size: 56px;
