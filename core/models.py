@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-from . import gateway
+from . import gateway_updated
 
 
 # Creating Models Here
@@ -109,7 +109,7 @@ class UserManager(BaseUserManager):
             if ccnumber == "" or ccexp == "":
                 print("Error: please input billing information (credit card number / expiry")
                 return
-            gw = gateway.Gateway()
+            gw = gateway_updated.Gateway()
             # TODO: update to use given nmi login and password from user
             gw.set_login(username="agapaydemo1", password="demo1234")
             gw.add_customer_vault()
@@ -140,7 +140,7 @@ class UserManager(BaseUserManager):
             if ccnumber == "" or ccexp == "":
                 print("Error: please input billing information (credit card number / expiry")
                 return
-            gw = gateway.Gateway()
+            gw = gateway_updated.Gateway()
             # TODO: update to use given nmi login and password from user
             gw.set_login(username="standupp", password="Elevate123")
             gw.add_customer_vault()
@@ -149,7 +149,7 @@ class UserManager(BaseUserManager):
                            city=user_obj.city_home_address, state=user_obj.state_home_address, zip=user_obj.zip_home_address,
                            country=user_obj.country_home_address)
             gw.do_customer_vault(ccnumber=ccnumber, ccexp=ccexp)
-            print(gw.responses['response'])
+            print("Gateway HTTP POST response = ", gw.responses['response'])
 
             if int(gw.responses['response']) == 1:
                 print("Approved")
@@ -239,8 +239,6 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_email(self):
         return self.email
-
-
 
 
 class Business(models.Model):
