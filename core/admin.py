@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Business, Customer, Subscription
+from .models import User, Business, Customer
 
 
 # Register your models here.
@@ -16,4 +16,4 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(Business)
 admin.site.register(Customer)
 admin.site.register(User, UserAdmin)
-admin.site.register(Subscription)
+
