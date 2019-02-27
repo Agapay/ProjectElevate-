@@ -6,82 +6,64 @@ from . import gateway
 # Creating Models Here
 
 class UserManager(BaseUserManager):
-    def create_user(self, user_email, user_username, user_password, user_phone_number):
-        if not user_email:
-            raise ValueError('Users must have an email address')
 
-        #TODO:: refactor
-        user = self.model(
-            email=self.normalize_email(user_email),
-            username=user_username,
-            phone_number=user_phone_number,
-        )
+    def createBusiness(self, info):
+        # info is a type dict with all the info
+        id              = info['id']
+        email           = info['email']
+        username        = info['username']
+        phone_number    = info['phone_number']
+        business_name   = info['business_name']
+        user_api_key    = info['user_api_key']
+        nmi_login       = info['nmi_login']
+        expiration_date = info['expiration_date']
 
-        user.set_password(user_password)
-        user.save(using=self._db)
-        return user
+        ## add address stuff
 
-    def create_business(self, email, username, password, phone_number, business_name=None, api_key=None,
-                        expiration_date=None, street_branch_address=None, apt_branch_address=None,
-                        city_branch_address=None, state_branch_address=None, country_branch_address=None,
-                        zip_branch_address=None, street_hq_address=None, apt_hq_address=None, city_hq_address=None,
-                        state_hq_address=None,country_hq_address=None, zip_hq_address=None,):
+        business = Business(id=id, email=email, username=username, phone_number=phone_number,
+                            business_name=business_name, user_api_key=user_api_key, nmi_login=nmi_login,
+                            expiration_date=expiration_date)
+        business.save()
 
-        user_obj = self.create_user(email, username, password, phone_number)
+        return business
 
-        user_obj.business = True
 
-        # details about business
-        user_obj.business_name = business_name
-        user_obj.business_api_key = api_key
-        user_obj.expiration_date = expiration_date
+    def createCustomer(self, info):
+        id                      = info['id']
+        business                = Business.objects.filter(id=info['business'])[0] #business_FK
+        username                = info['username']
+        first_name              = info['first_name']
+        last_name               = info['last_name']
+        phone_number            = info['phone_number']
+        email                   = info['email']
+        user_api_key            = info['user_api_key']
+        active                  = info['active']
+        street_home_address     = info['street_home_address']
+        apt_home_address        = info['apt_home_address']
+        city_home_address       = info['city_home_address']
+        state_home_address      = info['state_home_address']
+        country_home_address    = info['country_home_address']
+        zip_home_address        = info['zip_home_address']
 
-        # active
-        user_obj.active = True
 
-        # branch address
-        user_obj.street_branch_address = street_branch_address
-        user_obj.apt_branch_address = apt_branch_address
-        user_obj.city_branch_address = city_branch_address
-        user_obj.state_branch_address = state_branch_address
-        user_obj.country_branch_address = country_branch_address
-        user_obj.zip_branch_address = zip_branch_address
 
-        # hq address
-        user_obj.street_hq_address = street_hq_address
-        user_obj.apt_hq_address = apt_hq_address
-        user_obj.city_hq_address = city_hq_address
-        user_obj.state_hq_address = state_hq_address
-        user_obj.country_hq_address = country_hq_address
-        user_obj.zip_hq_address = zip_hq_address
 
-    def create_customer(self, username, password, phone_number, email, business_id=None,
-                        first_name=None, last_name=None, api_key=None, active=True,
-                        street_home_address=None, apt_home_address=None, city_home_address=None,
-                        state_home_address=None, country_home_address=None, zip_home_address=None):
 
-        user_obj = self.create_user(email, username, password, phone_number)
+        customer = Customer(id=id, business=business, username=username,
+                            first_name=first_name, last_name=last_name,
+                            phone_number=phone_number, email=email, user_api_key=user_api_key,
+                            active=active, street_home_address=street_home_address,
+                            apt_home_address=apt_home_address, city_home_address=city_home_address,
+                            state_home_address=state_home_address, country_home_address=country_home_address,
+                            zip_home_address=zip_home_address)
 
-        # details about customer
-        user_obj.customer = True
-        user_obj.business = business_id
-        user_obj.name = first_name
-        user_obj.last_name = last_name
 
-        # api key
-        # TODO: Add to Customer Vault: (api key)
-        user_obj.business_api_key = api_key
+        customer.save()
 
-        # active
-        user_obj.active = active
+        return customer
 
-        # home address
-        user_obj.street_home_address = street_home_address
-        user_obj.apt_home_address = apt_home_address
-        user_obj.city_home_address = city_home_address
-        user_obj.state_home_address = state_home_address
-        user_obj.country_home_address = country_home_address
-        user_obj.zip_home_address = zip_home_address
+
+
 
     def deactivate_account(self):
         # TODO:
@@ -170,11 +152,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     customer = models.BooleanField(blank=False, default=False)  # customer
     business = models.BooleanField(blank=False, default=False)  # core
     business_name = models.CharField(max_length=255, blank=True, null=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
+    first_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=False, null=False, default="")  # REQUIRED
     business_api_key = models.CharField(max_length=1000, blank=True, null=True)
     expiration_date = models.DateTimeField(blank=True, null=True)
+
+    # for customers only foreign key
+    business_FK = models.IntegerField(blank=True, null=True)
 
     # Branch Address
     street_branch_address = models.CharField(max_length=100, blank=True, null=True)
@@ -211,7 +196,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.business_name + " " + str(self.id)
 
         if self.customer:
-            return self.name + " " + self.last_name + " " + str(self.id)
+            return self.first_name + " " + self.last_name + " " + str(self.id)
 
         else:
             return self.username + " " + str(self.id)
@@ -249,10 +234,10 @@ class Business(models.Model):
     username            = models.CharField(max_length=30, blank=False, unique=True, default="username")  # REQUIRED
     phone_number        = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
     business_name       = models.CharField(max_length=255, blank=True, null=True)
-    api_key             = models.CharField(max_length=1000, blank=True, null=True)
+    user_api_key        = models.CharField(max_length=1000, blank=True, null=True)
 
-    nmi_login           = models.CharField(max_length=30, blank=False, unique=True, default="nmi")  # REQUIRED
-    nmi_password        = models.CharField(max_length=30, blank=False, unique=True, default="nmi")
+    nmi_login           = models.CharField(max_length=30, blank=False, default="nmi")  # REQUIRED
+    nmi_password        = models.CharField(max_length=30, blank=False, default="nmi")
     expiration_date     = models.DateTimeField(blank=True, null=True)
 
     # Branch Address
@@ -273,7 +258,7 @@ class Business(models.Model):
     zip_hq_address = models.CharField(max_length=15, blank=True, null=True)
 
     def __str__(self):
-        return self.business_id
+        return str(self.id)
 
 
 class Customer(models.Model):
@@ -285,7 +270,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=255, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=False, null=False, default="")  # REQUIRED
     email = models.EmailField(max_length=255, unique=True, blank=False, default="")  # REQUIRED
-    api_key = models.CharField(max_length=1000, blank=True, null=True)
+    user_api_key = models.CharField(max_length=1000, blank=True, null=True)
     active = models.BooleanField(blank=False, default=False)  # can login
     street_home_address = models.CharField(max_length=100, blank=True, null=True)
     apt_home_address = models.CharField(max_length=100, blank=True, null=True)
@@ -297,7 +282,7 @@ class Customer(models.Model):
     # subscriptions = models.ManyToManyField(Subscription)
 
     def __str__(self):
-        return self.customer_id
+        return str(self.id)
 
     def create_new_customer_vault(self):
         # TODO: make new call to customer vault, and update model
@@ -324,9 +309,9 @@ class SubscriptionPlan(models.Model):
     title                       = models.CharField(blank=False, max_length=255, default="")
     description                 = models.CharField(blank=False, max_length=2550, default="")
     amount                      = models.IntegerField(blank=False, default=1)
-    recurring                   = models.BooleanField(blank=False, default=False)
+    #recurring                   = models.BooleanField(blank=False, default=False)
     monthly_recurring           = models.BooleanField(blank=False, default=False)
-    yearly_recurring            = models.BooleanField(blank=False, default=False)
+    #yearly_recurring            = models.BooleanField(blank=False, default=False)
     benefits                    = models.ManyToManyField('Benefit', related_name='subscriptions')
 
     def __str__(self):

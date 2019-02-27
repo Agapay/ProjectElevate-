@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, Business, Customer, Subscription, SubscriptionPlan, ActiveRedeemables, HistoryRedeemables, Benefit
+from core.models import User, Business, Customer, SubscriptionPlan, ActiveRedeemables, HistoryRedeemables, Benefit
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,11 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
                 "customer",
                 "business",
                 "business_name",
-                "name",
+                "first_name",
                 "last_name",
                 "phone_number",
                 "business_api_key",
                 "expiration_date",
+                "business_FK",
                 "street_branch_address",
                 "apt_branch_address",
                 "city_branch_address",
@@ -57,7 +58,7 @@ class BusinessSerializer(serializers.ModelSerializer):
                   "username",
                   "phone_number",
                   "business_name",
-                  "api_key",
+                  "user_api_key",
                   "nmi_login",
                   "nmi_password",
                   "expiration_date",
@@ -87,7 +88,7 @@ class CustomerSerializer(serializers.ModelSerializer):
                   "phone_number",
                   "email",
                   "active",
-                  "api_key",
+                  "user_api_key",
                   "street_home_address",
                   "apt_home_address",
                   "city_home_address",
@@ -97,16 +98,6 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 
-class SubscriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subscription
-        fields = ["id",
-                  "business",
-                  "title",
-                  "description",
-                  "cost",
-                  "start_date",
-                  "end_date"]
 
 
 class SubscriptionPlanSerializer(serializers.ModelSerializer):
@@ -119,7 +110,6 @@ class SubscriptionPlanSerializer(serializers.ModelSerializer):
                   "amount",
                   "recurring",
                   "monthly_recurring",
-                  "yearly_recurring",
                   "benefits"]
 
 
