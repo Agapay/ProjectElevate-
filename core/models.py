@@ -7,6 +7,21 @@ from . import gateway_updated
 
 class UserManager(BaseUserManager):
 
+    def create_user(self, user_email, user_username, user_password, user_phone_number):
+        if not user_email:
+            raise ValueError('Users must have an email address')
+
+        #TODO:: refactor
+        user = self.model(
+            email=self.normalize_email(user_email),
+            username=user_username,
+            phone_number=user_phone_number,
+        )
+
+        user.set_password(user_password)
+        user.save(using=self._db)
+        return user
+
     def createBusiness(self, info):
         # info is a type dict with all the info
         id              = info['id']
@@ -65,15 +80,15 @@ class UserManager(BaseUserManager):
 
 
 
+
     def deactivate_account(self):
         # TODO:
         pass
 
     def create_superuser(self, username, password):
         phone_number = 1
-        email = "test1@gmail.com"
-        user_obj = User(email=email, username=username, password=password, phone_number=phone_number)
-        user_obj.save()
+        email = "test2@gmail.com"
+        user_obj = self.create_user(email, username, password, phone_number)
         user_obj.admin = True
         user_obj.staff = True
         return user_obj
