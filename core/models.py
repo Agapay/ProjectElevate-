@@ -72,7 +72,8 @@ class UserManager(BaseUserManager):
     def create_superuser(self, username, password):
         phone_number = 1
         email = "test1@gmail.com"
-        user_obj = self.create_user(email, username, password, phone_number)
+        user_obj = User(email=email, username=username, password=password, phone_number=phone_number)
+        user_obj.save()
         user_obj.admin = True
         user_obj.staff = True
         return user_obj
