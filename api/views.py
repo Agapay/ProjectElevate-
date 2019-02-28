@@ -212,7 +212,7 @@ class ViewHistoryRedeemables(generics.ListAPIView):
 
 
 
-class UpdateCustomer(generics.RetrieveUpdateDestroyAPIView):
+class CustomerRUDView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = CustomerSerializer
 
@@ -222,3 +222,10 @@ class UpdateCustomer(generics.RetrieveUpdateDestroyAPIView):
 
 
 
+class BusinessRUDView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = BusinessSerializer
+
+    def get_queryset(self):
+        return Business.objects.all()
+    
