@@ -108,7 +108,6 @@ class SubscriptionPlanSerializer(serializers.ModelSerializer):
                   "title",
                   "description",
                   "amount",
-                  "recurring",
                   "monthly_recurring",
                   "benefits"]
 

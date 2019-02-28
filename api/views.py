@@ -6,10 +6,11 @@ from core.models import User
 from core.models import Customer
 from core.models import Business
 from core.models import UserManager
+from core.models import SubscriptionPlan
 from rest_framework.response import Response
 import json
 
-from .serializers import UserSerializer, CustomerSerializer
+from .serializers import UserSerializer, CustomerSerializer, SubscriptionPlanSerializer
 
 
 
@@ -108,6 +109,19 @@ class CustomersAPIView(generics.ListAPIView):
             print("no")
             return Response({})
 
+
+
+class CreateSubscriptionPlan(generics.CreateAPIView):
+    lookup_field = 'id'
+    serializer_class = SubscriptionPlanSerializer
+    print("here")
+
+    def get_queryset(self):
+        return SubscriptionPlan.objects.all()
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.save()
 
 
 
