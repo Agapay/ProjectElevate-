@@ -294,8 +294,7 @@ class Customer(models.Model):
     zip_home_address = models.CharField(max_length=15, blank=True, null=True)
 
 
-
-    # subscriptions = models.ManyToManyField(Subscription)
+    subscriptions = models.ManyToManyField('SubscriptionPlan', related_name='customer_subscriptions', blank=True)
 
     def __str__(self):
         return str(self.id)

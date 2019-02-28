@@ -12,7 +12,8 @@ from rest_framework.response import Response
 import json
 
 from .serializers import UserSerializer, CustomerSerializer, \
-    SubscriptionPlanSerializer, HistoryRedeemablesSerializer, BenefitSerializer
+    SubscriptionPlanSerializer, HistoryRedeemablesSerializer, \
+    BenefitSerializer, BusinessSerializer
 
 
 
@@ -75,20 +76,19 @@ class UsersAPIView(generics.CreateAPIView):
 
 class BusinessesAPIView(generics.ListAPIView):
     lookup_field        = 'id'
-    serializer_class    = UserSerializer
-
+    serializer_class    = BusinessSerializer
     def get_queryset(self):
-        return User.objects.filter(business=True)
+        return Business.objects.all()
 
 
 
-
-class UserRUDView(generics.RetrieveUpdateDestroyAPIView): #detail view
-    lookup_field            = 'id'
-    serializer_class        = UserSerializer
-
-    def get_queryset(self):
-        return User.objects.all()
+#
+# class UserRUDView(generics.RetrieveUpdateDestroyAPIView): #detail view
+#     lookup_field            = 'id'
+#     serializer_class        = UserSerializer
+#
+#     def get_queryset(self):
+#         return User.objects.all()
 
 
 
@@ -170,6 +170,7 @@ class ViewAllBenefits(generics.ListAPIView):
     def get(self, request, business_id):
         print(business_id)
         b = Business.objects.filter(pk=business_id)
+        print(b)
         if len(b) > 0:
             b = b[0]
             benefits = Benefit.objects.filter(business=b)
@@ -204,12 +205,19 @@ class ViewAllSubscriptions(generics.ListAPIView):
 
 
 
+
 class ViewHistoryRedeemables(generics.ListAPIView):
     lookup_field = 'id'
     serializer_class = HistoryRedeemablesSerializer
 
 
 
+class UpdateCustomer(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = CustomerSerializer
+
+    def get_queryset(self):
+        return Customer.objects.all()
 
 
 
