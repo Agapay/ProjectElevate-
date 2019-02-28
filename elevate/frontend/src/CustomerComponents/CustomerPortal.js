@@ -37,10 +37,9 @@ class CustomerPortal extends Component {
                           console.log(json);
                           console.log(this.props.match.params.id);
 
-                          // IMPORTANT TO PUT BACK AFTER CONNECTED
-                          // if(json.detail || !json.customer || json.id != this.props.match.params.id) {
-                          //   this.logout(); //if the signiture expires, is not a customer, or id does not match -> logout
-                          // }
+                          if(json.detail || !json.customer || json.id != this.props.match.params.id) {
+                            this.logout(); //if the signiture expires, is not a customer, or id does not match -> logout
+                          }
 
 
                           this.setState({ // for now until we connect with backend

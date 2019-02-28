@@ -50,7 +50,7 @@ class Login extends Component {
                             } else if (json.business) {
                                 window.location.replace(`/frontend/business/${json.id}/dashboard`);
                             } else if (json.customer) {
-                                window.location.replace(`/frontend/admin/${json.id}/dashboard`);
+                                window.location.replace(`/frontend/customer/${json.id}/dashboard`);
                             }
                         }
                     // this.setState({ username: json.username });

@@ -42,6 +42,10 @@ class AddCustomer extends Component {
         })
     }
 
+    addCustomerSubscriptions = () => {
+
+    }
+
     addCustomer = () => {
       axios({
         method: 'POST',
@@ -53,42 +57,43 @@ class AddCustomer extends Component {
             username: this.state.username,
             password: this.state.password,
             business_api_key: this.state.api_key,
-            name: this.state.first_name,
+            first_name: this.state.first_name,
             last_name: this.state.last_name,
             email: this.state.email,
             phone_number: this.state.phone_number,
-            street_branch_address: this.state.street_address,
-            city_branch_address: this.state.city,
-            state_branch_address: this.state.state,
-            apt_branch_address: this.state.suite_apt,
-            zip_branch_address: this.state.postal_code,
+            street_home_address: this.state.street_address,
+            city_home_address: this.state.city,
+            state_home_address: this.state.state,
+            apt_home_address: this.state.suite_apt,
+            zip_home_address: this.state.postal_code,
             customer: true,
-            business_id: this.props.id, //Double Check If user id === businessid
+            business_FK: this.props.id, //Double Check If user id === businessid
         }
         })
         .then((response) => {
             console.log(response);
-            let newBusiness = response.data;
-            window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
+            // let newBusiness = response.data;
+            // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
         })
         .catch((error) => {
             console.log(error);    
             console.log(error.response);  
-            if(error.response.status === 400) { // 400 is a bad request
-                if(error.response.data.email) {
-                    // alert(error.response.data.email);
-                    this.setState({
-                        emailError: true,
-                        emailErrorMessage: error.response.data.email,
-                    })
-                }
-            }         
+            // if(error.response.status === 400) { // 400 is a bad request
+            //     if(error.response.data.email) {
+            //         // alert(error.response.data.email);
+            //         this.setState({
+            //             emailError: true,
+            //             emailErrorMessage: error.response.data.email,
+            //         })
+            //     }
+            // }         
         })
     }
 
     submitForm = (e) => { // function to call backend and add the business
         e.preventDefault();
         console.log(this.state);
+        this.addCustomer();
         //this.addCustomer();
     }
 
