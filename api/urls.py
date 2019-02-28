@@ -1,4 +1,5 @@
-from .views import UserRUDView, UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, CreateBenefit
+from .views import UserRUDView, UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, \
+    CreateBenefit, ViewCustomer
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
@@ -16,7 +17,8 @@ urlpatterns = [
     path('<int:id>', UserRUDView.as_view(), name="post-rud"),
     path('',UsersAPIView.as_view(), name="post-create"),
     path('businesses', BusinessesAPIView.as_view(), name="retrieve"),
-    path('businesses/<int:business_id>/customers', CustomersAPIView.as_view(), name="getcustomers"),
+    path('businesses/<int:business_id>/customers', CustomersAPIView.as_view(), name="get-customers"),
+    path('businesses/<int:business_id>/customer/<int:customer_id>', ViewCustomer.as_view(), name='get-customer'),
     path('create_subscription', CreateSubscriptionPlan.as_view(), name="sub-create"),
     path('create_benefit', CreateBenefit.as_view(), name="ben-create" )
 

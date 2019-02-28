@@ -143,8 +143,22 @@ class CreateBenefit(generics.CreateAPIView):
             subscription.benefits.add(instance)
         
 
+class ViewCustomer(generics.ListAPIView):
+    lookup_field = 'id'
+    serializer_class = CustomerSerializer
 
-        
+    def get(self, request, business_id, customer_id):
+        c = Customer.objects.filter(id=customer_id)
+        if len(c) > 0:
+            c = c[0]
+            customers = Customer.objects.filter(id=customer_id)
+            customer_serializer = CustomerSerializer(customers, many=True)
+            res = Response({'customer':customer_serializer.data})
+            return res
+
+        else:
+            return Response({})
+
 
 
 
