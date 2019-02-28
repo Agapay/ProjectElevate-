@@ -18,16 +18,47 @@ class BusinessDashboard extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        businessEntries: MockupData,
+        customerEntries: [],
       }
+    }
+
+    getAllCustomers() {
+      fetch(`/api/users/businesses/${this.props.id}/customers`, {
+        method: 'GET',
+        headers: {
+        Authorization: `JWT ${localStorage.getItem('token')}`
+        }
+      })
+        .then(res => res.json())
+        .then(json => {
+            if(json.detail) { //error handling
+                // this.setState({
+                //     error: true,
+                // })
+                console.log(json.detail);
+                this.props.logout();
+            } else {
+                console.log(json); //list of businesses
+                let newCustomers = json.customers.map((customer) => { //format backend json to frontend
+                  let newCustomer = {};
+                  newCustomer.name = customer.username;
+                  newCustomer.id = customer.id;
+                  newCustomer.status = customer.active ? "OK": "BAD"; //if active ok, else bad
+                  return newCustomer;
+                });
+                this.setState({
+                  customerEntries: newCustomers,
+                })
+            }
+        });
     }
 
     componentDidMount() {
         document.title = "Elevate - Dashboard";
+        this.getAllCustomers();
         // this.setState({
-        //   businessEntries: MockupData
+        //   customerEntries: MockupData
         // })
-        console.log(this.state.businessEntries);
     }
 
     render() {
@@ -42,7 +73,7 @@ class BusinessDashboard extends Component {
                       <th className="">View</th>
                       <th className='right_side centered-middle'>Suspend</th>
                     </tr>
-                    { this.state.businessEntries.map((businessEntry, index) => {
+                    { this.state.customerEntries.map((businessEntry, index) => {
                         return (
                           <BusinessTableItem 
                             name={businessEntry.name}

@@ -1,6 +1,6 @@
-from .views import  UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, \
-    CreateBenefit, ViewCustomer, ViewAllBenefits, ViewAllSubscriptions, CustomerRUDView, \
-    BusinessRUDView
+from .views import UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, \
+    CreateBenefit, ViewCustomer, ViewAllBenefits, ViewAllSubscriptions, CustomerRUDView, BusinessRUDView
+
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework_jwt.views import obtain_jwt_token
