@@ -1,64 +1,72 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
+import ListBenefits from './ListBenefits';
 
-const mockupData = {
-	business_name: "Amazon",
-	api_key: "$839432904i3290fjisV)(EV(#)@_)vdm",
-	username: "JeffB",
-	password: "049240243234",
-	first_name: "Jeff",
-	last_name: "Bezos",
-	email: "j@b.com",
-	phone_number: "9999999999",
-	street_address: "Address of Street",
-	suite_apt: "",
-	city: "City of The Place",
-	state: "CA",
-	postal_code: "99999",
-}
+const mockupBenefits = [ //id is benefit id
+    { name: "Free Carwash", quantity: 0, id:0 },
+    { name: "Free Tire Change", quantity: 0, id:1 },
+    { name: "Free Oil Change", quantity: 0, id:2 },
+]
 
-class EditSubscription extends Component {
+class AddSubscription extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            business_name: "",
-            api_key: "",
-            username: "",
-            password: "",
-            first_name: "",
-            last_name: "",
-            email: "",
-            phone_number: "",
-            street_address: "",
-            suite_apt: "",
-            city: "",
-            state: "",
-            postal_code: "",
+            title: "",
+            description: "", //not required
+            amount: 0,
+            monthly_recurring: true,
+            yearly_recurring: false,
+            benefits: [],
             isEditing: false,
         }
     }
 
     componentDidMount() {
-        document.title = "Elevate - Edit Business";
-        //actual axios function to load data of user
+        document.title = "Elevate - Add Business";
         this.setState({
-            ...mockupData
+            benefits: mockupBenefits,
         });
     }
 
-    submitForm = (e) => { // function to call backend and add the business
-        // alert(e);
-        e.preventDefault();
-        console.log(this.state);
-        // TODO axios() the call to backend
-        // if successfully submited form
-            this.toggleEdit(e);
+    addSubscription() {
+      axios({
+        method: 'POST',
+        url: '/api/users/', //Update when we have it
+        headers: {
+            'Authorization': `JWT ${localStorage.getItem('token')}`
+            },
+        data: {
+            business_id: this.props.id, //props id is user id check if it is the same thing
+            title: this.state.title,
+            description: this.state.description,
+        }
+        })
+        .then((response) => {
+            console.log(response);
+            let newBusiness = response.data;
+            this.toggleEdit();
+            // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
+        })
+        .catch((error) => {
+            console.log(error);    
+            console.log(error.response);  
+            if(error.response.status === 400) { // 400 is a bad request
+                if(error.response.data.email) {
+                    // alert(error.response.data.email);
+                    this.setState({
+                        emailError: true,
+                        emailErrorMessage: error.response.data.email,
+                    })
+                }
+            }         
+        })
     }
 
-    toggleEdit = (e) => {
-        this.setState({
-            isEditing: !this.state.isEditing
-        })
+    submitForm = (e) => { // function to call backend and add the benefit
+        e.preventDefault();
+        console.log(this.state);
+        // this.AddSubscription(); -> redirects to edit benefit page
     }
 
     onChange = (e) => {
@@ -67,105 +75,78 @@ class EditSubscription extends Component {
         })
     }
 
+    toggleCheckbox = (e) => {
+        if(this.state.isEditing) {
+            this.setState({
+                monthly_recurring: !this.state.monthly_recurring,
+                yearly_recurring: !this.state.yearly_recurring,
+            })
+        }
+    }
+
+    updateQuantity = (e, index) => {
+        const benefits = this.state.benefits;
+        benefits[index].quantity = e.target.value;
+        this.setState({
+            benefits,
+        })
+    }
+
+    toggleEdit = (e) => {
+        this.setState({
+            isEditing: !this.state.isEditing,
+        })
+      }
+
     render() {
       return (
-        <div className="EditSubscription">
-          <h1>Edit Subscription</h1>
+        <div className="AddSubscription">
+          <h1>Add Subscription</h1>
           <form onSubmit={this.submitForm}>
-                <div className="smallboxed">
-                    <h4>Business Information</h4>
-                    <div className="subbox1">
-                        <label htmlFor="business_name">Business Name</label>
-                        <br/>
-                        <input type="text" name="business_name" id="business_name" value={this.state.business_name} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                        <br/>
-                        <label htmlFor="api_key">Business API Key</label>
-                        <br/>
-                        <input type="text" name="api_key" id="api_key" value={this.state.api_key} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                        <br/>
-                    </div>
-                    <div className="subbox2">
-                        <label htmlFor="username">Username</label>
-                        <br/>
-                        <input type="text" name="username" id="username" value={this.state.username} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                        <br/>
-                        <label htmlFor="password">Password</label>
-                        <br/>
-                        <input type="password" name="password" id="password"  value={this.state.password} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                        <br/>
-                    </div>
-                </div>
-                <div className="smallboxed">
-                        <h4>Business Owner Information</h4>
-                        <div className="subbox1">
-                            <label htmlFor="first_name">First Name</label>
-                            <br/>
-                            <input type="text" name="first_name" id="first_name" value={this.state.first_name} className=" inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                            <br/>
-                            <label htmlFor="last_name">Last Name</label>
-                            <br/>
-                            <input type="text" name="last_name" id="last_name" value={this.state.last_name} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                            <br/>
-                        </div>
-                        <div className="subbox2">
-                            <label htmlFor="email">Email</label>
-                            <br/>
-                            <input type="email" name="email" id="email" value={this.state.email} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                            <br/>
-                            <label htmlFor="phone_number">Phone Number</label>
-                            <br/>
-                            <input type="number" name="phone_number" id="phone_number" value={this.state.phone_number} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                            <br/>
-                        </div>
-                    </div>
                   <div className="smallboxed">
-                      <h4>Primary Address</h4>
+                      <h4>Subscription Information</h4>
                       <div className="subbox1">
-                          <label htmlFor="street_address">Street Address</label>
+                          <label htmlFor="title">Title</label>
                           <br/>
-                          <input type="text" name="street_address" id="street_address" value={this.state.street_address} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                          <input type="text" name="title" id="title" value={this.state.title} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
-                          <label htmlFor="city">City</label>
+                          <label htmlFor="amount">Amount</label>
                           <br/>
-                          <input type="text" name="city" id="city" value={this.state.city} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                          <input type="number" name="amount" id="amount" value={this.state.amount} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
                       </div>
                       <div className="subbox2">
-                          <label htmlFor="suite_apt">Suite/Apt#</label>
+                          <label htmlFor="description">Description</label>
                           <br/>
-                          <input type="number" name="suite_apt" id="suite_apt" value={this.state.suite_apt} className="inputs"  onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                          <input type="text" name="description" id="description" value={this.state.description} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
-                          <div id="smaller_input">
-                              <label htmlFor="state" >State</label>
-                              <br/>
-                              <input type="text" name="state" id="state" value={this.state.state} style={{width: '130px'}} required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                              <br/>
-                          </div>
-                          <div id="smaller_input">
-                              <label htmlFor="postal_code" id="smaller_input">Postal Code</label>
-                              <br/>
-                              <input type="number" name="postal_code" id="postal_code" value={this.state.postal_code} style={{width: '260px'}} required onChange={this.onChange} readOnly={!this.state.isEditing}/>
-                              <br/>
-                          </div>
                       </div>
+                      <h4>Recurring Payment Type</h4>
+                      <div className="subbox1">
+                        <input type="checkbox" name="monthly_recurring" id="monthly_recurring" checked={this.state.monthly_recurring} className="inputs" onClick={this.toggleCheckbox} readOnly={!this.state.isEditing}/>
+                        <label htmlFor="monthly_recurring">Monthly Recurring</label>
+                        <br/>
+                        <input type="checkbox" name="yearly_recurring" id="yearly_recurring" checked={this.state.yearly_recurring} className="inputs" onClick={this.toggleCheckbox} readOnly={!this.state.isEditing}/>
+                        <label htmlFor="yearly_recurring">Yearly Recurring</label>
+                        <br/>
+                      </div>
+                      <h4>Benefits</h4>
+                      <ListBenefits benefits={this.state.benefits} updateQuantity={this.updateQuantity} editPage={true} isEditing={this.state.isEditing} />
                     <br/>
                     {this.state.isEditing ?
                         <span>
                             <button type="submit" className="green_button">Save</button>
-                            <Link id="setup" to={this.props.NMILink}>Setup NMI</Link>
                             <br/>
                             <br/>
                         </span>
                         
                         : null}
-                    
                 </div>
             </form>
             {this.state.isEditing ?
                 null :
                 <span>
                 <button type="button" onClick={this.toggleEdit} className="green_button">Edit</button>
-                <Link id="setup" to={this.props.NMILink}>Setup NMI</Link>
                             <br/>
                             <br/>
                 </span>}
@@ -175,4 +156,4 @@ class EditSubscription extends Component {
   }
 
 
-export default EditSubscription;
+export default AddSubscription;

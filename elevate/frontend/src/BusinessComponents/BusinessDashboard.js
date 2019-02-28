@@ -29,7 +29,7 @@ class BusinessDashboard extends Component {
         // })
         console.log(this.state.businessEntries);
     }
-    
+
     render() {
       return (
         <div className="dashboard-container">

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import Portal from "../CommonComponents/Portal.js";
 import CustomerDashboard from "./CustomerDashboard";
+import CustomerBenefits from "./CustomerBenefits";
 
 class CustomerPortal extends Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class CustomerPortal extends Component {
                           //   this.logout(); //if the signiture expires, is not a customer, or id does not match -> logout
                           // }
 
-                    
+
                           this.setState({ // for now until we connect with backend
                             username: localStorage.getItem('username'),
                             isLoading: false,
@@ -78,17 +79,27 @@ class CustomerPortal extends Component {
             path: `/frontend/customer/${this.props.match.params.id}/dashboard`,
             name: "Dashboard",
             selected: "Dashboard",
-            main: () => <CustomerDashboard 
-                          id={this.props.match.params.id} 
+            main: () => <CustomerDashboard
+                          id={this.props.match.params.id}
+                          logout={this.logout}
+                        />
+          },
+          {
+            path: `/frontend/customer/${this.props.match.params.id}/subscriptions/${this.props.match.params.sid}`,
+            name: "",
+            selected: "Dashboard",
+            main: () => <CustomerBenefits
+                          id={this.props.match.params.id}
                           logout={this.logout}
                         />
           }
         ]
       // }
       return (
-          <Portal 
-            routes={routes} 
-            username={this.state.username} 
+          <Portal
+            routes={routes}
+            //username={this.state.username}
+            username="Customer"
             logout={this.logout}
             isLoading={this.state.isLoading}
           />

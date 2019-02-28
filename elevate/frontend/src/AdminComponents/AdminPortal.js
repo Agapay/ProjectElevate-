@@ -90,8 +90,8 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/dashboard`,
             name: "Dashboard",
             selected: "Dashboard",
-            main: () => <AdminDashboard 
-                          id={this.props.match.params.id} 
+            main: () => <AdminDashboard
+                          id={this.props.match.params.id}
                           logout={this.logout}
                         />
           },
@@ -110,8 +110,8 @@ class AdminPortal extends Component {
             path: `/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`,
             name: "",
             selected: "Add Business",
-            main: () => 
-              <NMISetupStep1 
+            main: () =>
+              <NMISetupStep1
                 NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`}
                 logout={this.logout}
               />
@@ -129,8 +129,8 @@ class AdminPortal extends Component {
             exact: true,
             name: "",
             selected: "Add Business",
-            main: () => 
-              <EditBusiness 
+            main: () =>
+              <EditBusiness
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
                 bid={this.props.match.params.bid}
                 logout={this.logout}
@@ -139,9 +139,10 @@ class AdminPortal extends Component {
         ];
       // }
       return (
-          <Portal 
-            routes={routes} 
-            username={this.state.username} 
+          <Portal
+            routes={routes}
+            //username={this.state.username}
+            username="Admin"
             logout={this.logout}
             isLoading={this.state.isLoading}
           />

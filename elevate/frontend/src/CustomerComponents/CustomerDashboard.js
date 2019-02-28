@@ -1,38 +1,63 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import { withRouter } from "react-router";
+import CustomerTableItem from "./CustomerTableItem";
 
 
 let MockupData = [ //change the mockup data if you want to test how you will render the subscriptions
-    {name: "Amazon", status: "OK", id:0},
-    {name: "Apple", status: "OK", id:1},
-    {name: "Baskin Robins", status: "OK", id:2},
-    {name: "Microsoft", status: "BAD", id:3},
-    {name: "Clorox", status: "OK", id:4},
-    {name: "1234", status: "BAD", id:5},
-    {name: "1000004", status: "BAD", id:6},
+    {name: "Oil Change", status: "OK", id:0, quantity: 12},
+    {name: "Tire Rotation", status: "OK", id:1, quantity: 1},
+    {name: "Alignment", status: "OK", id:2, quantity: 0},
+    {name: "Coolent Replacement", status: "BAD", id:3, quantity: 4},
+    {name: "Windshield Replacement", status: "OK", id:4, quantity: 6},
+    {name: "Blinker Fluid", status: "BAD", id:5, quantity: 1},
+    {name: "Dent Fix", status: "BAD", id:6, quantity: 11},
 ]
 
-class BusinessDashboard extends Component {
+class CustomerDashboard extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        businessEntries: MockupData,
+        customerEntries: MockupData,
       }
     }
 
     componentDidMount() {
         document.title = "Elevate - Dashboard";
     }
-    
+
     render() {
       return (
         <div className="dashboard-container">
-          <h1>Customers</h1>
-            <div>Show subscriptions</div>
+        <h1>Subscriptions</h1>
+          <table className="col-12" >
+            <tbody>
+                  <tr>
+                    <th className='left_side'>Name</th>
+                    <th className="">Status</th>
+                    <th className="">View</th>
+                    <th className='right_side centered-middle'>Quantity</th>
+                  </tr>
+                  { this.state.customerEntries.map((customerEntry, index) => {
+                      return (
+                        <CustomerTableItem
+                          name={customerEntry.name}
+                          status={customerEntry.status}
+                          key={"customerEntry"+index}
+                          id={this.props.id}
+                          quantity={customerEntry.quantity}
+                          sid={customerEntry.id}
+                          // link to edit business page
+                          // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}
+                        />
+                      )
+                    })
+                  }
+              </tbody>
+            </table>
         </div>
       );
     }
   }
 
-export default withRouter(BusinessDashboard);
+export default withRouter(CustomerDashboard);

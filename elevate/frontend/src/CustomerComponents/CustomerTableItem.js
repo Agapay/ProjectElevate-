@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import { withRouter } from "react-router";
 
-class BusinessTableItem extends Component {
+class CustomerTableItem extends Component {
   constructor(props) {
     super(props);
 
@@ -18,16 +18,16 @@ class BusinessTableItem extends Component {
             </span>
           </td>
           <td className="bold">
-          <a href={`/frontend/business/${this.props.id}/customer/${this.props.cid}`}>
-                Edit
+          <a href={`/frontend/customer/${this.props.id}/subscriptions/${this.props.sid}`}>
+                View
               </a>
           </td>
           <td className='right_side centered-middle'>
-            <span className="square red">suspend</span>
+            <span className="quantity">{this.props.quantity}</span>
         </td>
       </tr>
     );
   }
 }
 
-export default withRouter(BusinessTableItem);
+export default withRouter(CustomerTableItem);

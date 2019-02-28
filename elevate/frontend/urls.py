@@ -13,7 +13,7 @@ urlpatterns = [
     path('admin/<int:id>/business/<int:bid>/NMIsetup-1', views.index),
     path('admin/<int:id>/business/<int:bid>/NMIsetup-2', views.index),
     path('admin/<int:id>/business/<int:bid>', views.index),
-    
+
     # Business Routes
     path('business/<int:id>/dashboard', views.index),
     path('business/<int:id>/subscriptions', views.index),
@@ -29,4 +29,5 @@ urlpatterns = [
 
     # Customer Routes
     path('customer/<int:id>/dashboard', views.index),
+    path('customer/<int:id>/subscriptions/<int:sid>', views.index)
 ]

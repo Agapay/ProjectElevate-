@@ -25,9 +25,9 @@ class NMISetupStep2 extends Component {
       e.preventDefault();
       console.log(this.state);
       // TODO axios() the call to backend
-      // if successful 
+      // if successful
         //display a success message then redirect back to edit business
-        
+
     }
 
     render() {
@@ -41,20 +41,20 @@ class NMISetupStep2 extends Component {
                   <br/>
                   <input id="credit_card_number" type="text" name="credit_card_number" class="inputs" value={this.state.credit_card_number} onChange={this.onChange} required/>
                   <br/>
-                  <label htmlFor="CVV">CVV</label>
+                  <label htmlFor="cvv">CVV</label>
                   <br/>
-                  <input type="text" name="CVV" class="inputs" />
+                  <input id="cvv" type="text" name="cvv" class="inputs" value={this.state.cvv} onChange={this.onChange} required/>
                   <br/>
                   <button class="green_button">Submit Step-two</button>
 
               </div>
               <div class="subbox2">
-                  <label htmlFor="Expiration_Date">Expiration Date</label>
+                  <label htmlFor="exp_date">Expiration Date</label>
                   <br/>
-                  <input type="text" name="Expiration_Date" class="inputs" />
+                  <input id="exp_date" type="text" name="exp_date" class="inputs" value={this.state.exp_date} onChange={this.onChange} required/>
                   <br/>
 
-              
+
               </div>
             </form>
 

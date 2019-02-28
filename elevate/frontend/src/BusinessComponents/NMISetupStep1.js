@@ -35,9 +35,9 @@ class NMISetupStep1 extends Component {
       e.preventDefault();
       console.log(this.state);
       // TODO axios() the call to backend
-      // if successful 
+      // if successful
         //redirect to step 2
-        
+
     }
 
     render() {
@@ -52,57 +52,57 @@ class NMISetupStep1 extends Component {
                         <br/>
                         <input type="text" name="company_name" id="company_name" className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="First_name">First name</label>
+                        <label htmlFor="first_name">First name</label>
                         <br/>
-                        <input type="text" name="First_name" className="inputs"/>
+                        <input type="text" name="first_name" id="first_name" className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Address_1">Address 1</label>
+                        <label htmlFor="address_1">Address 1</label>
                         <br/>
-                        <input type="text" name="Address_1" className="inputs" />
+                        <input type="text" name="address_1" id="address_1" className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="City">City</label>
+                        <label htmlFor="city">City</label>
                         <br/>
-                        <input type="text" name="City" className="inputs"/>
+                        <input type="text" name="city" id="city" className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Zip_Code">Zip Code</label>
+                        <label htmlFor="zip_code">Zip Code</label>
                         <br/>
-                        <input type="text" name="Zip_Code" className="inputs"/>
+                        <input type="text" name="zip_code" id="zip_code"  className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Phone_Number">Phone Number</label>
+                        <label htmlFor="phone_number">Phone Number</label>
                         <br/>
-                        <input type="text" name="Phone_Number" className="inputs"/>
+                        <input type="text" name="phone_number" id="phone_number"  className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Email">Email</label>
+                        <label htmlFor="email">Email</label>
                         <br/>
-                        <input type="text" name="Email" className="inputs"/>
+                        <input type="text" name="email" id="email"  className="inputs" onChange={this.onChange} required/>
                         <br/>
                         <button className="green_button">Submit Step-one</button>
                         {/* <Link to={this.props.NMIStep2Link} classNameName="normal_button green_button">Continue to NMI Step 2</Link> */}
                     </div>
                     <div className="subbox2">
-                        <label htmlFor="Customer_Vault_ID">Customer Vault ID</label>
+                        <label htmlFor="customer_vault_id">Customer Vault ID</label>
                         <br/>
-                        <input type="text" name="Customer_Vault_ID" className="inputs"/>
+                        <input type="text" name="customer_vault_id" id="customer_vault_id"  className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Last_Name">Last Name</label>
+                        <label htmlFor="last_name">Last Name</label>
                         <br/>
-                        <input type="text" name="Last_Name " className="inputs"/>
+                        <input type="text" name="last_name" id="last_name"  className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Address_2">Address 2</label>
+                        <label htmlFor="address_2">Address 2</label>
                         <br/>
-                        <input type="text" name="Address_2"  className="inputs"/>
+                        <input type="text" name="address_2" id="address_2"   className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="State/Province">State/Province</label>
+                        <label htmlFor="state_province">State/Province</label>
                         <br/>
-                        <input type="text" name="State/Province " className="inputs"/>
+                        <input type="text" name="state_province" id="state_province"  className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="County">County</label>
+                        <label htmlFor="county">County</label>
                         <br/>
-                        <input type="text" name="County"  className="inputs"/>
+                        <input type="text" name="county" id="county"   className="inputs" onChange={this.onChange} required/>
                         <br/>
-                        <label htmlFor="Fax_Number">Fax_Number</label>
+                        <label htmlFor="fax_number">Fax Number</label>
                         <br/>
-                        <input type="text" name="Fax_Number " className="inputs"/>
+                        <input type="text" name="fax_number" id="fax_number"  className="inputs" onChange={this.onChange} required/>
                         <br/>
                     <div/>
               </div>

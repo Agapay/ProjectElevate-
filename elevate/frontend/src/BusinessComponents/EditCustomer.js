@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import axios from 'axios';
 
-class EditBusiness extends Component {
+import ListSubscriptions from './ListSubscriptions'
+
+const mockupSubscriptions = [ //id is benefit id
+  { name: "Stadard Package", selected: false, id:0 },
+  { name: "Premium Package", selected: false, id:1 },
+  { name: "Premium+ Package", selected: false, id:2 },
+]
+
+class EditCustomer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,6 +34,7 @@ class EditBusiness extends Component {
             //Error States
             emailError: false,
             emailErrorMessage: "",
+            subscriptions: [],
         }
     }
 
@@ -75,9 +84,11 @@ class EditBusiness extends Component {
     }
 
     componentDidMount() {
-        document.title = "Elevate - Edit Business";
+        document.title = "Elevate - Edit Customer";
         //actual axios function to load data of user
-        
+        this.setState({
+            subscriptions: mockupSubscriptions
+        })
     }
 
     submitForm = (e) => { // function to call backend and add the business
@@ -95,6 +106,16 @@ class EditBusiness extends Component {
         })
     }
 
+    updateSelected = (e, index) => {
+        if (this.state.isEditing) {
+            const subscriptions = this.state.subscriptions;
+            subscriptions[index].selected = !subscriptions[index].selected;
+            this.setState({
+                subscriptions,
+            })
+        }
+    }
+
     onChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value,
@@ -104,7 +125,7 @@ class EditBusiness extends Component {
     render() {
         console.log(this.state);
       return (
-        <div className="EditBusiness">
+        <div className="EditCustomer">
           <h1>Edit Customer</h1>
           <form onSubmit={this.submitForm}>
                 <div className="smallboxed">
@@ -180,6 +201,8 @@ class EditBusiness extends Component {
                               <br/>
                           </div>
                       </div>
+                      <h4>Subscriptions</h4>
+                    <ListSubscriptions subscriptions={this.state.subscriptions} updateSelected={this.updateSelected} editPage={true} isEditing={this.state.isEditing}/>
                     <br/>
                     {this.state.isEditing ?
                         <span>
@@ -207,4 +230,4 @@ class EditBusiness extends Component {
   }
 
 
-export default EditBusiness;
+export default EditCustomer;

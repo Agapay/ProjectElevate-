@@ -27,6 +27,10 @@ section {
   color: red;
 }
 
+.benefit-item #view_quantity{
+  float: right;
+}
+
 .login-container h1 {
     text-align: center;
     font-size: 56px;
@@ -314,12 +318,28 @@ td{
     background-color: #69E4A6;
 }
 
+.square{
+  padding: 3px 30px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 1px;
+  background-color: #69E4A6;
+  color: white;
+}
+
 .red {
     background-color: red;
+    /* color: white; */
 }
 
 .bold {
     font-weight: bold;
+}
+
+.quantity{
+  color: #3887E4;
+  font-weight: bold;
 }
 
 .blue-link {
@@ -381,6 +401,10 @@ input:read-only {
     border: 1px solid #d6d6d6;
 }
 
+input[type=checkbox] {
+    width: 20px;
+}
+
 .form-error-message {
     color: red;
 }
@@ -419,4 +443,36 @@ ul li:hover > ul, ul li ul:hover{
 
 #container{
   background-color: #363086;
+}
+
+
+/* List Styles */
+
+.benefit-item input {
+    width: 100px;
+    float: right;
+}
+
+.benefit-title {
+    border-bottom: 1px solid #b1afaf;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.benefit-quantity {
+    float: right;
+    margin-right: 37px;
+}
+
+.list-container {
+    background-color: #ebeaf3;
+    width: 900px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.list-container label {
+    padding: 0;
 }
