@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Business, Customer, SubscriptionPlan
+from .models import User, Business, Customer, SubscriptionPlan, Benefit
 
 
 # Register your models here.
@@ -17,4 +17,5 @@ admin.site.register(Business)
 admin.site.register(Customer)
 admin.site.register(User, UserAdmin)
 admin.site.register(SubscriptionPlan)
+admin.site.register(Benefit)
 

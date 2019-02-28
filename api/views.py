@@ -7,10 +7,12 @@ from core.models import Customer
 from core.models import Business
 from core.models import UserManager
 from core.models import SubscriptionPlan
+from core.models import Benefit
 from rest_framework.response import Response
 import json
 
-from .serializers import UserSerializer, CustomerSerializer, SubscriptionPlanSerializer
+from .serializers import UserSerializer, CustomerSerializer, \
+    SubscriptionPlanSerializer, HistoryRedeemablesSerializer, BenefitSerializer
 
 
 
@@ -94,7 +96,7 @@ class UserRUDView(generics.RetrieveUpdateDestroyAPIView): #detail view
 class CustomersAPIView(generics.ListAPIView):
 
     lookup_field = 'id'
-    serializer_class = Customer
+    serializer_class = CustomerSerializer
 
     def get(self, request, business_id):
         print(business_id)
@@ -114,7 +116,7 @@ class CustomersAPIView(generics.ListAPIView):
 class CreateSubscriptionPlan(generics.CreateAPIView):
     lookup_field = 'id'
     serializer_class = SubscriptionPlanSerializer
-    print("here")
+
 
     def get_queryset(self):
         return SubscriptionPlan.objects.all()
@@ -122,6 +124,38 @@ class CreateSubscriptionPlan(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         instance.save()
+
+
+class CreateBenefit(generics.CreateAPIView):
+    lookup_field = 'id'
+    serializer_class = BenefitSerializer
+
+    def get_queryset(self):
+        return Benefit.objects.all()
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.save()
+
+        b_id = instance.business
+        subscription_plans = SubscriptionPlan.objects.filter(business=b_id)
+        for subscription in subscription_plans:
+            subscription.benefits.add(instance)
+        
+
+
+        
+
+
+
+
+
+
+
+class ViewHistoryRedeemables(generics.ListAPIView):
+    lookup_field = 'id'
+    serializer_class = HistoryRedeemablesSerializer
+
 
 
 
