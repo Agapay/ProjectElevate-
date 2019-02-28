@@ -293,6 +293,8 @@ class Customer(models.Model):
     country_home_address = models.CharField(max_length=100, blank=True, null=True)
     zip_home_address = models.CharField(max_length=15, blank=True, null=True)
 
+
+
     # subscriptions = models.ManyToManyField(Subscription)
 
     def __str__(self):

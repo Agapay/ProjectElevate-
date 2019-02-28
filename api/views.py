@@ -124,6 +124,7 @@ class CreateSubscriptionPlan(generics.CreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         instance.save()
+        print("Creating PLAN")
 
 
 class CreateBenefit(generics.CreateAPIView):
@@ -179,6 +180,25 @@ class ViewAllBenefits(generics.ListAPIView):
             print("no")
             return Response({})
 
+
+
+class ViewAllSubscriptions(generics.ListAPIView):
+
+    lookup_field = 'id'
+    serializer_class = SubscriptionPlanSerializer
+
+    def get(self, request, business_id):
+        print(business_id)
+        b = Business.objects.filter(pk=business_id)
+        if len(b) > 0:
+            b = b[0]
+            subscriptions = SubscriptionPlan.objects.filter(business=b)
+            subscription_serializer = SubscriptionPlanSerializer(subscriptions, many=True)
+            res = Response({'subscriptions':subscription_serializer.data})
+            return res
+        else:
+            print("no")
+            return Response({})
 
 
 
