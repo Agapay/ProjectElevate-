@@ -60,7 +60,7 @@ class AdminDashboard extends Component {
     componentWillUnmount() {
       // this._isMounted = false;
     }
-    
+
     render() {
       return (
         <div className="dashboard-container">
@@ -70,12 +70,12 @@ class AdminDashboard extends Component {
                     <tr>
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
-                      <th className="">View</th>
+                      <th className="">View|Edit</th>
                       <th className='right_side'>Business Mode</th>
                     </tr>
                     { this.state.businessEntries.map((businessEntry, index) => {
                         return (
-                          <AdminTableItem 
+                          <AdminTableItem
                             name={businessEntry.name}
                             status={businessEntry.status}
                             key={"businessEntry"+index}
