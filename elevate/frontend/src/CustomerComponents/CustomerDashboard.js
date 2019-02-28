@@ -5,14 +5,9 @@ import CustomerTableItem from "./CustomerTableItem";
 
 
 let MockupData = [ //change the mockup data if you want to test how you will render the subscriptions
-    {name: "Oil Change", status: "OK", id:0, quantity: 12},
-    {name: "Tire Rotation", status: "OK", id:1, quantity: 1},
-    {name: "Alignment", status: "OK", id:2, quantity: 0},
-    {name: "Coolent Replacement", status: "BAD", id:3, quantity: 4},
-    {name: "Windshield Replacement", status: "OK", id:4, quantity: 6},
-    {name: "Blinker Fluid", status: "BAD", id:5, quantity: 1},
-    {name: "Dent Fix", status: "BAD", id:6, quantity: 11},
+    {name: "Car Maintenance", status: "OK", id:0, cost: 30.00}
 ]
+//quantity change to cost
 
 class CustomerDashboard extends Component {
     constructor(props) {
@@ -22,9 +17,38 @@ class CustomerDashboard extends Component {
       }
     }
 
-    componentDidMount() {
-        document.title = "Elevate - Dashboard";
-    }
+    // componentDidMount() {
+    //     // this._isMounted = true;
+    //     document.title = "Elevate - Dashboard";
+    //     fetch('/api/users/businesses', {
+    //         method: 'GET',
+    //         headers: {
+    //         Authorization: `JWT ${localStorage.getItem('token')}`
+    //         }
+    //     })
+    //         .then(res => res.json())
+    //         .then(json => {
+    //             if(json.detail) { //error handling
+    //                 // this.setState({
+    //                 //     error: true,
+    //                 // })
+    //                 console.log(json.detail);
+    //                 this.props.logout();
+    //             } else {
+    //                 console.log(json); //list of businesses
+    //                 let newBusinesses = json.map((business) => { //format backend json to frontend
+    //                   let newBusiness = {};
+    //                   newBusiness.name = business.business_name;
+    //                   newBusiness.id = business.id;
+    //                   newBusiness.status = business.active ? "OK": "BAD"; //if active ok, else bad
+    //                   return newBusiness;
+    //                 });
+    //                 this.setState({
+    //                   businessEntries: newBusinesses
+    //                 })
+    //             }
+    //         });
+    // }
 
     render() {
       return (
@@ -35,8 +59,8 @@ class CustomerDashboard extends Component {
                   <tr>
                     <th className='left_side'>Name</th>
                     <th className="">Status</th>
-                    <th className="">View</th>
-                    <th className='right_side centered-middle'>Quantity</th>
+                    <th className="">View|Edit</th>
+                    <th className='right_side centered-middle'>Cost</th>
                   </tr>
                   { this.state.customerEntries.map((customerEntry, index) => {
                       return (
@@ -45,7 +69,7 @@ class CustomerDashboard extends Component {
                           status={customerEntry.status}
                           key={"customerEntry"+index}
                           id={this.props.id}
-                          quantity={customerEntry.quantity}
+                          cost={customerEntry.cost}
                           sid={customerEntry.id}
                           // link to edit business page
                           // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}

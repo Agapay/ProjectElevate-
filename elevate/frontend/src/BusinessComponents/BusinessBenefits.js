@@ -29,7 +29,7 @@ class BusinessBenefits extends Component {
         // })
         console.log(this.state.businessEntries);
     }
-    
+
     render() {
       return (
         <div className="dashboard-container">
@@ -39,12 +39,12 @@ class BusinessBenefits extends Component {
                     <tr>
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
-                      <th className="">View</th>
+                      <th className="">View|Edit</th>
                       <th className='right_side'>Business Mode</th>
                     </tr>
                     { this.state.businessEntries.map((businessEntry, index) => {
                         return (
-                          <BusinessBenefitTableItem 
+                          <BusinessBenefitTableItem
                             name={businessEntry.name}
                             status={businessEntry.status}
                             key={"businessEntry"+index}

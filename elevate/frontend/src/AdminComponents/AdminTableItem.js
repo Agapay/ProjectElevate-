@@ -23,7 +23,7 @@ class AdminTableItem extends Component {
               </a>
           </td>
           <td className='right_side'>
-            <span className="blue-link">Go</span>
+            <a href=' 'className="blue-link">Go</a>
         </td>
       </tr>
     );

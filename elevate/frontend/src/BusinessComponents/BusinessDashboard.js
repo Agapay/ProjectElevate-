@@ -39,12 +39,12 @@ class BusinessDashboard extends Component {
                     <tr>
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
-                      <th className="">View</th>
+                      <th className="">View|Edit</th>
                       <th className='right_side centered-middle'>Suspend</th>
                     </tr>
                     { this.state.businessEntries.map((businessEntry, index) => {
                         return (
-                          <BusinessTableItem 
+                          <BusinessTableItem
                             name={businessEntry.name}
                             status={businessEntry.status}
                             key={"businessEntry"+index}

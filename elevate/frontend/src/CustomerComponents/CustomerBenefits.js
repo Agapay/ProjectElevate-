@@ -16,8 +16,47 @@ class CustomerBenefits extends Component {
     super(props)
     this.state = {
       benefits: MockupData,
-    }
+    } //empty [] when conencting to endpoints
   }
+
+  // TO get customer
+  // this.props.id
+  // To get subscriptions id
+  // this.props.sid
+  //  `customer/${this.props.id}/subscription/${this.props.sid}`
+
+  // componentDidMount() {
+  //     // this._isMounted = true;
+  //     document.title = "Elevate - Dashboard";
+  //     fetch('/api/users/businesses', {
+  //         method: 'GET',
+  //         headers: {
+  //         Authorization: `JWT ${localStorage.getItem('token')}`
+  //         }
+  //     })
+  //         .then(res => res.json())
+  //         .then(json => {
+  //             if(json.detail) { //error handling
+  //                 // this.setState({
+  //                 //     error: true,
+  //                 // })
+  //                 console.log(json.detail);
+  //                 this.props.logout();
+  //             } else {
+  //                 console.log(json); //list of businesses
+  //                 let newBusinesses = json.map((business) => { //format backend json to frontend
+  //                   let newBusiness = {};
+  //                   newBusiness.name = business.business_name;
+  //                   newBusiness.id = business.id;
+  //                   newBusiness.status = business.active ? "OK": "BAD"; //if active ok, else bad
+  //                   return newBusiness;
+  //                 });
+  //                 this.setState({
+  //                   businessEntries: newBusinesses
+  //                 })
+  //             }
+  //         });
+  // }
 
 
   render() {

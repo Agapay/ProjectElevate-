@@ -90,6 +90,7 @@ class CustomerPortal extends Component {
             selected: "Dashboard",
             main: () => <CustomerBenefits
                           id={this.props.match.params.id}
+                          sid={this.props.match.params.sid}
                           logout={this.logout}
                         />
           }

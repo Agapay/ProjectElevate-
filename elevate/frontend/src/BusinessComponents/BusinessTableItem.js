@@ -19,11 +19,11 @@ class BusinessTableItem extends Component {
           </td>
           <td className="bold">
           <a href={`/frontend/business/${this.props.id}/customer/${this.props.cid}`}>
-                Edit
+                View|Edit
               </a>
           </td>
           <td className='right_side centered-middle'>
-            <span className="square red">suspend</span>
+            <button className="square red">suspend</button>
         </td>
       </tr>
     );

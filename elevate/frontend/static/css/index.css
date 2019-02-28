@@ -342,10 +342,22 @@ td{
   font-weight: bold;
 }
 
+.cost{
+  color: #3887E4;
+  font-weight: bold;
+}
+
 .blue-link {
     color: #3887E4;
     cursor: pointer;
 }
+
+.right_side .blue-link {
+    color: #3887E4;
+    cursor: pointer;
+}
+
+
 
 /* Dashboard Styles */
 .dashboard-container {

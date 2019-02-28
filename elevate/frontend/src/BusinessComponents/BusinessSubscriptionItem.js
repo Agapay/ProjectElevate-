@@ -19,7 +19,7 @@ class BusinessSubscriptionItem extends Component {
           </td>
           <td className="bold">
           <a href={`/frontend/business/${this.props.id}/subscription/${this.props.sid}`}>
-                Edit
+                View|Edit
               </a>
           </td>
           <td className='right_side'>

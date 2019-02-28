@@ -19,11 +19,11 @@ class CustomerTableItem extends Component {
           </td>
           <td className="bold">
           <a href={`/frontend/customer/${this.props.id}/subscriptions/${this.props.sid}`}>
-                View
+                View|Edit
               </a>
           </td>
           <td className='right_side centered-middle'>
-            <span className="quantity">{this.props.quantity}</span>
+            <span className="cost">{this.props.cost}</span>
         </td>
       </tr>
     );
