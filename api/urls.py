@@ -1,4 +1,4 @@
-from .views import UserRUDView, UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, \
+from .views import UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, \
     CreateBenefit, ViewCustomer, ViewAllBenefits, ViewAllSubscriptions, UpdateCustomer
 from django.contrib import admin
 from django.urls import path, include
