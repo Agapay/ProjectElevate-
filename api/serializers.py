@@ -94,7 +94,8 @@ class CustomerSerializer(serializers.ModelSerializer):
                   "city_home_address",
                   "state_home_address",
                   "country_home_address",
-                  "zip_home_address"]
+                  "zip_home_address",
+                  "subscriptions"]
 
 
 
