@@ -161,6 +161,24 @@ class ViewCustomer(generics.ListAPIView):
 
 
 
+class ViewAllBenefits(generics.ListAPIView):
+
+    lookup_field = 'id'
+    serializer_class = BenefitSerializer
+
+    def get(self, request, business_id):
+        print(business_id)
+        b = Business.objects.filter(pk=business_id)
+        if len(b) > 0:
+            b = b[0]
+            benefits = Benefit.objects.filter(business=b)
+            benefits_serializer = BenefitSerializer(benefits, many=True)
+            res = Response({'benefits':benefits_serializer.data})
+            return res
+        else:
+            print("no")
+            return Response({})
+
 
 
 
