@@ -30,7 +30,7 @@ class BusinessSubcriptions extends Component {
         console.log(this.state.subsEntries);
 
         console.log(this.props.id);
-        console.log(`/api/users/businesses/${this.props.id}/subscriptions`);
+        //console.log(`/api/users/businesses/${this.props.id}/subscriptions`);
         fetch(`/api/users/businesses/${this.props.id}/subscriptions`, {
           method: 'GET',
           headers: {
@@ -47,15 +47,16 @@ class BusinessSubcriptions extends Component {
                   this.props.logout();
               } else {
                   console.log(json); //list of businesses
-                  let newSubs = json.benefits.map((sub) => { //format backend json to frontend
+                  let newSubs = json.subscriptions.map((sub) => { //format backend json to frontend
                     let newSub = {};
-                    newSubs.name = sub.title;
-                    newSubs.id = sub.id;
-                    newSubs.status = true ? "OK": "BAD"; //if active ok, else bad
-                    return newSubs;
+                    newSub.title = sub.title;
+                    newSub.id = sub.id;
+                    newSub.status = true ? "OK": "BAD"; //if active ok, else bad
+                    newSub.amount = sub.amount;
+                    return newSub;
                   });
                   this.setState({
-                    benefitsEntries: newSubs,
+                    subsEntries: newSubs,
                   })
               }
           });
@@ -70,17 +71,18 @@ class BusinessSubcriptions extends Component {
                     <tr>
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
-                      <th className="">View</th>
-                      <th className='right_side'>Business Mode</th>
+                      <th className="">View|Edit</th>
+                      <th className='right_side'>Cost</th>
                     </tr>
                     { this.state.subsEntries.map((subs, index) => {
                         return (
                           <BusinessSubscriptionItem
-                            name={subs.name}
+                            name={subs.title}
                             status={subs.status}
                             key={"subs"+index}
                             id={this.props.id}
                             sid={subs.id} //subscription entry
+                            amount={subs.amount}
                             // link to edit business page
                             // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}
                           />

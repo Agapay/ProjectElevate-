@@ -69,7 +69,7 @@ class BusinessBenefits extends Component {
                     <tr>
                       <th className='left_side'>Name</th>
                       <th className="">Status</th>
-                      <th className="">View</th>
+                      <th className="">View|Edit</th>
                       <th className='right_side'>Business Mode</th>
                     </tr>
                     { this.state.benefitsEntries.map((benefit, index) => {

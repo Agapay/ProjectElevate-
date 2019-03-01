@@ -73,14 +73,14 @@ class BusinessDashboard extends Component {
                       <th className="">View</th>
                       <th className='right_side centered-middle'>Suspend</th>
                     </tr>
-                    { this.state.customerEntries.map((businessEntry, index) => {
+                    { this.state.customerEntries.map((customer, index) => {
                         return (
-                          <BusinessTableItem 
-                            name={businessEntry.name}
-                            status={businessEntry.status}
-                            key={"businessEntry"+index}
+                          <BusinessTableItem
+                            name={customer.name}
+                            status={customer.status}
+                            key={"customer"+index}
                             id={this.props.id}
-                            cid={businessEntry.id} //customer entry
+                            cid={customer.id} //customer entry
                             // link to edit business page
                             // link={<Link to={`/frontend/admin/${this.props.id}/business/${businessEntry.id}`}>View |Edit</Link>}
                           />

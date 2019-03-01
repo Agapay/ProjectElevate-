@@ -19,7 +19,7 @@ class BusinessBenefitTableItem extends Component {
           </td>
           <td className="bold">
           <a href={`/frontend/business/${this.props.id}/benefit/${this.props.beid}`}>
-                Edit
+                View|Edit
               </a>
           </td>
           <td className='right_side'>
