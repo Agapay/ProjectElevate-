@@ -79,12 +79,13 @@ class EditBenefit extends Component {
                           <br/>
                           <input type="text" name="title" id="title" value={this.state.title} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
-                      </div>
-                      <div className="subbox2">
                           <label htmlFor="description">Description</label>
                           <br/>
-                          <input type="text" name="description" id="description" value={this.state.description} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                          <textarea type="text" name="description" id="description" value={this.state.description} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
+                      </div>
+                      <div className="subbox2">
+                          
                       </div>
                     <br/>
                     {this.state.isEditing ?

@@ -382,6 +382,12 @@ td{
     margin-bottom:20px;
 }
 
+textarea {
+    height: 180px;
+    resize: none;
+    border: 1px solid #d2d0d0
+}
+
 #smaller_input{
     display:inline-block;
 }
@@ -396,7 +402,7 @@ td{
     background-color: gray;
 }
 
-input:read-only {
+input:read-only, textarea:read-only {
     background-color: #efefef;
     border: 1px solid #d6d6d6;
 }
