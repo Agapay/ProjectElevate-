@@ -9,7 +9,7 @@ class ListBenefits extends Component {
   render() {
     const benefitsList = this.props.benefits.map((benefit, index) => {
       return (
-        <div key={"benefitsListItem" + index} class="benefit-item">
+        <div key={"benefitsListItem" + index} className="benefit-item">
           <label htmlFor={"benefitID" + index}>{benefit.name}</label>
           <input type="number" id={"benefitID" + index} value={benefit.quantity} onChange={(e) => {this.props.updateQuantity(e, index)}} readOnly={this.props.editPage && !this.props.isEditing} />
         </div>
@@ -18,7 +18,7 @@ class ListBenefits extends Component {
 
     return (
       <div className="list-container">
-        <div key={"benefitsListItemInformation"} class="benefit-title">
+        <div key={"benefitsListItemInformation"} className="benefit-title">
           <span>Name</span>
           <span className="benefit-quantity">Quantity</span>
         </div>

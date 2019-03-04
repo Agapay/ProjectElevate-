@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; //delete after
 import ListBenefits from './ListBenefits';
+import axios from 'axios';
+
 
 const mockupBenefits = [ //id is benefit id
     { name: "Free Carwash", quantity: 0, id:0 },
@@ -29,39 +31,51 @@ class AddSubscription extends Component {
         });
     }
 
-    addSubscription() {
-      axios({
-        method: 'POST',
-        url: '/api/users/', //Update when we have it
-        headers: {
-            'Authorization': `JWT ${localStorage.getItem('token')}`
-            },
-        data: {
-            business_id: this.props.id, //props id is user id check if it is the same thing
-            title: this.state.title,
-            description: this.state.description,
+    //takes in this.state.benefits -> an array of the ids of selected benefits
+    returnSelectedBenefits() {
+        let selectedBenefits = []
+        for (let benefit of this.state.benefits) {
+            if (benefit.quantity === 1) {
+                selectedBenefits.push(benefit.id);
+            }
         }
-        })
-        .then((response) => {
-            console.log(response);
-            let newBusiness = response.data;
-            this.toggleEdit();
-            // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
-        })
-        .catch((error) => {
-            console.log(error);    
-            console.log(error.response);  
-            if(error.response.status === 400) { // 400 is a bad request
-                if(error.response.data.email) {
-                    // alert(error.response.data.email);
-                    this.setState({
-                        emailError: true,
-                        emailErrorMessage: error.response.data.email,
-                    })
-                }
-            }         
-        })
+        return selectedBenefits
     }
+
+    addSubscription() {
+        axios({
+          method: 'POST',
+          url: '/api/users/create_subscription', //Update when we have it
+          headers: {
+              'Authorization': `JWT ${localStorage.getItem('token')}`
+              },
+          data: {
+              business: this.props.id, //props id is user id check if it is the same thing
+              title: this.state.title,
+              amount: parseInt(this.state.amount),
+              description: this.state.description,
+              benefits: this.returnSelectedBenefits(this.state.benefits),
+          }
+          })
+          .then((response) => {
+              console.log(response);
+              let newSubscription = response.data;
+              window.location.replace(`/frontend/business/${this.props.id}/subscription/${newSubscription.id}`);
+          })
+          .catch((error) => {
+              console.log(error);    
+              console.log(error.response);  
+              // if(error.response.status === 400) { // 400 is a bad request
+              //     if(error.response.data.email) {
+              //         // alert(error.response.data.email);
+              //         this.setState({
+              //             emailError: true,
+              //             emailErrorMessage: error.response.data.email,
+              //         })
+              //     }
+              // }         
+          })
+      }
 
     submitForm = (e) => { // function to call backend and add the benefit
         e.preventDefault();
@@ -85,11 +99,14 @@ class AddSubscription extends Component {
     }
 
     updateQuantity = (e, index) => {
-        const benefits = this.state.benefits;
-        benefits[index].quantity = e.target.value;
-        this.setState({
-            benefits,
-        })
+        let num = parseInt(e.target.value);
+        if(num === 0 || num === 1) { //for the mvp only 0 or 1 for qunatity
+            const benefits = this.state.benefits;
+            benefits[index].quantity = num;
+            this.setState({
+                benefits,
+            })
+        }
     }
 
     toggleEdit = (e) => {
@@ -115,19 +132,17 @@ class AddSubscription extends Component {
                           <input type="number" name="amount" id="amount" value={this.state.amount} className="inputs" required onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
                       </div>
-                      <div className="subbox2">
+                      <br/>
+                      <div className="subbox1">
                           <label htmlFor="description">Description</label>
                           <br/>
-                          <input type="text" name="description" id="description" value={this.state.description} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
+                          <textarea type="text" name="description" id="description" value={this.state.description} className="inputs" onChange={this.onChange} readOnly={!this.state.isEditing}/>
                           <br/>
                       </div>
                       <h4>Recurring Payment Type</h4>
                       <div className="subbox1">
                         <input type="checkbox" name="monthly_recurring" id="monthly_recurring" checked={this.state.monthly_recurring} className="inputs" onClick={this.toggleCheckbox} readOnly={!this.state.isEditing}/>
                         <label htmlFor="monthly_recurring">Monthly Recurring</label>
-                        <br/>
-                        <input type="checkbox" name="yearly_recurring" id="yearly_recurring" checked={this.state.yearly_recurring} className="inputs" onClick={this.toggleCheckbox} readOnly={!this.state.isEditing}/>
-                        <label htmlFor="yearly_recurring">Yearly Recurring</label>
                         <br/>
                       </div>
                       <h4>Benefits</h4>
