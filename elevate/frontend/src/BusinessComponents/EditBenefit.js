@@ -27,10 +27,14 @@ class EditBenefit extends Component {
         })
         .then((response) => {
           const benefitInfo = response.data;
-          this.setState({
-            title: benefitInfo.title,
-            description: benefitInfo.description,
-          });
+          if (benefitInfo.business !== parseInt(this.props.id)) {
+            this.props.logout();
+          } else {
+            this.setState({
+              title: benefitInfo.title,
+              description: benefitInfo.description,
+            });
+          }
         })
         .catch((error) => {
           console.log(error)

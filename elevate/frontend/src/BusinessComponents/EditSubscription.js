@@ -92,13 +92,17 @@ class EditSubscription extends Component {
             },
         }).then((response) => {
             const subscription = response.data;
-            this.setState({
-                title: subscription.title,
-                description: subscription.description,
-                amount: subscription.amount,
-                selectedBenefitsArray: subscription.benefits,           
-            });
-            this.getAllBenefits();
+            if (subscription.business !== parseInt(this.props.id)) {
+                this.props.logout();
+            } else {
+                this.setState({
+                    title: subscription.title,
+                    description: subscription.description,
+                    amount: subscription.amount,
+                    selectedBenefitsArray: subscription.benefits,           
+                });
+                this.getAllBenefits();
+            }
         }).catch((error) => {
             console.log(error.response);
         });

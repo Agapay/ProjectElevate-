@@ -95,22 +95,26 @@ class EditCustomer extends Component {
         }).then((response) => {
             console.log(response);
             const customer = response.data;
-            this.setState({
-                api_key: customer.user_api_key,
-                username: customer.username,
-                password: "********",
-                first_name: customer.first_name,
-                last_name: customer.last_name,
-                email: customer.email,
-                phone_number: customer.phone_number,
-                street_address: customer.street_home_address,
-                suite_apt: customer.apt_home_address,
-                city: customer.city_home_address,
-                state: customer.state_home_address,
-                postal_code: customer.zip_home_address,
-                subscriptionsSelectedArray: customer.subscriptions,
-            });
-            this.getSubscriptions();
+            if (customer.business !== parseInt(this.props.id)) { //if the customer does not belong to the business log them out
+                this.props.logout(); 
+            } else {
+                this.setState({
+                    api_key: customer.user_api_key,
+                    username: customer.username,
+                    password: "********",
+                    first_name: customer.first_name,
+                    last_name: customer.last_name,
+                    email: customer.email,
+                    phone_number: customer.phone_number,
+                    street_address: customer.street_home_address,
+                    suite_apt: customer.apt_home_address,
+                    city: customer.city_home_address,
+                    state: customer.state_home_address,
+                    postal_code: customer.zip_home_address,
+                    subscriptionsSelectedArray: customer.subscriptions,
+                });
+                this.getSubscriptions();
+            }
         }).catch((error) => {
             console.log(error);
         });

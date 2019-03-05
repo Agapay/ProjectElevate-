@@ -146,6 +146,7 @@ class BusinessPortal extends Component {
                 id={this.props.match.params.id}
                 cid={this.props.match.params.cid}
                 NMILink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`}
+                logout={this.logout}
               />
           },
           {
@@ -158,6 +159,7 @@ class BusinessPortal extends Component {
                 id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/subscription/${this.props.match.params.bid}/NMIsetup-1`}
                 sid={this.props.match.params.sid}
+                logout={this.logout}
               />
           },
           {
@@ -169,7 +171,8 @@ class BusinessPortal extends Component {
               <EditBenefit
                 id={this.props.match.params.id}
                 NMILink={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-1`}
-                beid={this.props.match.params.id}
+                beid={this.props.match.params.beid}
+                logout={this.logout}
               />
           },
           // {
