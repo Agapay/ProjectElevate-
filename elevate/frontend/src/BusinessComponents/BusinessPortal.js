@@ -157,7 +157,7 @@ class BusinessPortal extends Component {
               <EditSubscription
                 id={this.props.match.params.id}
                 NMILink={`/frontend/business/${this.props.match.params.id}/subscription/${this.props.match.params.bid}/NMIsetup-1`}
-                sid={this.props.match.params.id}
+                sid={this.props.match.params.sid}
               />
           },
           {
