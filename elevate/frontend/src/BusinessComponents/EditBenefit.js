@@ -14,46 +14,65 @@ class EditBenefit extends Component {
 
     componentDidMount() {
         document.title = "Elevate - Edit Benefit";
+        this.getBenefit();
     }
 
-    editBenefit() {
+    getBenefit = () => {
+      axios({
+        method: 'GET',
+        url: `/api/users/benefit/${this.props.beid}`, //Update when we have it
+        headers: {
+          'Authorization': `JWT ${localStorage.getItem('token')}`
+        },
+        })
+        .then((response) => {
+          const benefitInfo = response.data;
+          this.setState({
+            title: benefitInfo.title,
+            description: benefitInfo.description,
+          });
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+    }
+
+    editBenefit = () => {
       axios({
         method: 'PATCH',
-        url: '/api/users/', //Update when we have it
+        url: `/api/users/benefit/${this.props.beid}`, //Update when we have it
         headers: {
             'Authorization': `JWT ${localStorage.getItem('token')}`
             },
         data: {
-            business_id: this.props.id, //props id is user id check if it is the same thing
             title: this.state.title,
             description: this.state.description,
-        }
+          }
         })
         .then((response) => {
             console.log(response);
-            let newBusiness = response.data;
             this.toggleEdit();
             // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
         })
         .catch((error) => {
             console.log(error);    
             console.log(error.response);  
-            if(error.response.status === 400) { // 400 is a bad request
-                if(error.response.data.email) {
-                    // alert(error.response.data.email);
-                    this.setState({
-                        emailError: true,
-                        emailErrorMessage: error.response.data.email,
-                    })
-                }
-            }         
+            // if(error.response.status === 400) { // 400 is a bad request
+            //     if(error.response.data.email) {
+            //         // alert(error.response.data.email);
+            //         this.setState({
+            //             emailError: true,
+            //             emailErrorMessage: error.response.data.email,
+            //         })
+            //     }
+            // }         
         })
     }
 
     submitForm = (e) => { // function to call backend and add the benefit
         e.preventDefault();
         console.log(this.state);
-        // this.EditBenefit(); -> redirects to edit benefit page
+        this.editBenefit();
     }
 
     onChange = (e) => {
