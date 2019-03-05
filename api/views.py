@@ -40,6 +40,9 @@ class UsersAPIView(generics.CreateAPIView):
             info['expiration_date'] = instance.expiration_date
             info['phone_number'] = instance.phone_number
 
+            info['first_name'] = instance.first_name
+            info['last_name'] = instance.last_name
+
             info['street_branch_address']   = instance.street_branch_address
             info['apt_branch_address']      = instance.apt_branch_address
             info['city_branch_address']     = instance.city_branch_address

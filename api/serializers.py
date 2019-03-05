@@ -58,6 +58,8 @@ class BusinessSerializer(serializers.ModelSerializer):
                   "username",
                   "phone_number",
                   "business_name",
+                  "first_name",
+                  "last_name",
                   "user_api_key",
                   "nmi_login",
                   "nmi_password",

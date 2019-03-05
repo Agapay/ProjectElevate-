@@ -277,7 +277,8 @@ class Business(models.Model):
     phone_number        = models.CharField(max_length=15, blank=False, null=False)  # REQUIRED
     business_name       = models.CharField(max_length=255, blank=True, null=True)
     user_api_key        = models.CharField(max_length=1000, blank=True, null=True)
-
+    first_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, blank=True, null=True)
     nmi_login           = models.CharField(max_length=30, blank=False, default="nmi")  # REQUIRED
     nmi_password        = models.CharField(max_length=30, blank=False, default="nmi")
     expiration_date     = models.DateTimeField(blank=True, null=True)
