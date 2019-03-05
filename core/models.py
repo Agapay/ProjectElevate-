@@ -33,11 +33,39 @@ class UserManager(BaseUserManager):
         nmi_login       = info['nmi_login']
         expiration_date = info['expiration_date']
 
+        # address
+
+        street_branch_address   = info['street_branch_address']
+        apt_branch_address      = info['apt_branch_address']
+        city_branch_address     = info['city_branch_address']
+        state_branch_address    = info['state_branch_address']
+        country_branch_address  = info['country_branch_address']
+        zip_branch_address      = info['zip_branch_address']
+
+        street_hq_address = info['street_hq_address']
+        apt_hq_address = info['apt_hq_address']
+        city_hq_address = info['city_hq_address']
+        state_hq_address = info['state_hq_address']
+        country_hq_address = info['country_hq_address']
+        zip_hq_address = info['zip_hq_address']
+
+
+
+
+
+
+
+
         ## add address stuff
 
         business = Business(id=id, email=email, username=username, phone_number=phone_number,
                             business_name=business_name, user_api_key=user_api_key, nmi_login=nmi_login,
-                            expiration_date=expiration_date)
+                            expiration_date=expiration_date, state_branch_address=state_branch_address,
+                            street_branch_address=street_branch_address, apt_branch_address=apt_branch_address,
+                            city_branch_address=city_branch_address, country_branch_address=country_branch_address,
+                            zip_branch_address=zip_branch_address, street_hq_address=street_hq_address,
+                            apt_hq_address=apt_hq_address, city_hq_address=city_hq_address, state_hq_address=state_hq_address,
+                            country_hq_address=country_hq_address, zip_hq_address=zip_hq_address)
         business.save()
 
         return business
