@@ -39,6 +39,22 @@ class UsersAPIView(generics.CreateAPIView):
             info['nmi_login'] = ''
             info['expiration_date'] = instance.expiration_date
             info['phone_number'] = instance.phone_number
+
+            info['street_branch_address']   = instance.street_branch_address
+            info['apt_branch_address']      = instance.apt_branch_address
+            info['city_branch_address']     = instance.city_branch_address
+            info['state_branch_address']    = instance.state_branch_address
+            info['country_branch_address']  = instance.country_branch_address
+            info['zip_branch_address']      = instance.zip_branch_address
+
+            info['street_hq_address']       = instance.street_hq_address
+            info['apt_hq_address']          = instance.apt_hq_address
+            info['city_hq_address']         = instance.city_hq_address
+            info['state_hq_address']        = instance.state_hq_address
+            info['country_hq_address']      = instance.country_hq_address
+            info['zip_hq_address']          = instance.zip_hq_address
+
+
             u = UserManager()
             u.createBusiness(info)
 
@@ -206,6 +222,7 @@ class ViewAllSubscriptions(generics.ListAPIView):
 
 
 
+
 class ViewHistoryRedeemables(generics.ListAPIView):
     lookup_field = 'id'
     serializer_class = HistoryRedeemablesSerializer
@@ -218,6 +235,23 @@ class CustomerRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Customer.objects.all()
+
+
+class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = BenefitSerializer
+
+
+    def get_queryset(self):
+        return Benefit.objects.all()
+
+
+class SubscriptionPlanRUDView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = SubscriptionPlanSerializer
+
+    def get_queryset(self):
+        return SubscriptionPlan.objects.all()
 
 
 
