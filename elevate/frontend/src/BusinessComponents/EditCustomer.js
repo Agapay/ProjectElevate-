@@ -35,13 +35,91 @@ class EditCustomer extends Component {
             emailError: false,
             emailErrorMessage: "",
             subscriptions: [],
+            subscriptionsSelectedArray: [], //for selecting in the beginning
         }
+    }
+
+    isSelected(subscriptionID) { //num = th
+        var elementFound = this.state.subscriptionsSelectedArray.find((element) => {
+            return element === subscriptionID;
+        });
+        return elementFound !== undefined;
+    }
+
+    getSubscriptions() {
+        fetch(`/api/users/businesses/${this.props.id}/subscriptions`, {
+            method: 'GET',
+            headers: {
+            Authorization: `JWT ${localStorage.getItem('token')}`
+            }
+          })
+            .then(res => res.json())
+            .then(json => {
+                if(json.detail) { //error handling
+                    console.log(json.detail);
+                    this.props.logout();
+                } else {
+                    console.log(json); //list of businesses
+                    let newSubs = json.subscriptions.map((sub) => { //format backend json to frontend
+                      let newSub = {
+                          ...sub,
+                          name: sub.title,
+                          selected: this.isSelected(sub.id),
+                      };
+                      return newSub;
+                    });
+                    this.setState({
+                      subscriptions: newSubs,
+                    })
+                }
+            });
+    }
+
+    returnSelectedSubscriptions() {
+      let selectedSubscriptions = []
+      for (let subscription of this.state.subscriptions) {
+          if (subscription.selected === true) {
+              selectedSubscriptions.push(subscription.id);
+          }
+      }
+      return selectedSubscriptions
+    }
+
+    getCustomer = () => {
+        axios({
+            method: 'GET',
+            url: `/api/users/customer/${this.props.cid}`,
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('token')}`
+            },
+        }).then((response) => {
+            console.log(response);
+            const customer = response.data;
+            this.setState({
+                api_key: customer.user_api_key,
+                username: customer.username,
+                password: "********",
+                first_name: customer.first_name,
+                last_name: customer.last_name,
+                email: customer.email,
+                phone_number: customer.phone_number,
+                street_address: customer.street_home_address,
+                suite_apt: customer.apt_home_address,
+                city: customer.city_home_address,
+                state: customer.state_home_address,
+                postal_code: customer.zip_home_address,
+                subscriptionsSelectedArray: customer.subscriptions,
+            });
+            this.getSubscriptions();
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     addCustomer = () => {
         axios({
             method: 'PATCH',
-            url: `/api/users/${this.props.bid}`,
+            url: `/api/users/customer/${this.props.cid}`,
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('token')}`
                 },
@@ -49,17 +127,18 @@ class EditCustomer extends Component {
                 username: this.state.username,
                 // password: this.state.password,
                 // business_name: this.state.business_name,
-                business_api_key: this.state.api_key,
-                name: this.state.first_name,
+                business: this.props.id,
+                user_api_key: this.state.api_key,
+                first_name: this.state.first_name,
                 last_name: this.state.last_name,
                 email: this.state.email,
                 phone_number: this.state.phone_number,
-                street_branch_address: this.state.street_address,
-                city_branch_address: this.state.city,
-                state_branch_address: this.state.state,
-                apt_branch_address: this.state.suite_apt,
-                zip_branch_address: this.state.postal_code,
-                customer: true,
+                street_home_address: this.state.street_address,
+                city_home_address: this.state.city,
+                state_home_address: this.state.state,
+                apt_home_address: this.state.suite_apt,
+                zip_home_address: this.state.postal_code,
+                subscriptions: this.returnSelectedSubscriptions(this.state.subscriptions),
             }
             })
                 .then((response) => {
@@ -86,17 +165,15 @@ class EditCustomer extends Component {
     componentDidMount() {
         document.title = "Elevate - Edit Customer";
         //actual axios function to load data of user
-        this.setState({
-            subscriptions: mockupSubscriptions
-        })
+        console.log(this.props.cid);
+        this.getCustomer();
     }
 
     submitForm = (e) => { // function to call backend and add the business
         e.preventDefault();
         // console.log(this.state);
         // this.addCustomer();
-        console.log()
-        
+        this.addCustomer();
     }
 
     toggleEdit = (e) => {

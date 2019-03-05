@@ -86,6 +86,7 @@ class AddSubscription extends Component {
             title: this.state.title,
             amount: parseInt(this.state.amount),
             description: this.state.description,
+            monthly_recurring: this.state.monthly_recurring,
             benefits: this.returnSelectedBenefits(this.state.benefits),
         }
         })

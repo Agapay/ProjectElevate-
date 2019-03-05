@@ -144,6 +144,7 @@ class BusinessPortal extends Component {
             main: () =>
               <EditCustomer
                 id={this.props.match.params.id}
+                cid={this.props.match.params.cid}
                 NMILink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`}
               />
           },

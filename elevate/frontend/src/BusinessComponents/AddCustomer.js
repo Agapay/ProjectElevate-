@@ -42,10 +42,6 @@ class AddCustomer extends Component {
         })
     }
 
-    addCustomerSubscriptions = () => {
-
-    }
-
     addCustomer = () => {
       axios({
         method: 'POST',
@@ -72,8 +68,8 @@ class AddCustomer extends Component {
         })
         .then((response) => {
             console.log(response);
-            // let newBusiness = response.data;
-            // window.location.replace(`/frontend/admin/${this.props.id}/business/${newBusiness.id}`);
+            let newCustomer = response.data;
+            window.location.replace(`/frontend/business/${this.props.id}/customer/${newCustomer.id}`);
         })
         .catch((error) => {
             console.log(error);    
@@ -191,9 +187,6 @@ class AddCustomer extends Component {
                       </div>
                     <br/>
                     {this.state.error ? <div>{this.state.errorMessage}</div> : null}
-                    <h4>Subscriptions</h4>
-                    <ListSubscriptions subscriptions={this.state.subscriptions} updateSelected={this.updateSelected} editPage={false} />
-                    <br/>
                     <button className="green_button">Save</button>
                     {/* <Link id="setup" to={this.props.NMILink}>Setup NMI</Link> */}
                     <br/>
