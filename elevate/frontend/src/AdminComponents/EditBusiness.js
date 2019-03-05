@@ -32,7 +32,7 @@ class EditBusiness extends Component {
         //actual axios function to load data of user
         axios({
             method: 'GET',
-            url: `/api/users/${this.props.bid}`,
+            url: `/api/users/business/${this.props.bid}`,
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('token')}`
                 },
@@ -41,10 +41,10 @@ class EditBusiness extends Component {
             const businessResponse = response.data;
             this.setState({
                 business_name: businessResponse.business_name,
-                api_key: businessResponse.business_api_key,
+                api_key: businessResponse.user_api_key,
                 username: businessResponse.username,
-                first_name: businessResponse.name,
-                last_name: businessResponse.last_name,
+                // first_name: businessResponse.first_name,
+                // last_name: businessResponse.last_name,
                 email: businessResponse.email,
                 phone_number: businessResponse.phone_number,
                 street_address: businessResponse.street_branch_address,
@@ -68,16 +68,15 @@ class EditBusiness extends Component {
         console.log()
         axios({
             method: 'PATCH',
-            url: `/api/users/${this.props.bid}`,
+            url: `/api/users/business/${this.props.bid}`,
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('token')}`
                 },
             data: {
                 username: this.state.username,
-                // password: this.state.password,
                 business_name: this.state.business_name,
-                business_api_key: this.state.api_key,
-                name: this.state.first_name,
+                user_api_key: this.state.api_key,
+                first_name: this.state.first_name,
                 last_name: this.state.last_name,
                 email: this.state.email,
                 phone_number: this.state.phone_number,
@@ -86,7 +85,6 @@ class EditBusiness extends Component {
                 state_branch_address: this.state.state,
                 apt_branch_address: this.state.suite_apt,
                 zip_branch_address: this.state.postal_code,
-                business: true,
             }
             })
                 .then((response) => {
