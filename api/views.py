@@ -222,6 +222,7 @@ class ViewAllSubscriptions(generics.ListAPIView):
 
 
 
+
 class ViewHistoryRedeemables(generics.ListAPIView):
     lookup_field = 'id'
     serializer_class = HistoryRedeemablesSerializer
@@ -234,6 +235,23 @@ class CustomerRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Customer.objects.all()
+
+
+class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = BenefitSerializer
+
+
+    def get_queryset(self):
+        return Benefit.objects.all()
+
+
+class SubscriptionPlanRUDView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = SubscriptionPlanSerializer
+
+    def get_queryset(self):
+        return SubscriptionPlan.objects.all()
 
 
 

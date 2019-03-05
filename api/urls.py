@@ -1,5 +1,6 @@
 from .views import UsersAPIView, BusinessesAPIView, CustomersAPIView, CreateSubscriptionPlan, \
-    CreateBenefit, ViewCustomer, ViewAllBenefits, ViewAllSubscriptions, CustomerRUDView, BusinessRUDView
+    CreateBenefit, ViewCustomer, ViewAllBenefits, ViewAllSubscriptions, CustomerRUDView, \
+    BusinessRUDView, BenefitRUDView, SubscriptionPlanRUDView
 
 from django.contrib import admin
 from django.urls import path, include
@@ -26,6 +27,9 @@ urlpatterns = [
     path('businesses/<int:business_id>/subscriptions', ViewAllSubscriptions.as_view(), name="sub-view"),
     path('customer/<int:id>', CustomerRUDView.as_view()),
     path('business/<int:id>', BusinessRUDView.as_view()),
+    path('benefit/<int:id>',BenefitRUDView.as_view()),
+    path('subscription-plan/<int:id>', SubscriptionPlanRUDView.as_view()),
+
 
 
 
