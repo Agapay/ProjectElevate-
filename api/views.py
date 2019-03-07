@@ -265,4 +265,28 @@ class BusinessRUDView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Business.objects.all()
-    
+
+
+class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'id'
+    serializer_class = BenefitSerializer
+
+    def get(self, request, sub_id):
+        print(sub_id)
+        s = SubscriptionPlan.objects.filter(pk=sub_id)
+        if len(s) > 0:
+            s = s[0]
+            subscription_serializer = SubscriptionPlanSerializer(s)
+            print(subscription_serializer)
+            print("here")
+            res = Response({'subscription': subscription_serializer.data})
+            return res
+        else:
+            print("no")
+            return Response({})
+
+
+
+
+
+
