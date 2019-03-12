@@ -271,19 +271,20 @@ class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = BenefitSerializer
 
-    def get(self, request, sub_id):
-        print(sub_id)
-        s = SubscriptionPlan.objects.filter(pk=sub_id)
-        if len(s) > 0:
-            s = s[0]
-            subscription_serializer = SubscriptionPlanSerializer(s)
-            print(subscription_serializer)
-            print("here")
-            res = Response({'subscription': subscription_serializer.data})
-            return res
+    def get(self, request, ben_id):
+
+        b = Benefit.objects.filter(pk=ben_id)
+        print("HERE")
+        if len(b) > 0:
+             b = b[0]
+             benefits_serializer = BenefitSerializer(b)
+             print(benefits_serializer)
+             print("here")
+             res = Response({'benefit': benefits_serializer.data})
+             return res
         else:
-            print("no")
-            return Response({})
+             print("no")
+             return Response({})
 
 
 

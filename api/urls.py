@@ -27,7 +27,7 @@ urlpatterns = [
     path('businesses/<int:business_id>/subscriptions', ViewAllSubscriptions.as_view(), name="sub-view"),
     path('customer/<int:id>', CustomerRUDView.as_view()),
     path('business/<int:id>', BusinessRUDView.as_view()),
-    path('benefit/<int:id>',BenefitRUDView.as_view()),
+    path('benefit/<int:ben_id>',BenefitRUDView.as_view()),
     path('subscription-plan/<int:sub_id>', BenefitRUDView.as_view()),
 
 
