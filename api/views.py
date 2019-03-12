@@ -253,8 +253,19 @@ class SubscriptionPlanRUDView(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     serializer_class = SubscriptionPlanSerializer
 
-    def get_queryset(self):
-        return SubscriptionPlan.objects.all()
+    def get(self, request, sub_id):
+
+        s = SubscriptionPlan.objects.filter(pk=sub_id)
+        print("HERE")
+        if len(s) > 0:
+            s = s[0]
+            subscription_plan_serializer = SubscriptionPlanSerializer(s)
+
+            res = Response({'subscription_plan': subscription_plan_serializer.data})
+            return res
+        else:
+            print("no")
+            return Response({})
 
 
 
