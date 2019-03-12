@@ -26,7 +26,7 @@ class EditBenefit extends Component {
         },
         })
         .then((response) => {
-          const benefitInfo = response.data;
+          const benefitInfo = response.data.benefit;        
           if (benefitInfo.business !== parseInt(this.props.id)) {
             this.props.logout();
           } else {
