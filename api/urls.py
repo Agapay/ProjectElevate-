@@ -28,7 +28,7 @@ urlpatterns = [
     path('customer/<int:id>', CustomerRUDView.as_view()),
     path('business/<int:id>', BusinessRUDView.as_view()),
     path('benefit/<int:ben_id>',BenefitRUDView.as_view()),
-    path('subscription-plan/<int:sub_id>', BenefitRUDView.as_view()),
+    path('subscription-plan/<int:sub_id>', SubscriptionPlanRUDView.as_view()),
 
 
 
