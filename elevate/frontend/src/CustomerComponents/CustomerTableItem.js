@@ -23,7 +23,7 @@ class CustomerTableItem extends Component {
               </a>
           </td>
           <td className='right_side centered-middle'>
-            <span className="quantity">{this.props.quantity}</span>
+            <span className="amount">${this.props.amount}</span>
         </td>
       </tr>
     );
