@@ -91,7 +91,7 @@ class EditSubscription extends Component {
                 'Authorization': `JWT ${localStorage.getItem('token')}`
             },
         }).then((response) => {
-            const subscription = response.data.subscription_plan;
+            const subscription = response.data;
             if (subscription.business !== parseInt(this.props.id)) {
                 this.props.logout();
             } else {
