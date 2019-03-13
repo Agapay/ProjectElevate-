@@ -302,6 +302,7 @@ class EditCustomer extends Component {
                 <span>
                 <button type="button" onClick={this.toggleEdit} className="green_button">Edit</button>
                 <Link id="setup" to={this.props.NMILink}>Setup NMI</Link>
+                <Link id="enlist-subscription" to={this.props.EnlistSubscriptionsLink}>Enlist Subscriptions</Link>
                             <br/>
                             <br/>
                 </span>}

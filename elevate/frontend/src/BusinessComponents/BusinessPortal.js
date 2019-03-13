@@ -12,6 +12,7 @@ import EditBenefit from './EditBenefit';
 import NMISetupStep1 from './NMISetupStep1';
 import NMISetupStep2 from './NMISetupStep2';
 import BusinessBenefits from './BusinessBenefits.js';
+import EnlistSubscriptions from './EnlistSubscriptions';
 
 class BusinessPortal extends Component {
     constructor(props) {
@@ -146,6 +147,19 @@ class BusinessPortal extends Component {
                 id={this.props.match.params.id}
                 cid={this.props.match.params.cid}
                 NMILink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/NMIsetup-1`}
+                EnlistSubscriptionsLink={`/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/EnlistSubscriptions`}
+                logout={this.logout}
+              />
+          },
+          {
+            path: `/frontend/business/${this.props.match.params.id}/customer/${this.props.match.params.cid}/EnlistSubscriptions`,
+            exact: true,
+            name: "",
+            selected: "Add Customer",
+            main: () =>
+              <EnlistSubscriptions
+                id={this.props.match.params.id}
+                cid={this.props.match.params.cid}
                 logout={this.logout}
               />
           },

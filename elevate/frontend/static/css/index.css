@@ -157,13 +157,14 @@ section {
 }
 
 /* Button Styles */
-button, #setup, .normal_button {  /* #setup is the gray button may need to change name*/
+button, #setup, .normal_button, #enlist-subscription {  /* #setup is the gray button may need to change name*/
     background-color: gray;
     border: none;
     border-radius: 2px;
     color: white;
     padding: 5px 35px;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .purple {
@@ -397,7 +398,7 @@ textarea {
     background-color: green;
 }
 
-#setup{
+#setup, #enlist-subscription{
     display:inline-block;
     background-color: gray;
 }
@@ -465,9 +466,19 @@ ul li:hover > ul, ul li ul:hover{
     padding-bottom: 5px;
 }
 
-.benefit-quantity {
+.benefit-quantity, .benefit-amount {
     float: right;
     margin-right: 37px;
+}
+
+.benefit-total-amount {
+    text-align: right;
+    padding-top: 10px;
+    padding-right: 135px;
+}
+
+.benefit-total-amount-number {
+    padding-top: 0;
 }
 
 .list-container {

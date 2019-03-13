@@ -6,25 +6,41 @@ class ListSubscriptions extends Component {
     super(props);
   }
 
+  totalAmount() {
+    let totalAmount = 0;
+    for (const subscription of this.props.subscriptions) {
+      if (subscription.selected) {
+        totalAmount += subscription.amount;
+      }
+    }
+    return totalAmount;
+  }
+
   render() {
-    console.log(this.props.editPage);
-    console.log(this.props.isEditing);
     const subscriptionsList = this.props.subscriptions.map((subscription, index) => {
       return (
         <div key={"subscriptionsListItem" + index} class="benefit-item">
           <label htmlFor={"subscriptionID" + index}>{subscription.name}</label>
           <input type="checkbox" id={"subscriptionID" + index} checked={subscription.selected} onChange={(e) => {this.props.updateSelected(e, index)}} readOnly={this.props.editPage && !this.props.isEditing} />
+          <span className="benefit-amount">{subscription.amount}</span>
         </div>
       );  
     })
 
     return (
       <div className="list-container">
-        <div key={"benefitsListItemInformation"} class="benefit-title">
+        <div key={"benefitsListItemInformation"} className="benefit-title">
           <span>Name</span>
           <span className="benefit-quantity">Selected</span>
+          <span className="benefit-amount">Amount</span>
         </div>
         { this.props.subscriptions.length !== 0 ? subscriptionsList : <span>None</span>}
+        <div key={"benefitsTotalAmountInformation"} className="benefit-title">
+          <div className="benefit-total-amount">Total Amount</div>
+        </div>
+        <div className="benefit-total-amount benefit-total-amount-number">
+          {this.totalAmount()}
+        </div>
       </div>
     )
   }

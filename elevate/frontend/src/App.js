@@ -44,6 +44,7 @@ class App extends Component {
         <Route path="/business/:id/add-subscription" component={BusinessPortal}/>
         <Route path="/business/:id/add-benefit" component={BusinessPortal}/>
         <Route exact path="/business/:id/customer/:cid" component={BusinessPortal}/>
+        <Route exact path="/business/:id/customer/:cid/EnlistSubscriptions" component={BusinessPortal}/>
         <Route path="/business/:id/customer/:cid/NMIsetup-1" component={BusinessPortal}/>
         <Route path="/business/:id/customer/:cid/NMIsetup-2" component={BusinessPortal}/>
         <Route exact path="/business/:id/subscription/:sid" component={BusinessPortal}/>

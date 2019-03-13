@@ -66,7 +66,8 @@ class NMISetup extends Component {
             { this.state.business !== {}
               &&
             <div>
-              Creating the customer vault for the business {this.state.business.business_name}
+              Creating the customer vault for the business {this.state.business.business_name}.
+              
             </div>}
             <br/>
             <form onSubmit={this.submitForm}>
