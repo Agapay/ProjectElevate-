@@ -7,6 +7,7 @@ import AddBusiness from "./AddBusiness";
 import EditBusiness from "./EditBusiness";
 import NMISetupStep1 from "./NMISetupStep1";
 import NMISetupStep2 from "./NMISetupStep2";
+import NMISetup from "./NMISetup";
 
 
 class AdminPortal extends Component {
@@ -111,8 +112,8 @@ class AdminPortal extends Component {
             name: "",
             selected: "Add Business",
             main: () =>
-              <NMISetupStep1
-                NMIStep2Link={`/frontend/admin/${this.props.match.params.id}/business/${this.props.match.params.bid}/NMIsetup-2`}
+              <NMISetup
+                bid={this.props.match.params.bid}
                 logout={this.logout}
               />
           },
