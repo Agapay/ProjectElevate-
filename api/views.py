@@ -9,6 +9,7 @@ from core.models import UserManager
 from core.models import SubscriptionPlan
 from core.models import Benefit
 from rest_framework.response import Response
+from rest_framework.mixins import ListModelMixin
 import json
 
 from .serializers import UserSerializer, CustomerSerializer, \
@@ -249,23 +250,13 @@ class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView):
         return Benefit.objects.all()
 
 
-class SubscriptionPlanRUDView(generics.RetrieveUpdateDestroyAPIView):
+class SubscriptionPlanRUDView(generics.RetrieveUpdateDestroyAPIView, ListModelMixin):
     lookup_field = 'id'
     serializer_class = SubscriptionPlanSerializer
 
-    def get(self, request, sub_id):
-
-        s = SubscriptionPlan.objects.filter(pk=sub_id)
-        print("HERE")
-        if len(s) > 0:
-            s = s[0]
-            subscription_plan_serializer = SubscriptionPlanSerializer(s)
-
-            res = Response({'subscription_plan': subscription_plan_serializer.data})
-            return res
-        else:
-            print("no")
-            return Response({})
+    def get_queryset(self):
+        sub_id = self.kwargs.get('id')
+        return SubscriptionPlan.objects.filter(pk=sub_id)
 
 
 
@@ -278,27 +269,14 @@ class BusinessRUDView(generics.RetrieveUpdateDestroyAPIView):
         return Business.objects.all()
 
 
-class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView):
+class BenefitRUDView(generics.RetrieveUpdateDestroyAPIView, ListModelMixin):
     lookup_field = 'id'
     serializer_class = BenefitSerializer
 
-    def get(self, request, ben_id):
+    def get_queryset(self):
+        ben_id = self.kwargs.get('id')
 
-        b = Benefit.objects.filter(pk=ben_id)
-        print("HERE")
-        if len(b) > 0:
-             b = b[0]
-             benefits_serializer = BenefitSerializer(b)
-             print(benefits_serializer)
-             print("here")
-             res = Response({'benefit': benefits_serializer.data})
-             return res
-        else:
-             print("no")
-             return Response({})
-
-
-
+        return Benefit.objects.filter(pk=ben_id)
 
 
 
