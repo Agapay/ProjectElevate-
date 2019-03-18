@@ -13,6 +13,7 @@ install [postgres](https://postgresapp.com/) follow steps 1-3
 ### Setup Database
 In your terminal run
 ```
+sudo -u postgres -i
 psql
 ```
 Now that you are in the postgres command-line, run the following including the semi-colon
