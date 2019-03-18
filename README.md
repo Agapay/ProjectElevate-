@@ -60,6 +60,10 @@ run the following to create an admin
 python manage.py createsuperuser	
 ```
 
+run the following to start server
+```
+python manage.py runserver 0.0.0.0:8000
+```
 
 ### Setup Frontend
 ```
