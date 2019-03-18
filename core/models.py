@@ -32,6 +32,9 @@ class UserManager(BaseUserManager):
         user_api_key    = info['user_api_key']
         nmi_login       = info['nmi_login']
         expiration_date = info['expiration_date']
+        first_name      = info['first_name']
+        last_name = info['last_name']
+
 
         # address
 
@@ -65,7 +68,7 @@ class UserManager(BaseUserManager):
                             city_branch_address=city_branch_address, country_branch_address=country_branch_address,
                             zip_branch_address=zip_branch_address, street_hq_address=street_hq_address,
                             apt_hq_address=apt_hq_address, city_hq_address=city_hq_address, state_hq_address=state_hq_address,
-                            country_hq_address=country_hq_address, zip_hq_address=zip_hq_address)
+                            country_hq_address=country_hq_address, zip_hq_address=zip_hq_address, first_name=first_name, last_name=last_name)
         business.save()
 
         return business
